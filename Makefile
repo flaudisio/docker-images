@@ -4,6 +4,7 @@ ENABLE_PUSH ?= false
 
 ANSIBLE_VERSION ?= 2.8
 PYTHON_VERSION ?= 3.7
+MOLECULE_VERSION ?= 2
 
 .build: IMAGE_NAME = $(DOCKER_USERNAME)/$(APP_NAME):$(APP_TAG)
 .build:
@@ -18,6 +19,11 @@ ansible: APP_NAME=ansible
 ansible: APP_TAG=$(ANSIBLE_VERSION)
 ansible: BUILD_ARGS=--build-arg "ansible_version=$(ANSIBLE_VERSION)"
 ansible: .build
+
+molecule: APP_NAME=molecule
+molecule: APP_TAG=ansible-$(ANSIBLE_VERSION)
+molecule: BUILD_ARGS=--build-arg "base_image=$(DOCKER_USERNAME)/ansible:$(ANSIBLE_VERSION)"
+molecule: .build
 
 cookiecutter: APP_NAME=cookiecutter
 cookiecutter: APP_TAG=latest
