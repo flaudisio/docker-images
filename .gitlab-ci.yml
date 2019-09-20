@@ -1,0 +1,38 @@
+stages:
+  - pre-commit
+  - base-images
+  - regular-images
+
+.build-push:
+  image: docker:19
+  services:
+    - docker:19-dind
+  before_script:
+    - docker version
+    - apk add --no-cache make
+    - make --version
+  variables:
+    DOCKER_USERNAME: flaudisio
+    ENABLE_PUSH: "true"
+  script:
+    - docker login --username "$DOCKER_USERNAME" --password "$DOCKER_ACCESS_TOKEN"
+    - make $IMAGE
+  only:
+    - master
+
+.base-image:
+  extends: .build-push
+  stage: base-images
+
+.regular-image:
+  extends: .build-push
+  stage: regular-images
+
+pre-commit Test:
+  stage: pre-commit
+  image: flaudisio/pre-commit:latest
+  script:
+    - run-ci-tests
+
+include:
+  - local: .gitlab/ci/pre-commit.gitlab-ci.yml
