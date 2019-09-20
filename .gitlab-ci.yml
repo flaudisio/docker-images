@@ -36,4 +36,5 @@ pre-commit Test:
 
 include:
   - local: .gitlab/ci/ansible.gitlab-ci.yml
+  - local: .gitlab/ci/cookiecutter.gitlab-ci.yml
   - local: .gitlab/ci/pre-commit.gitlab-ci.yml

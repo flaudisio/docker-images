@@ -1,0 +1,4 @@
+Cookiecutter:
+  extends: .base-image
+  variables:
+    IMAGE: cookiecutter

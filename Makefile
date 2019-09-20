@@ -3,6 +3,7 @@ DOCKER_USERNAME ?= flaudisio
 ENABLE_PUSH ?= false
 
 ANSIBLE_VERSION ?= 2.8
+PYTHON_VERSION ?= 3.7
 
 .build: IMAGE_NAME = $(DOCKER_USERNAME)/$(APP_NAME):$(APP_TAG)
 .build:
@@ -17,6 +18,11 @@ ansible: APP_NAME=ansible
 ansible: APP_TAG=$(ANSIBLE_VERSION)
 ansible: BUILD_ARGS=--build-arg "ansible_version=$(ANSIBLE_VERSION)"
 ansible: .build
+
+cookiecutter: APP_NAME=cookiecutter
+cookiecutter: APP_TAG=latest
+cookiecutter: BUILD_ARGS=--build-arg "python_version=$(PYTHON_VERSION)"
+cookiecutter: .build
 
 pre-commit: APP_NAME=pre-commit
 pre-commit: APP_TAG=latest
