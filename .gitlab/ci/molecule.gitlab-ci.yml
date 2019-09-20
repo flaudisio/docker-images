@@ -1,5 +1,5 @@
 .molecule:
-  extends: .regular-image
+  extends: .child-image
   variables:
     IMAGE: molecule
 

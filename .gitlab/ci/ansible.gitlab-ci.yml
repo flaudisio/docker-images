@@ -1,5 +1,5 @@
 .ansible:
-  extends: .base-image
+  extends: .parent-image
   variables:
     IMAGE: ansible
 

@@ -22,7 +22,7 @@ ansible: .build
 
 molecule: APP_NAME=molecule
 molecule: APP_TAG=ansible-$(ANSIBLE_VERSION)
-molecule: BUILD_ARGS=--build-arg "base_image=$(DOCKER_USERNAME)/ansible:$(ANSIBLE_VERSION)"
+molecule: BUILD_ARGS=--build-arg "parent_image=$(DOCKER_USERNAME)/ansible:$(ANSIBLE_VERSION)"
 molecule: .build
 
 cookiecutter: APP_NAME=cookiecutter

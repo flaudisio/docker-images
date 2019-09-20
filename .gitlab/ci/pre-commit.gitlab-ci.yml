@@ -1,4 +1,4 @@
 pre-commit:
-  extends: .base-image
+  extends: .parent-image
   variables:
     IMAGE: pre-commit

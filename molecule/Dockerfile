@@ -1,5 +1,5 @@
-ARG base_image=flaudisio/ansible:2
-FROM ${base_image}
+ARG parent_image=flaudisio/ansible:2
+FROM ${parent_image}
 
 ARG molecule_version=2
 # We use the (arbitrary) prefix 'DKR_' to keep the 'MOLECULE_' namespace clean

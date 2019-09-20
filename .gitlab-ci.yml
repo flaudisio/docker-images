@@ -1,7 +1,7 @@
 stages:
   - pre-commit
-  - base-images
-  - regular-images
+  - parent-images
+  - child-images
 
 .build-push:
   image: docker:19
@@ -20,13 +20,13 @@ stages:
   only:
     - master
 
-.base-image:
+.parent-image:
   extends: .build-push
-  stage: base-images
+  stage: parent-images
 
-.regular-image:
+.child-image:
   extends: .build-push
-  stage: regular-images
+  stage: child-images
 
 pre-commit Test:
   stage: pre-commit
