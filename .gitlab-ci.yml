@@ -35,4 +35,5 @@ pre-commit Test:
     - run-ci-tests
 
 include:
+  - local: .gitlab/ci/ansible.gitlab-ci.yml
   - local: .gitlab/ci/pre-commit.gitlab-ci.yml

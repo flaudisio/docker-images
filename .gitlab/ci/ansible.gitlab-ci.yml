@@ -1,0 +1,24 @@
+.ansible:
+  extends: .base-image
+  variables:
+    IMAGE: ansible
+
+Ansible 2.6:
+  extends: .ansible
+  variables:
+    ANSIBLE_VERSION: "2.6"
+
+Ansible 2.7:
+  extends: .ansible
+  variables:
+    ANSIBLE_VERSION: "2.7"
+
+Ansible 2.8:
+  extends: .ansible
+  variables:
+    ANSIBLE_VERSION: "2.8"
+
+Ansible 2 - latest:
+  extends: .ansible
+  variables:
+    ANSIBLE_VERSION: "2"
