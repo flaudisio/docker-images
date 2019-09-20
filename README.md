@@ -1,7 +1,7 @@
 # Docker Images
 
-My Docker images.
+Some useful Docker images.
 
-## Licença
+## License
 
 [MIT](LICENSE).
