@@ -8,7 +8,7 @@ MOLECULE_VERSION ?= 2
 
 .build: IMAGE_NAME = $(DOCKER_USERNAME)/$(APP_NAME):$(APP_TAG)
 .build:
-	docker image build --rm --force-rm $(BUILD_ARGS) --tag "$(IMAGE_NAME)" "./$(APP_NAME)"
+	docker image build --rm --force-rm $(BUILD_ARGS) --tag "$(IMAGE_NAME)" "./images/$(APP_NAME)"
 	if [ "$$ENABLE_PUSH" = "true" ] ; then \
 	    docker image push "$(IMAGE_NAME)" ; \
 	else \
