@@ -92,23 +92,27 @@ def build_image(image_spec: dict, build_dir: str) -> None:
         show_info(f"Entering directory {build_dir}")
         show_info(f"Image: {image_fullname}")
 
-        if DRY_RUN:
-            show_info("Dry run mode enabled - won't build")
-            continue
-
         with cd(build_dir):
-            show_info(f"Building: " + " ".join(docker_build_cmd))
-            subprocess.run(docker_build_cmd)
+            if DRY_RUN:
+                show_info("Dry run mode enabled - won't build")
+            else:
+                show_info(f"Running: " + " ".join(docker_build_cmd))
+                subprocess.run(docker_build_cmd)
 
-            for alias in tag_aliases:
+            for tag_alias in tag_aliases:
+                image_alias_name = f"{image_repo}:{tag_alias}"
+
+                show_info(f"Tag alias: {image_alias_name}")
+
                 docker_tag_cmd = [
-                    "docker", "image", "tag",
-                    image_fullname,
-                    f"{image_repo}:{alias}"
+                    "docker", "image", "tag", image_fullname, image_alias_name
                 ]
 
-                show_info(f"Tagging: " + " ".join(docker_tag_cmd))
-                subprocess.run(docker_tag_cmd)
+                if DRY_RUN:
+                    show_info("Dry run mode enabled - won't tag")
+                else:
+                    show_info(f"Running: " + " ".join(docker_tag_cmd))
+                    subprocess.run(docker_tag_cmd)
 
 
 def build_images(image_dirs: list) -> None:
