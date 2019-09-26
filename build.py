@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+#
+# build.py
+# Script to build multiple Docker images.
+#
+##
 
 import glob
 import os
@@ -20,9 +25,7 @@ DOCKERFILE = "Dockerfile"
 
 
 class cd:
-    """
-    Context manager for changing the current working directory.
-    """
+    """Context manager for changing the current working directory."""
     def __init__(self, new_path):
         self.new_path = os.path.expanduser(new_path)
 
@@ -35,19 +38,23 @@ class cd:
 
 
 def show_debug(message: str) -> None:
+    """Shows a debug message."""
     if DEBUG:
         print(f"[DEBG] {message}")
 
 
 def show_info(message: str) -> None:
+    """Shows an information message."""
     print(f"[INFO] {message}")
 
 
 def show_warn(message: str) -> None:
+    """Shows a warning message."""
     print(f"[WARN] {message}", file=sys.stderr)
 
 
 def show_error(message: str, **kwargs) -> None:
+    """Shows an error message."""
     print(f"[ERROR] {message}", file=sys.stderr)
 
     if kwargs.get("exit"):
@@ -55,9 +62,7 @@ def show_error(message: str, **kwargs) -> None:
 
 
 def get_image_dirs(image_name: str) -> list:
-    """
-    Return all image directories.
-    """
+    """Return a list of all image directories."""
     glob_path = "*" if image_name == "all" else image_name
 
     glob_result = glob.glob(os.path.join(os.getcwd(), IMAGES_DIR, glob_path))
@@ -68,6 +73,7 @@ def get_image_dirs(image_name: str) -> list:
 
 
 def build_image(image_spec: dict, build_dir: str) -> None:
+    """Build a Docker image in `build_dir` based on `image_spec`."""
     image_name = image_spec["name"]
 
     for tag in image_spec.get("tags"):
@@ -116,6 +122,8 @@ def build_image(image_spec: dict, build_dir: str) -> None:
 
 
 def build_images(image_dirs: list) -> None:
+    """Build all images found in `image_dirs`."""
+    show_debug(f"Searching directories: {image_dirs}")
 
     for image_dir in image_dirs:
         spec_filepath = os.path.join(image_dir, SPECFILE)
@@ -139,6 +147,7 @@ def build_images(image_dirs: list) -> None:
 
 
 def main():
+    """Entrypoint function."""
     image_dirs = get_image_dirs(image_name=IMAGE)
 
     if len(image_dirs) == 0:
