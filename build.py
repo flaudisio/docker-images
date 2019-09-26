@@ -10,13 +10,13 @@ import yaml
 DEBUG = os.getenv("DEBUG")
 DRY_RUN = os.getenv("DRY_RUN")
 
-SPEC_FILE = "buildspec.yml"
-DOCKERFILE = "Dockerfile"
-
-DOCKER_REPO = os.getenv("DOCKER_REPO", "docker.io/flaudisio")
+DOCKER_REPOSITORY = os.getenv("DOCKER_REPOSITORY", "docker.io/flaudisio")
 
 IMAGE = os.getenv("IMAGE", "all")
 IMAGES_DIR = "images"
+
+SPECFILE = "buildspec.yml"
+DOCKERFILE = "Dockerfile"
 
 
 class cd:
@@ -74,7 +74,7 @@ def build_image(image_spec: dict, build_dir: str) -> None:
         build_args = tag.get("build_args", [])
         dockerfile = tag.get("dockerfile", DOCKERFILE)
 
-        image_repo = f"{DOCKER_REPO}/{image_name}"
+        image_repo = f"{DOCKER_REPOSITORY}/{image_name}"
         image_fullname = f"{image_repo}:{tag_name}"
 
         docker_build_cmd = [
@@ -110,15 +110,15 @@ def build_image(image_spec: dict, build_dir: str) -> None:
 
 
 def build_images(image_dirs: list) -> None:
-    for image_dir in image_dirs:
-        spec_filepath = os.path.join(image_dir, SPEC_FILE)
 
+    for image_dir in image_dirs:
+        spec_filepath = os.path.join(image_dir, SPECFILE)
         if not os.path.isdir(image_dir):
             show_debug(f"Ignoring {image_dir} - not a directory")
             continue
 
         if not os.path.exists(spec_filepath):
-            show_info(f"Ignoring {image_dir} - file {SPEC_FILE} not found")
+            show_info(f"Ignoring {image_dir} - file {SPECFILE} not found")
             continue
 
         with open(spec_filepath, "r") as spec_file:
