@@ -38,23 +38,23 @@ class cd:
 
 
 def show_debug(message: str) -> None:
-    """Shows a debug message."""
+    """Show a debug message."""
     if DEBUG:
         print(f"[DEBG] {message}")
 
 
 def show_info(message: str) -> None:
-    """Shows an information message."""
+    """Show an information message."""
     print(f"[INFO] {message}")
 
 
 def show_warn(message: str) -> None:
-    """Shows a warning message."""
+    """Show a warning message."""
     print(f"[WARN] {message}", file=sys.stderr)
 
 
 def show_error(message: str, **kwargs) -> None:
-    """Shows an error message."""
+    """Show an error message."""
     print(f"[ERROR] {message}", file=sys.stderr)
 
     if kwargs.get("exit"):
