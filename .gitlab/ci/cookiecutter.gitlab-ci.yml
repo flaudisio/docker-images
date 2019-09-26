@@ -1,4 +1,0 @@
-Cookiecutter:
-  extends: .parent-image
-  variables:
-    IMAGE: cookiecutter
