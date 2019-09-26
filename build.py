@@ -88,6 +88,11 @@ def build_image(image_spec: dict, build_dir: str) -> None:
             docker_build_cmd.append(f"--build-arg={build_arg}")
 
         show_info(f"Entering directory {build_dir}")
+        show_info(f"Image: {image_fullname}")
+
+        if DRY_RUN:
+            show_info("Dry run mode enabled - won't build")
+            continue
 
         with cd(build_dir):
             show_info(f"Building: " + " ".join(docker_build_cmd))
@@ -109,15 +114,15 @@ def build_images(image_dirs: list) -> None:
         spec_filepath = os.path.join(image_dir, SPEC_FILE)
 
         if not os.path.isdir(image_dir):
-            show_debug(f"Not a dir: {image_dir}; ignoring")
+            show_debug(f"Ignoring {image_dir} - not a directory")
             continue
 
         if not os.path.exists(spec_filepath):
-            show_info(f"File {SPEC_FILE} not found in {image_dir}; ignoring")
+            show_info(f"Ignoring {image_dir} - file {SPEC_FILE} not found")
             continue
 
         with open(spec_filepath, "r") as spec_file:
-            show_debug(f"Loading file {spec_filepath}")
+            show_debug(f"Using file {spec_filepath}")
 
             try:
                 buildspec = yaml.safe_load(spec_file)
@@ -127,12 +132,6 @@ def build_images(image_dirs: list) -> None:
             show_debug("Buildspec: {}".format(buildspec))
 
             for image in buildspec.get("images"):
-                show_info("Processing image: " + image["name"])
-
-                if DRY_RUN:
-                    show_info("Dry run mode enabled; not building")
-                    continue
-
                 build_image(image_spec=image, build_dir=image_dir)
 
 
