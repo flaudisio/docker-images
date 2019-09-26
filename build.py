@@ -139,7 +139,7 @@ def load_specfile(filepath: str) -> dict:
     return buildspec
 
 
-def build_images(image_dirs: list) -> None:
+def build_all_images(image_dirs: list) -> None:
     """Build all images found in `image_dirs`."""
     show_debug(f"Searching directories: {image_dirs}")
 
@@ -164,7 +164,7 @@ def main():
         show_info(f"No directory found in '{IMAGES_DIR}/' - exiting")
         sys.exit(0)
 
-    build_images(image_dirs)
+    build_all_images(image_dirs)
 
 
 if __name__ == '__main__':
