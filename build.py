@@ -122,6 +122,23 @@ def build_image(image_spec: dict, build_dir: str) -> None:
                 run_cmd(docker_tag_cmd)
 
 
+def load_specfile(filepath: str) -> dict:
+    """Parse a spec file and return its data as a dict."""
+    buildspec = {}
+
+    with open(filepath, "r") as spec_file:
+        show_debug(f"Using file {filepath}")
+
+        try:
+            buildspec = yaml.safe_load(spec_file)
+        except yaml.YAMLError as exc:
+            show_error(exc, exit=1)
+
+        show_debug("Buildspec: {}".format(buildspec))
+
+    return buildspec
+
+
 def build_images(image_dirs: list) -> None:
     """Build all images found in `image_dirs`."""
     show_debug(f"Searching directories: {image_dirs}")
@@ -133,18 +150,10 @@ def build_images(image_dirs: list) -> None:
             show_info(f"Ignoring {image_dir} - file {SPECFILE} not found")
             continue
 
-        with open(spec_filepath, "r") as spec_file:
-            show_debug(f"Using file {spec_filepath}")
+        buildspec = load_specfile(spec_filepath)
 
-            try:
-                buildspec = yaml.safe_load(spec_file)
-            except yaml.YAMLError as exc:
-                show_error(exc, exit=1)
-
-            show_debug("Buildspec: {}".format(buildspec))
-
-            for image in buildspec.get("images"):
-                build_image(image_spec=image, build_dir=image_dir)
+        for image in buildspec["images"]:
+            build_image(image_spec=image, build_dir=image_dir)
 
 
 def main():
