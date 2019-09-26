@@ -65,14 +65,14 @@ def get_image_dirs(image_name: str) -> list:
     return sorted(image_dirs)
 
 
-def build_image(image: dict, build_dir: str) -> None:
-    image_name = image["name"]
+def build_image(image_spec: dict, build_dir: str) -> None:
+    image_name = image_spec["name"]
 
-    for image_tag in image.get("tags"):
-        tag_name = image_tag["name"]
-        tag_aliases = image_tag.get("aliases", [])
-        build_args = image_tag.get("build_args", [])
-        dockerfile = image_tag.get("dockerfile", DOCKERFILE)
+    for tag in image_spec.get("tags"):
+        tag_name = tag["name"]
+        tag_aliases = tag.get("aliases", [])
+        build_args = tag.get("build_args", [])
+        dockerfile = tag.get("dockerfile", DOCKERFILE)
 
         image_repo = f"{DOCKER_REPO}/{image_name}"
         image_fullname = f"{image_repo}:{tag_name}"
@@ -140,7 +140,7 @@ def main():
                     show_info("Dry run mode enabled; not building")
                     continue
 
-                build_image(image=image, build_dir=image_dir)
+                build_image(image_spec=image, build_dir=image_dir)
 
 
 if __name__ == '__main__':
