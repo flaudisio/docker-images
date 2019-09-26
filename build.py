@@ -104,14 +104,7 @@ def build_image(image_spec: dict, build_dir: str) -> None:
                 subprocess.run(docker_tag_cmd)
 
 
-
-def main():
-    image_dirs = get_image_dirs(image_name=IMAGE)
-
-    if len(image_dirs) == 0:
-        show_info(f"Nothing found in '{IMAGES_DIR}/'; exiting")
-        sys.exit(0)
-
+def build_images(image_dirs: list) -> None:
     for image_dir in image_dirs:
         spec_filepath = os.path.join(image_dir, SPEC_FILE)
 
@@ -141,6 +134,16 @@ def main():
                     continue
 
                 build_image(image_spec=image, build_dir=image_dir)
+
+
+def main():
+    image_dirs = get_image_dirs(image_name=IMAGE)
+
+    if len(image_dirs) == 0:
+        show_info(f"Nothing found in '{IMAGES_DIR}/'; exiting")
+        sys.exit(0)
+
+    build_images(image_dirs)
 
 
 if __name__ == '__main__':
