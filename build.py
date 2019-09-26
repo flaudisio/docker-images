@@ -60,7 +60,9 @@ def get_image_dirs(image_name: str) -> list:
     """
     glob_path = "*" if image_name == "all" else image_name
 
-    image_dirs = glob.glob(os.path.join(os.getcwd(), IMAGES_DIR, glob_path))
+    glob_result = glob.glob(os.path.join(os.getcwd(), IMAGES_DIR, glob_path))
+
+    image_dirs = [i for i in glob_result if os.path.isdir(i)]
 
     return sorted(image_dirs)
 
@@ -113,9 +115,6 @@ def build_images(image_dirs: list) -> None:
 
     for image_dir in image_dirs:
         spec_filepath = os.path.join(image_dir, SPECFILE)
-        if not os.path.isdir(image_dir):
-            show_debug(f"Ignoring {image_dir} - not a directory")
-            continue
 
         if not os.path.exists(spec_filepath):
             show_info(f"Ignoring {image_dir} - file {SPECFILE} not found")
@@ -139,7 +138,7 @@ def main():
     image_dirs = get_image_dirs(image_name=IMAGE)
 
     if len(image_dirs) == 0:
-        show_info(f"Nothing found in '{IMAGES_DIR}/'; exiting")
+        show_info(f"No directory found in '{IMAGES_DIR}/' - exiting")
         sys.exit(0)
 
     build_images(image_dirs)
