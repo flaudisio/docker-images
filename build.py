@@ -12,8 +12,8 @@ DRY_RUN = os.getenv("DRY_RUN")
 
 DOCKER_REPOSITORY = os.getenv("DOCKER_REPOSITORY", "docker.io/flaudisio")
 
+IMAGES_DIR = os.getenv("IMAGES_DIR", "images")
 IMAGE = os.getenv("IMAGE", "all")
-IMAGES_DIR = "images"
 
 SPECFILE = "buildspec.yml"
 DOCKERFILE = "Dockerfile"
