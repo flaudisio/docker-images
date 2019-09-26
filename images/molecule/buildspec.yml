@@ -1,0 +1,15 @@
+---
+images:
+  - name: molecule
+    tags:
+      - name: ansible-2.8
+        build_args:
+          - parent_image=flaudisio/ansible:2.8
+        aliases:
+          - latest
+      - name: ansible-2.7
+        build_args:
+          - parent_image=flaudisio/ansible:2.7
+      - name: ansible-2.6
+        build_args:
+          - parent_image=flaudisio/ansible:2.6

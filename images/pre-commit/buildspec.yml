@@ -1,0 +1,7 @@
+---
+images:
+  - name: pre-commit
+    tags:
+      - name: latest
+        aliases:
+          - slim
