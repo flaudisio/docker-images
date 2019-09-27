@@ -14,6 +14,7 @@ stages:
   variables:
     DOCKER_USERNAME: flaudisio
     ENABLE_PUSH: "true"
+    PYTHONUNBUFFERED: "1"
   script:
     - docker login --username "$DOCKER_USERNAME" --password "$DOCKER_ACCESS_TOKEN"
     - ./build.py
