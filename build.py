@@ -146,7 +146,7 @@ def load_specfile(filepath: str) -> dict:
         except yaml.YAMLError as exc:
             show_error(exc, exit=1)
 
-        show_debug("Buildspec: {}".format(buildspec))
+        show_debug(f"Buildspec: {buildspec}")
 
     return buildspec
 
