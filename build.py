@@ -19,6 +19,7 @@ DOCKER_REPOSITORY = os.getenv("DOCKER_REPOSITORY", "docker.io/flaudisio")
 
 IMAGES_DIR = os.getenv("IMAGES_DIR", "images")
 IMAGE = os.getenv("IMAGE", "all")
+ENABLE_PUSH = os.getenv("ENABLE_PUSH")
 
 SPECFILE = "buildspec.yml"
 DOCKERFILE = "Dockerfile"
@@ -82,6 +83,14 @@ def run_cmd(command: list) -> subprocess.CompletedProcess:
         subprocess.run(command)
 
 
+def push_image(image: str) -> None:
+    if not ENABLE_PUSH:
+        show_info("Not pushing - ENABLE_PUSH not set")
+        return
+
+    run_cmd(["docker", "image", "push", image])
+
+
 def build_image(image_spec: dict, build_dir: str) -> None:
     """Build a Docker image in `build_dir` based on `image_spec`."""
     image_name = image_spec["name"]
@@ -110,6 +119,7 @@ def build_image(image_spec: dict, build_dir: str) -> None:
 
         with cd(build_dir):
             run_cmd(docker_build_cmd)
+            push_image(image_fullname)
 
             for tag_alias in tag_aliases:
                 image_alias_name = f"{image_repo}:{tag_alias}"
@@ -121,6 +131,7 @@ def build_image(image_spec: dict, build_dir: str) -> None:
                 ]
 
                 run_cmd(docker_tag_cmd)
+                push_image(image_alias_name)
 
 
 def load_specfile(filepath: str) -> dict:
