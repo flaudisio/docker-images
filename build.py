@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # build.py
 # Script to build multiple Docker images.
@@ -167,5 +167,5 @@ def main():
     build_all_images(image_dirs)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
