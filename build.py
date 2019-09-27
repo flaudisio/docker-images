@@ -73,6 +73,7 @@ def get_image_dirs(image_name: str) -> list:
 
 
 def run_cmd(command: list) -> subprocess.CompletedProcess:
+    """Run `command` using `subprocess.run()`."""
     show_info(f"Command: {' '.join(command)}")
 
     if DRY_RUN:
