@@ -1,3 +1,1 @@
-flake8
-pyyaml
-rope
+pyyaml==5.1.2
