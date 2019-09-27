@@ -73,7 +73,7 @@ def get_image_dirs(image_name: str) -> list:
     return sorted(image_dirs)
 
 
-def run_cmd(command: list) -> subprocess.CompletedProcess:
+def run_cmd(command: list) -> None:
     """Run `command` using `subprocess.run()`."""
     show_info(f"Command: {' '.join(command)}")
 
