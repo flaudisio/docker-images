@@ -25,6 +25,14 @@ SPECFILE = "buildspec.yml"
 DOCKERFILE = "Dockerfile"
 
 
+class bcolors:
+    NORMAL = "\033[0m"
+    BLUE = "\033[1;94m"
+    GREEN = "\033[1;92m"
+    YELLOW = "\033[1;93m"
+    RED = "\033[1;91m"
+
+
 class cd:
     """Context manager for changing the current working directory."""
     def __init__(self, new_path):
@@ -41,22 +49,22 @@ class cd:
 def show_debug(message: str) -> None:
     """Show a debug message."""
     if DEBUG:
-        print(f"[DEBG] {message}")
+        print(f"{bcolors.BLUE}[DEBG] {message}{bcolors.NORMAL}")
 
 
 def show_info(message: str) -> None:
     """Show an information message."""
-    print(f"[INFO] {message}")
+    print(f"{bcolors.GREEN}[INFO] {message}{bcolors.NORMAL}")
 
 
 def show_warn(message: str) -> None:
     """Show a warning message."""
-    print(f"[WARN] {message}", file=sys.stderr)
+    print(f"{bcolors.YELLOW}[WARN] {message}{bcolors.NORMAL}", file=sys.stderr)
 
 
 def show_error(message: str, **kwargs) -> None:
     """Show an error message."""
-    print(f"[ERROR] {message}", file=sys.stderr)
+    print(f"{bcolors.RED}[ERROR] {message}{bcolors.NORMAL}", file=sys.stderr)
 
     if kwargs.get("exit"):
         sys.exit(1)
