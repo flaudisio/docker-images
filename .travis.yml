@@ -1,0 +1,61 @@
+language: python
+
+python:
+  - 3.7
+
+services:
+  - docker
+
+env:
+  - DOCKER_USERNAME=flaudisio
+  - PYTHONUNBUFFERED=1
+
+stages:
+  - pre-commit
+  - parent-images
+  - child-images
+
+_build-template: &_build-template
+  install:
+    - pip install -r requirements.txt
+  before_script:
+    - docker version
+  script:
+    - echo "$DOCKER_ACCESS_TOKEN" | docker login --username "$DOCKER_USERNAME" --password-stdin
+    - ./build.py
+
+_parent-image: &_parent-image
+  <<: *_build-template
+  stage: parent-images
+
+_child-image: &_child-image
+  <<: *_build-template
+  stage: child-images
+
+jobs:
+  include:
+    - stage: pre-commit
+      name: pre-commit Tests
+      install:
+        - pip install -U pre-commit
+      before_script:
+        - pre-commit --version
+      script:
+        - pre-commit install
+        - pre-commit run --all-files --verbose
+    - <<: *_parent-image
+      name: Ansible
+      env:
+        - IMAGE=ansible
+    - <<: *_parent-image
+      name: Cookiecutter
+      env:
+        - IMAGE=cookiecutter
+    - <<: *_parent-image
+      name: pre-commit
+      env:
+        - IMAGE=pre-commit
+    - <<: *_child-image
+      name: Molecule
+      env:
+        - IMAGE=molecule
