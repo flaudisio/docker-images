@@ -1,4 +1,0 @@
-pre-commit:
-  extends: .parent-image
-  variables:
-    IMAGE: pre-commit

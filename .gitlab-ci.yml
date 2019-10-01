@@ -9,14 +9,15 @@ stages:
     - docker:19-dind
   before_script:
     - docker version
-    - apk add --no-cache make
-    - make --version
+    - apk add --no-cache py3-pip
+    - pip3 install --disable-pip-version-check -r requirements.txt
   variables:
     DOCKER_USERNAME: flaudisio
     ENABLE_PUSH: "true"
+    PYTHONUNBUFFERED: "1"
   script:
     - docker login --username "$DOCKER_USERNAME" --password "$DOCKER_ACCESS_TOKEN"
-    - make $IMAGE
+    - ./build.py
   only:
     - master
 
@@ -35,7 +36,5 @@ pre-commit Test:
     - run-ci-tests
 
 include:
-  - local: .gitlab/ci/ansible.gitlab-ci.yml
-  - local: .gitlab/ci/cookiecutter.gitlab-ci.yml
-  - local: .gitlab/ci/molecule.gitlab-ci.yml
-  - local: .gitlab/ci/pre-commit.gitlab-ci.yml
+  - local: .gitlab/ci/parent-images.gitlab-ci.yml
+  - local: .gitlab/ci/child-images.gitlab-ci.yml
