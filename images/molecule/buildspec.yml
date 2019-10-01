@@ -7,6 +7,7 @@ images:
           - parent_image=flaudisio/ansible:2.8
         aliases:
           - latest
+          - ansible-2
       - name: ansible-2.7
         build_args:
           - parent_image=flaudisio/ansible:2.7

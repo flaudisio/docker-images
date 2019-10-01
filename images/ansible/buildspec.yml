@@ -7,6 +7,7 @@ images:
           - ansible_version=2.8
         aliases:
           - latest
+          - "2"
       - name: "2.7"
         build_args:
           - ansible_version=2.7
