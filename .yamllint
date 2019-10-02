@@ -1,5 +1,4 @@
 extends: default
 
 ignore: |
-  .gitlab/
-  .gitlab-ci.yml
+  .travis.yml
