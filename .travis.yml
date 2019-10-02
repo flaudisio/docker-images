@@ -17,7 +17,7 @@ stages:
   - parent-images
   - child-images
 
-_build-template: &_build-template
+_build_template: &_build_template
   install:
     - pip install -r requirements.txt
   before_script:
@@ -26,12 +26,12 @@ _build-template: &_build-template
     - echo "$DOCKER_ACCESS_TOKEN" | docker login --username "$DOCKER_USERNAME" --password-stdin
     - ./build.py
 
-_parent-image: &_parent-image
-  <<: *_build-template
+_parent_image: &_parent_image
+  <<: *_build_template
   stage: parent-images
 
-_child-image: &_child-image
-  <<: *_build-template
+_child_image: &_child_image
+  <<: *_build_template
   stage: child-images
 
 jobs:
@@ -45,19 +45,19 @@ jobs:
       script:
         - pre-commit install
         - pre-commit run --all-files --verbose
-    - <<: *_parent-image
+    - <<: *_parent_image
       name: Ansible
       env:
         - IMAGE=ansible
-    - <<: *_parent-image
+    - <<: *_parent_image
       name: Cookiecutter
       env:
         - IMAGE=cookiecutter
-    - <<: *_parent-image
+    - <<: *_parent_image
       name: pre-commit
       env:
         - IMAGE=pre-commit
-    - <<: *_child-image
+    - <<: *_child_image
       name: Molecule
       env:
         - IMAGE=molecule
