@@ -13,9 +13,9 @@ $ ./build.py
 $ IMAGE=ansible ./build.py
 ```
 
-The first command will build **all** images defined in `images/*/buildspec.yml`.
+The first command will build **all** images and tags defined in `images/*/buildspec.yml`.
 
-The second one will build all the images defined in `images/ansible/buildspec.yml`.
+The second one will build all images and tags defined in `images/ansible/buildspec.yml`.
 
 See the [`build.py` source](build.py) for other options.
 
