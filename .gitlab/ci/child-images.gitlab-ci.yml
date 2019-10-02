@@ -1,4 +1,0 @@
-Molecule:
-  extends: .child-image
-  variables:
-    IMAGE: molecule
