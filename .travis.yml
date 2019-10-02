@@ -24,7 +24,11 @@ _build_template: &_build_template
   before_script:
     - docker version
   script:
-    - echo "$DOCKER_ACCESS_TOKEN" | docker login --username "$DOCKER_USERNAME" --password-stdin
+    - |
+        if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ] ; then
+          echo "$DOCKER_ACCESS_TOKEN" | docker login --username "$DOCKER_USERNAME" --password-stdin
+          export ENABLE_PUSH=1
+        fi
     - ./build.py
 
 _parent_image: &_parent_image
