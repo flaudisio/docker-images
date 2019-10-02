@@ -66,3 +66,8 @@ jobs:
       name: Molecule
       env:
         - IMAGE=molecule
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
