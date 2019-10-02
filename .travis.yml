@@ -9,8 +9,9 @@ services:
   - docker
 
 env:
-  - DOCKER_USERNAME=flaudisio
-  - PYTHONUNBUFFERED=1
+  global:
+    - DOCKER_USERNAME=flaudisio
+    - PYTHONUNBUFFERED=1
 
 stages:
   - pre-commit
