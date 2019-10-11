@@ -2,4 +2,4 @@
 images:
   - name: {{ cookiecutter.image_slug }}
     tags:
-      - name: latest
+      - name: {{ cookiecutter.image_tag }}

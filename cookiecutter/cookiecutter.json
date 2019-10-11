@@ -1,6 +1,7 @@
 {
   "image_name": "My Image",
   "image_slug": "{{ cookiecutter.image_name | lower | replace(' ', '-') }}",
+  "image_tag": "latest",
   "parent_image": [
     "alpine:3.10",
     "python:3.7-alpine",
