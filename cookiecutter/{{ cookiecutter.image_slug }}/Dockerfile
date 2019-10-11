@@ -1,6 +1,6 @@
 FROM {{ cookiecutter.parent_image }}
 
-LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
+LABEL maintainer="{{ cookiecutter.maintainer_name }} <{{ cookiecutter.maintainer_email }}>"
 
 # ARG tool_version=1.0
 # ENV TOOL_VERSION ${tool_version}

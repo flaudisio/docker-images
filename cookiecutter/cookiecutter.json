@@ -1,4 +1,7 @@
 {
-  "image_name": "my-image",
-  "parent_image": "alpine:3.10"
+  "image_name": "My Image",
+  "image_slug": "{{ cookiecutter.image_name | lower | replace(' ', '-') }}",
+  "parent_image": "alpine:3.10",
+  "maintainer_name": "Flaudísio Tolentino",
+  "maintainer_email": "me@flaudis.io"
 }
