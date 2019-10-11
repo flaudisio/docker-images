@@ -1,0 +1,4 @@
+{
+  "image_name": "my-image",
+  "parent_image": "alpine:3.10"
+}

@@ -1,0 +1,5 @@
+---
+images:
+  - name: {{ cookiecutter.image_name }}
+    tags:
+      - name: latest
