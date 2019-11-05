@@ -19,10 +19,10 @@ stages:
   - child-images
 
 _build_template: &_build_template
+  before_install:
+    - docker version
   install:
     - pip install -r requirements.txt
-  before_script:
-    - docker version
   script:
     - |
         if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ] ; then
