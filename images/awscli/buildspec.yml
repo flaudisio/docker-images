@@ -1,0 +1,9 @@
+---
+images:
+  - name: awscli
+    tags:
+      - name: latest
+        build_args:
+          - awscli_version=1.*
+        aliases:
+          - "1"
