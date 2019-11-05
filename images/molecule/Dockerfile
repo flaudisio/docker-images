@@ -1,4 +1,4 @@
-ARG parent_image=flaudisio/ansible:2
+ARG parent_image=flaudisio/ansible:latest
 FROM ${parent_image}
 
 ARG molecule_version=2
