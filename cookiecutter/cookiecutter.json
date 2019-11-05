@@ -1,5 +1,5 @@
 {
-  "image_name": "My Image",
+  "image_name": "Example",
   "image_slug": "{{ cookiecutter.image_name | lower | replace(' ', '-') }}",
   "image_tag": "latest",
   "base_image": [
