@@ -55,6 +55,14 @@ jobs:
       env:
         - IMAGE=ansible
     - <<: *_base_image
+      name: AWS CLI
+      env:
+        - IMAGE=awscli
+    - <<: *_base_image
+      name: ci-k8s-deploys
+      env:
+        - IMAGE=ci-k8s-deploys
+    - <<: *_base_image
       name: Cookiecutter
       env:
         - IMAGE=cookiecutter
