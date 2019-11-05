@@ -7,23 +7,23 @@ ENV ANSIBLE_VERSION ${ansible_version}
 
 RUN set -eux ; \
     apk add --no-cache \
-        git && \
+        git ; \
     apk add --no-cache --virtual .build-deps \
         gcc \
         libffi-dev \
         make \
         musl-dev \
-        openssl-dev && \
+        openssl-dev ; \
     pip install \
         "ansible==${ANSIBLE_VERSION}.*" \
         "boto3==1.*" \
-        "pywinrm==0.3.*" && \
-    apk del --no-cache --purge .build-deps && \
+        "pywinrm==0.3.*" ; \
+    apk del --no-cache --purge .build-deps ; \
     \
-    python --version && \
-    pip --version && \
-    git --version && \
-    ansible --version && \
+    python --version ; \
+    pip --version ; \
+    git --version ; \
+    ansible --version ; \
     \
     rm -rf ~/.cache
 

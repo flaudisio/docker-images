@@ -5,13 +5,13 @@ LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
 
 RUN set -eux ; \
     apk add --no-cache \
-        tree && \
+        tree ; \
     pip install \
-        cookiecutter && \
+        cookiecutter ; \
     \
-    python --version && \
-    pip --version && \
-    cookiecutter --version && \
+    python --version ; \
+    pip --version ; \
+    cookiecutter --version ; \
     \
     rm -rf ~/.cache
 

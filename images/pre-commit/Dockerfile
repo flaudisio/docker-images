@@ -6,15 +6,15 @@ LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
 RUN set -eux ; \
     apk add --no-cache \
         bash \
-        git && \
+        git ; \
     pip install \
         pre-commit && \
     \
-    bash --version && \
-    git --version && \
-    python --version && \
-    pip --version && \
-    pre-commit --version && \
+    bash --version ; \
+    git --version ; \
+    python --version ; \
+    pip --version ; \
+    pre-commit --version ; \
     \
     rm -rf ~/.cache
 

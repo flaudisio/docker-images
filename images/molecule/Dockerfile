@@ -10,23 +10,24 @@ ENV DKR_MOLECULE_EXTRAS="docker,ec2"
 
 RUN set -eux ; \
     apk add --no-cache \
-        docker-cli && \
+        docker-cli ; \
     apk add --no-cache --virtual .build-deps \
         gcc \
         libffi-dev \
         make \
         musl-dev \
-        openssl-dev && \
+        openssl-dev ; \
     pip install \
-        "molecule[${DKR_MOLECULE_EXTRAS}]==${DKR_MOLECULE_VERSION}.*" && \
-    apk del --no-cache --purge .build-deps && \
+        "molecule[${DKR_MOLECULE_EXTRAS}]==${DKR_MOLECULE_VERSION}.*" ; \
+    apk del --no-cache --purge \
+        .build-deps ; \
     \
-    python --version && \
-    pip --version && \
-    ansible --version && \
-    molecule --version && \
-    ansible-lint --version && \
-    yamllint --version && \
+    python --version ; \
+    pip --version ; \
+    ansible --version ; \
+    molecule --version ; \
+    ansible-lint --version ; \
+    yamllint --version ; \
     \
     rm -rf ~/.cache
 
