@@ -2,3 +2,4 @@ extends: default
 
 ignore: |
   .travis.yml
+  cookiecutter/**/buildspec.yml

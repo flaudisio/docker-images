@@ -1,0 +1,5 @@
+---
+images:
+  - name: {{ cookiecutter.image_slug }}
+    tags:
+      - name: {{ cookiecutter.image_tag }}

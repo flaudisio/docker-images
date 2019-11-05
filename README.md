@@ -29,6 +29,10 @@ $ docker build -t my-ansible .
 $ docker build -t my-ansible:2.7 . --build-arg ansible_version=2.7
 ```
 
+## Adding a new image
+
+Install [Cookiecutter](https://cookiecutter.readthedocs.io/) and run `./add-image.sh`.
+
 ## License
 
 [MIT](LICENSE).
