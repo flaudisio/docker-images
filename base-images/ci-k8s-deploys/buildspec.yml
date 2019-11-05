@@ -4,15 +4,15 @@ images:
     tags:
       - name: awscli-1.x-kubectl-1.15
         build_args:
-          - kubectl_version=1.15.4
+          - kubectl_version=1.15.5
         aliases:
           - latest
       - name: awscli-1.x-kubectl-1.14
         build_args:
-          - kubectl_version=1.14.7
+          - kubectl_version=1.14.8
       - name: awscli-1.x-kubectl-1.13
         build_args:
-          - kubectl_version=1.13.11
+          - kubectl_version=1.13.12
       - name: awscli-1.x-kubectl-1.12
         build_args:
           - kubectl_version=1.12.10
