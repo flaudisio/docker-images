@@ -2,4 +2,4 @@
 
 set -ex
 
-cookiecutter cookiecutter/ -o images/
+cookiecutter cookiecutter/
