@@ -1,4 +1,4 @@
-.PHONY: base-images child-images help
+.PHONY: base-images child-images all help
 
 base-images:  ## Build the base images
 	IMAGES_DIR=base-images ./build.py
