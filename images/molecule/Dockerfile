@@ -3,7 +3,7 @@ FROM ${parent_image}
 
 ARG molecule_version=2
 # We use the (arbitrary) prefix 'DKR_' to keep the 'MOLECULE_' namespace clean
-# Ref: https://github.com/ansible/molecule/blob/2.22/molecule/interpolation.py#L58
+# Ref: https://github.com/ansible/molecule/blob/2.22/molecule/interpolation.py#L56-L59
 ENV DKR_MOLECULE_VERSION ${molecule_version}
 
 ENV DKR_MOLECULE_EXTRAS="docker,ec2"
