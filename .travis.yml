@@ -15,7 +15,7 @@ env:
 
 stages:
   - pre-commit
-  - parent-images
+  - base-images
   - child-images
 
 _build_template: &_build_template
@@ -31,9 +31,9 @@ _build_template: &_build_template
         fi
     - ./build.py
 
-_parent_image: &_parent_image
+_base_image: &_base_image
   <<: *_build_template
-  stage: parent-images
+  stage: base-images
 
 _child_image: &_child_image
   <<: *_build_template
@@ -50,15 +50,15 @@ jobs:
       script:
         - pre-commit install
         - pre-commit run --all-files --verbose
-    - <<: *_parent_image
+    - <<: *_base_image
       name: Ansible
       env:
         - IMAGE=ansible
-    - <<: *_parent_image
+    - <<: *_base_image
       name: Cookiecutter
       env:
         - IMAGE=cookiecutter
-    - <<: *_parent_image
+    - <<: *_base_image
       name: pre-commit
       env:
         - IMAGE=pre-commit

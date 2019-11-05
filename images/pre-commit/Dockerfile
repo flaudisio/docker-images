@@ -1,5 +1,5 @@
-ARG parent_image=python:3-alpine
-FROM ${parent_image}
+ARG base_image=python:3-alpine
+FROM ${base_image}
 
 LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
 

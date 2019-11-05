@@ -1,11 +1,11 @@
-FROM {{ cookiecutter.parent_image }}
+FROM {{ cookiecutter.base_image }}
 
 LABEL maintainer="{{ cookiecutter.maintainer_name }} <{{ cookiecutter.maintainer_email }}>"
 
 ARG sometool_version=1.0
 ENV SOMETOOL_VERSION ${sometool_version}
 
-{% if "python" in cookiecutter.parent_image -%}
+{% if "python" in cookiecutter.base_image -%}
 RUN set -eux ; \
     apk add --no-cache \
         dependency1 \
