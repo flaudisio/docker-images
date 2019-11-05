@@ -10,7 +10,7 @@
   "maintainer_name": "Flaudísio Tolentino",
   "maintainer_email": "me@flaudis.io",
   "image_type": [
-    "Base Image  - this image is FROM an external image (e.g. alpine, ubuntu, etc)",
-    "Child Image - this image is FROM a base image in THIS repository (e.g. ansible, awscli, etc)"
+    "Base Image  - this image is derived FROM an external image (e.g. alpine, ubuntu)",
+    "Child Image - this image is derived FROM an image in THIS repository (e.g. ansible, awscli)"
   ]
 }
