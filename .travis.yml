@@ -31,14 +31,6 @@ _build_template: &_build_template
         fi
     - ./build.py
 
-_base_image: &_base_image
-  <<: *_build_template
-  stage: base-images
-
-_child_image: &_child_image
-  <<: *_build_template
-  stage: child-images
-
 jobs:
   include:
     - stage: pre-commit
@@ -50,30 +42,16 @@ jobs:
       script:
         - pre-commit install
         - pre-commit run --all-files --verbose
-    - <<: *_base_image
-      name: Ansible
+    - <<: *_build_template
+      stage: base-images
+      name: Base Images
       env:
-        - IMAGE=ansible
-    - <<: *_base_image
-      name: AWS CLI
+        - IMAGES_DIR=base-images
+    - <<: *_build_template
+      stage: child-images
+      name: Child Images
       env:
-        - IMAGE=awscli
-    - <<: *_base_image
-      name: ci-k8s-deploys
-      env:
-        - IMAGE=ci-k8s-deploys
-    - <<: *_base_image
-      name: Cookiecutter
-      env:
-        - IMAGE=cookiecutter
-    - <<: *_base_image
-      name: pre-commit
-      env:
-        - IMAGE=pre-commit
-    - <<: *_child_image
-      name: Molecule
-      env:
-        - IMAGE=molecule
+        - IMAGES_DIR=child-images
 
 notifications:
   email:
