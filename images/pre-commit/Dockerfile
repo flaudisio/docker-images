@@ -3,12 +3,15 @@ FROM ${parent_image}
 
 LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
 
+ARG pre_commit_version="1.*"
+ENV PRE_COMMIT_VERSION ${pre_commit_version}
+
 RUN set -eux ; \
     apk add --no-cache \
         bash \
         git ; \
     pip install \
-        pre-commit && \
+        "pre-commit==${PRE_COMMIT_VERSION}" ; \
     \
     bash --version ; \
     git --version ; \
