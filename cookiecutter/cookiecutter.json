@@ -4,8 +4,13 @@
   "image_tag": "latest",
   "base_image": [
     "alpine:3.10",
+    "centos:7",
+    "centos:8",
+    "ubuntu:18.04",
     "python:3.7-alpine",
-    "python:2.7-alpine"
+    "python:2.7-alpine",
+    "openjdk:8-jdk",
+    "openjdk:11-jdk"
   ],
   "maintainer_name": "Flaudísio Tolentino",
   "maintainer_email": "me@flaudis.io",
