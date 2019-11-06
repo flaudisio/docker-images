@@ -76,7 +76,7 @@ To add a new image to this repository:
 
 1. Install [Cookiecutter](https://cookiecutter.readthedocs.io/).
 
-2. Run `./add-image.sh` and answer some questions.
+2. Run `make new` and answer some basic questions.
 
 3. There's no step 3.
 
