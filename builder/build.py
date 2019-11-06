@@ -21,8 +21,10 @@ IMAGES_DIR = os.getenv("IMAGES_DIR", "images")
 IMAGE = os.getenv("IMAGE", "all")
 ENABLE_PUSH = os.getenv("ENABLE_PUSH")
 
-SPECFILE = "buildspec.yml"
-DOCKERFILE = "Dockerfile"
+DEFAULTS = {
+    "dockerfile": "Dockerfile",
+    "specfile": "buildspec.yml"
+}
 
 
 class bcolors:
@@ -107,7 +109,7 @@ def build_image(image_spec: dict, build_dir: str) -> None:
         tag_name = tag["name"]
         tag_aliases = tag.get("aliases", [])
         build_args = tag.get("build_args", [])
-        dockerfile = tag.get("dockerfile", DOCKERFILE)
+        dockerfile = tag.get("dockerfile", DEFAULTS["dockerfile"])
 
         image_repo = f"{DOCKER_REPOSITORY}/{image_name}"
         image_fullname = f"{image_repo}:{tag_name}"
@@ -163,11 +165,13 @@ def build_all_images(image_dirs: list) -> None:
     """Build all images found in `image_dirs`."""
     show_debug(f"Searching directories: {image_dirs}")
 
+    specfile = DEFAULTS["specfile"]
+
     for image_dir in image_dirs:
-        spec_filepath = os.path.join(image_dir, SPECFILE)
+        spec_filepath = os.path.join(image_dir, specfile)
 
         if not os.path.exists(spec_filepath):
-            show_info(f"Ignoring {image_dir} - file {SPECFILE} not found")
+            show_info(f"Ignoring {image_dir} - file {specfile} not found")
             continue
 
         buildspec = load_specfile(spec_filepath)
