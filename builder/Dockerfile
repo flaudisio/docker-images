@@ -12,6 +12,9 @@ RUN set -eux ; \
         /tmp/requirements.txt ; \
     rm -rf ~/.cache
 
+COPY docker-entrypoint.sh /sbin/docker-entrypoint.sh
 COPY build.py /usr/local/bin/pydib
 
-CMD ["pydib"]
+ENTRYPOINT ["/sbin/docker-entrypoint.sh"]
+
+CMD ["build"]
