@@ -19,17 +19,10 @@ stages:
   - child-images
 
 _build_template: &_build_template
-  before_install:
+  before_script:
     - docker version
     - docker-compose --version
-  install:
-    - pip install -r builder/requirements.txt
-  before_script:
-    - |
-        if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ] ; then
-          echo "$DOCKER_ACCESS_TOKEN" | docker login --username "$DOCKER_USERNAME" --password-stdin
-          export ENABLE_PUSH=1
-        fi
+    - make builder
 
 jobs:
   include:
