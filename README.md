@@ -55,7 +55,7 @@ You may also use some `make` targets:
 ```sh
 make base-images
 make child-images
-make all
+make all-images
 ```
 
 Try `make help` for all available commands.

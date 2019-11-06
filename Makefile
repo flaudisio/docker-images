@@ -1,4 +1,4 @@
-.PHONY: base-images child-images all help
+.PHONY: base-images child-images all-images help
 
 base-images:  ## Build the base images
 	IMAGES_DIR=base-images ./builder/build.py
@@ -6,7 +6,7 @@ base-images:  ## Build the base images
 child-images:  ## Build the child images
 	IMAGES_DIR=child-images ./builder/build.py
 
-all: base-images child-images  ## Build ALL the things!
+all-images: base-images child-images  ## Build ALL the things!
 
 help:  ## Show available commands
 	@echo "Available commands:"
