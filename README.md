@@ -7,68 +7,76 @@ My collection of Docker images.
 TL;DR:
 
 ```sh
-find *images -name Dockerfile
+find images/ -name 'Dockerfile*' | sort
 ```
 
 This repository has the following image directories:
 
-- [`base-images/`](base-images/): images derived from external images.  
+- [`base-images/`](images/base-images/): images derived from external images.  
   Example: `base-images/pre-commit` is built from `python:3-alpine`.
 
-- [`child-images/`](child-images/): images derived from other images built in this repository.  
+- [`child-images/`](images/child-images/): images derived from other images in this repository.  
   Example: `child-images/molecule` is built from `base-images/ansible`.
 
 ## Where are the images?
 
-All images are automatically (and regularly) pushed to [Docker Hub](https://hub.docker.com/u/flaudisio)
-by [Travis CI](https://travis-ci.com/flaudisio/docker-images/builds).
+All images are [automatically](https://travis-ci.com/flaudisio/docker-images/builds)
+(and regularly) pushed to [Docker Hub](https://hub.docker.com/u/flaudisio).
 
 ## Building
 
-### Using the build script
+Before building, please be sure to have the following tools available:
 
-First, install the script requirements:
-
-```sh
-pip install -r builder/requirements.txt
-```
-
-Then just run it. Here I have some examples:
-
-```sh
-# Build all images found in $PWD/images/
-./builder/build.py
-
-# Build image in $PWD/images/ansible
-IMAGE=ansible ./builder/build.py
-
-# Change the image search directory
-IMAGES_DIR=base-images ./builder/build.py
-```
-
-See the [`build.py` source](builder/build.py) for more options.
+- Docker 1.13.0+
+- Docker Compose 1.14.0+
 
 ### Using `make`
 
-You may also use some `make` targets:
+Try the `*-images` targets. Example:
 
 ```sh
 make base-images
+make base-images IMAGE=awscli
+
 make child-images
+
 make all-images
 ```
 
-Try `make help` for all available commands.
+Run `make help` for all available commands.
 
 ### Using `docker build`
 
 Just run `docker build` in some image directory:
 
 ```console
-$ cd base-images/ansible
+$ cd images/base-images/ansible
 $ docker build -t my-ansible .
 $ docker build -t my-ansible:2.7 . --build-arg ansible_version=2.7
 ```
+
+### Using the build script
+
+> **Note:** this is used while developing/testing the build script. I recommend
+> the `make` instructions for general usage.
+
+Install the script requirements:
+
+```sh
+pip install -r builder/requirements.txt
+```
+
+Run it:
+
+```sh
+# Build all base images
+IMAGES_DIR=images/base-images ./builder/build.py
+
+# Build only the Ansible base image
+IMAGES_DIR=images/base-images IMAGE=ansible ./builder/build.py
+```
+
+See the [`build.py` source](builder/build.py) for more options.
 
 ## Adding a new image
 

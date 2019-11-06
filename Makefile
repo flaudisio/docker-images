@@ -9,10 +9,10 @@ builder:  ## Create the builder-image
 	docker-compose build
 
 base-images:  ## Build the base images
-	IMAGES_DIR=base-images docker-compose run --rm builder
+	IMAGES_DIR=images/base-images docker-compose run --rm builder
 
 child-images:  ## Build the child images
-	IMAGES_DIR=child-images docker-compose run --rm builder
+	IMAGES_DIR=images/child-images docker-compose run --rm builder
 
 all-images: base-images child-images  ## Build ALL the things!
 
