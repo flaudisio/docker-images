@@ -1,0 +1,12 @@
+version: '2.2'
+
+services:
+  builder:
+    build:
+      context: builder
+    volumes:
+      - ./:/docker-images:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      IMAGES_DIR: /docker-images/${IMAGES_DIR:-base-images}
+      IMAGE: ${IMAGE:-all}

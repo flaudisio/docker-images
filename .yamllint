@@ -3,6 +3,7 @@ extends: default
 ignore: |
   .travis.yml
   cookiecutter/**/buildspec.yml
+  docker-compose.yml
 
 rules:
   braces:
