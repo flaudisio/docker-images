@@ -1,37 +1,84 @@
 # Docker Images
 
-Some useful Docker images.
+My collection of Docker images.
 
-## Building via script
+## Where are the `Dockerfile`s?
 
-You can use the `build.py` script:
+TL;DR:
 
-```console
-$ pip install -r requirements.txt
-
-$ ./build.py
-$ IMAGE=ansible ./build.py
+```sh
+find *images -name Dockerfile
 ```
 
-The first command will build **all** images and tags defined in `images/*/buildspec.yml`.
+This repository has the following image directories:
 
-The second one will build all images and tags defined in `images/ansible/buildspec.yml`.
+- [`base-images/`](base-images/): images derived from external images.  
+  Example: `base-images/pre-commit` is built from `python:3-alpine`.
 
-See the [`build.py` source](build.py) for other options.
+- [`child-images/`](child-images/): images derived from other images built in this repository.  
+  Example: `child-images/molecule` is built from `base-images/ansible`.
 
-## Building directly with Docker
+## Where are the images?
+
+All images are automatically (and regularly) pushed to [Docker Hub](https://hub.docker.com/u/flaudisio)
+by [Travis CI](https://travis-ci.com/flaudisio/docker-images/builds).
+
+## Building
+
+### Using the build script
+
+First, install the script requirements:
+
+```sh
+pip install -r requirements.txt
+```
+
+Then just run it. Here I have some examples:
+
+```sh
+# Build all images found in $PWD/images/
+./build.py
+
+# Build image in $PWD/images/ansible
+IMAGE=ansible ./build.py
+
+# Change the image search directory
+IMAGES_DIR=base-images ./build.py
+```
+
+See the [`build.py` source](build.py) for more options.
+
+### Using `make`
+
+You may also use some `make` targets:
+
+```sh
+make base-images
+make child-images
+make all
+```
+
+Try `make help` for all available commands.
+
+### Using `docker build`
 
 Just run `docker build` in some image directory:
 
 ```console
-$ cd images/ansible
+$ cd base-images/ansible
 $ docker build -t my-ansible .
 $ docker build -t my-ansible:2.7 . --build-arg ansible_version=2.7
 ```
 
 ## Adding a new image
 
-Install [Cookiecutter](https://cookiecutter.readthedocs.io/) and run `./add-image.sh`.
+To add a new image to this repository:
+
+1. Install [Cookiecutter](https://cookiecutter.readthedocs.io/).
+
+2. Run `./add-image.sh` and answer some questions.
+
+3. There's no step 3.
 
 ## License
 
