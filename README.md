@@ -30,23 +30,23 @@ by [Travis CI](https://travis-ci.com/flaudisio/docker-images/builds).
 First, install the script requirements:
 
 ```sh
-pip install -r requirements.txt
+pip install -r builder/requirements.txt
 ```
 
 Then just run it. Here I have some examples:
 
 ```sh
 # Build all images found in $PWD/images/
-./build.py
+./builder/build.py
 
 # Build image in $PWD/images/ansible
-IMAGE=ansible ./build.py
+IMAGE=ansible ./builder/build.py
 
 # Change the image search directory
-IMAGES_DIR=base-images ./build.py
+IMAGES_DIR=base-images ./builder/build.py
 ```
 
-See the [`build.py` source](build.py) for more options.
+See the [`build.py` source](builder/build.py) for more options.
 
 ### Using `make`
 

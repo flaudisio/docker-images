@@ -181,7 +181,7 @@ def main():
     image_dirs = get_image_dirs(image_name=IMAGE)
 
     if len(image_dirs) == 0:
-        show_info(f"No directory found in '{IMAGES_DIR}/' - exiting")
+        show_info(f"No image directories found in '{IMAGES_DIR}/' - exiting")
         sys.exit(0)
 
     build_all_images(image_dirs)
