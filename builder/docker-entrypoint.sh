@@ -2,6 +2,8 @@
 
 set -e
 
+export PYTHONUNBUFFERED=1
+
 if [ "$ENABLE_PUSH" = "true" ] ; then
     echo "==> Logging on Docker Hub"
     echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
