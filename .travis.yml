@@ -27,7 +27,7 @@ _build_template: &_build_template
 jobs:
   include:
     - stage: pre-commit
-      name: pre-commit Tests
+      name: pre-commit
       install:
         - pip install -U pre-commit
       before_script:
