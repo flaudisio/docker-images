@@ -4,7 +4,7 @@ DOCKER_REPOSITORY ?= docker.io/flaudisio
 
 export DOCKER_REPOSITORY
 
-.PHONY: help base-images child-images all-images new
+.PHONY: help base-images child-images all-images list-images new-image
 
 help:  ## Show available commands
 	@echo "Available commands:"
@@ -19,6 +19,10 @@ child-images:  ## Build the child images
 
 all-images: base-images child-images  ## Build ALL the things!
 
+list-images:  ## List all images in the repository
+	@echo "Available images:"
+	@echo
+	@find images/ -name 'Dockerfile*' | sed -e 's|^images/||' -e 's|/Dockerfile.*||' | sort | column -s '/' -t
 
-new:  ## Add a new image to this repository
+new-image:  ## Add a new image to this repository
 	cookiecutter cookiecutter/
