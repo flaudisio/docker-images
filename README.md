@@ -25,10 +25,25 @@ All images are [automatically](https://travis-ci.com/flaudisio/docker-images/bui
 
 ## Building
 
-Before building, please be sure to have the following tools available:
+### Using the build script
 
-- Docker 1.13.0+
-- Docker Compose 1.14.0+
+Install the script requirements:
+
+```sh
+pip install -r builder/requirements.txt
+```
+
+Run it:
+
+```sh
+# Build all base images
+IMAGES_DIR=images/base-images ./builder/build.py
+
+# Build only the Ansible base image
+IMAGES_DIR=images/base-images IMAGE=ansible ./builder/build.py
+```
+
+See the [`build.py` source](builder/build.py) for more options.
 
 ### Using `make`
 
@@ -54,29 +69,6 @@ $ cd images/base-images/ansible
 $ docker build -t my-ansible .
 $ docker build -t my-ansible:2.7 . --build-arg ansible_version=2.7
 ```
-
-### Using the build script
-
-> **Note:** this is used while developing/testing the build script. I recommend
-> the `make` instructions for general usage.
-
-Install the script requirements:
-
-```sh
-pip install -r builder/requirements.txt
-```
-
-Run it:
-
-```sh
-# Build all base images
-IMAGES_DIR=images/base-images ./builder/build.py
-
-# Build only the Ansible base image
-IMAGES_DIR=images/base-images IMAGE=ansible ./builder/build.py
-```
-
-See the [`build.py` source](builder/build.py) for more options.
 
 ## Adding a new image
 
