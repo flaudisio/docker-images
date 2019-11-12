@@ -1,5 +1,4 @@
-ARG base_image=python:3-alpine
-FROM ${base_image}
+FROM python:3.8-alpine
 
 LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
 
