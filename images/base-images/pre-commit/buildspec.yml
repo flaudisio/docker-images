@@ -2,6 +2,6 @@
 images:
   - name: pre-commit
     tags:
-      - name: latest
+      - name: alpine
         aliases:
-          - slim
+          - latest
