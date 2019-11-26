@@ -10,7 +10,8 @@ ENV PRE_COMMIT_VERSION ${pre_commit_version}
 RUN set -eux ; \
     apk add --no-cache \
         bash \
-        git ; \
+        git \
+        make ; \
     pip install \
         "pre-commit==${PRE_COMMIT_VERSION}" ; \
     \

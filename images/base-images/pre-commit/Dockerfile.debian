@@ -12,6 +12,7 @@ RUN set -eux ; \
     apt-get -q -y --no-install-recommends install \
         bash \
         git \
+        make \
         procps ; \
     pip install \
         "pre-commit==${PRE_COMMIT_VERSION}" ; \
