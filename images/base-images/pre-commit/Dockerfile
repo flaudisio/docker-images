@@ -2,6 +2,8 @@ FROM python:3.8-alpine
 
 LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
 
+WORKDIR /project
+
 ARG pre_commit_version="1.*"
 ENV PRE_COMMIT_VERSION ${pre_commit_version}
 
