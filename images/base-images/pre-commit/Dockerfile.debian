@@ -1,0 +1,29 @@
+FROM python:3.8-slim-buster
+
+LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
+
+WORKDIR /project
+
+ARG pre_commit_version="1.*"
+ENV PRE_COMMIT_VERSION ${pre_commit_version}
+
+RUN set -eux ; \
+    apt-get -q update ; \
+    apt-get -q -y --no-install-recommends install \
+        bash \
+        git ; \
+    pip install \
+        "pre-commit==${PRE_COMMIT_VERSION}" ; \
+    \
+    bash --version ; \
+    git --version ; \
+    python --version ; \
+    pip --version ; \
+    pre-commit --version ; \
+    \
+    rm -rf ~/.cache ; \
+    rm -rf /var/lib/apt/lists/*
+
+COPY run-ci-tests.sh /usr/local/bin/run-ci-tests
+
+CMD ["pre-commit", "--version"]
