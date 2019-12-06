@@ -23,6 +23,4 @@ RUN set -eux ; \
     \
     rm -rf ~/.cache
 
-COPY run-ci-tests.sh /usr/local/bin/run-ci-tests
-
 CMD ["pre-commit", "--version"]
