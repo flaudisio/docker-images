@@ -1,5 +1,6 @@
-ARG base_image=flaudisio/ansible:latest
-FROM ${base_image}
+ARG base_image=flaudisio/ansible
+ARG base_image_tag=latest
+FROM ${base_image}:${base_image_tag}
 
 LABEL \
     maintainer="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \

@@ -1,0 +1,9 @@
+---
+# See https://github.com/hadolint/hadolint#rules
+ignored:
+  - DL3008
+  - DL3013
+  - DL3018
+
+trustedRegistries:
+  - docker.io
