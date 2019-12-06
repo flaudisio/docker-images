@@ -19,8 +19,6 @@ stages:
   - child-images
 
 _build_template: &_build_template
-  before_install:
-    - docker version
   install:
     - pip install -r builder/requirements.txt
   before_script:
@@ -39,7 +37,6 @@ jobs:
       before_script:
         - pre-commit --version
       script:
-        - pre-commit install
         - pre-commit run --all-files --verbose
     - <<: *_build_template
       stage: base-images
