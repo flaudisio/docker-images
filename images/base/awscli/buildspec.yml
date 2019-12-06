@@ -2,8 +2,8 @@
 images:
   - name: awscli
     tags:
-      - name: latest
+      - name: "1"
         build_args:
           - awscli_version=1.*
         aliases:
-          - "1"
+          - latest
