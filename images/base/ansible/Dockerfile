@@ -1,6 +1,10 @@
 FROM python:3.7-alpine
 
-LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
+LABEL \
+    maintainer="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
+    com.flaudisio.image-type="base-image" \
+    com.flaudisio.name="Ansible" \
+    com.flaudisio.vcs-ref="https://github.com/flaudisio/docker-images"
 
 ARG ansible_version=2.8
 ENV ANSIBLE_VERSION ${ansible_version}

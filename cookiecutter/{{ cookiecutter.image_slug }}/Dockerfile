@@ -1,6 +1,10 @@
 FROM {{ cookiecutter.base_image }}
 
-LABEL maintainer="{{ cookiecutter.maintainer_name }} <{{ cookiecutter.maintainer_email }}>"
+LABEL \
+    maintainer="{{ cookiecutter.maintainer_name }} <{{ cookiecutter.maintainer_email }}>" \
+    com.flaudisio.type="{{ cookiecutter.image_type.split('::') | first | trim }}" \
+    com.flaudisio.name="{{ cookiecutter.image_name }}" \
+    com.flaudisio.vcs-ref="https://github.com/flaudisio/docker-images"
 
 ARG sometool_version=1.0
 ENV SOMETOOL_VERSION ${sometool_version}

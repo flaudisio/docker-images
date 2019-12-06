@@ -1,6 +1,12 @@
 ARG base_image=flaudisio/ansible:latest
 FROM ${base_image}
 
+LABEL \
+    maintainer="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
+    com.flaudisio.image-type="child-image" \
+    com.flaudisio.name="Molecule" \
+    com.flaudisio.vcs-ref="https://github.com/flaudisio/docker-images"
+
 ARG molecule_version=2
 # We use the (arbitrary) prefix 'DKR_' to keep the 'MOLECULE_' namespace clean
 # Ref: https://github.com/ansible/molecule/blob/2.22/molecule/interpolation.py#L56-L59

@@ -1,6 +1,10 @@
 FROM python:3.7-alpine
 
-LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
+LABEL \
+    maintainer="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
+    com.flaudisio.image-type="base-image" \
+    com.flaudisio.name="MkDocs" \
+    com.flaudisio.vcs-ref="https://github.com/flaudisio/docker-images"
 
 WORKDIR /project
 

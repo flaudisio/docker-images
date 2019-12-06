@@ -13,7 +13,7 @@
     "openjdk:11-jdk"
   ],
   "maintainer_name": "Flaudísio Tolentino",
-  "maintainer_email": "me@flaudis.io",
+  "maintainer_email": "code+docker-images@flaudisio.com",
   "image_type": [
     "Base Image  - this image is derived FROM an external image (e.g. alpine, ubuntu)",
     "Child Image - this image is derived FROM an image in THIS repository (e.g. ansible, awscli)"

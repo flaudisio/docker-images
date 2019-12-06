@@ -1,6 +1,10 @@
 FROM docker:19
 
-LABEL maintainer="Flaudísio Tolentino <me@flaudis.io>"
+LABEL \
+    maintainer="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
+    com.flaudisio.image-type="base-image" \
+    com.flaudisio.name="CI - K8s Deploys" \
+    com.flaudisio.vcs-ref="https://github.com/flaudisio/docker-images"
 
 ARG aws_cli_version="1.*"
 ENV AWS_CLI_VERSION ${aws_cli_version}
