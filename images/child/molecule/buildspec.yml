@@ -4,16 +4,20 @@ images:
     tags:
       - name: ansible-2.9
         build_args:
-          - base_image=flaudisio/ansible:2.9
+          - base_image=flaudisio/ansible
+          - base_image_tag=2.9
         aliases:
           - latest
           - ansible-2
       - name: ansible-2.8
         build_args:
-          - base_image=flaudisio/ansible:2.8
+          - base_image=flaudisio/ansible
+          - base_image_tag=2.8
       - name: ansible-2.7
         build_args:
-          - base_image=flaudisio/ansible:2.7
+          - base_image=flaudisio/ansible
+          - base_image_tag=2.7
       - name: ansible-2.6
         build_args:
-          - base_image=flaudisio/ansible:2.6
+          - base_image=flaudisio/ansible
+          - base_image_tag=2.6
