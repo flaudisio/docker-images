@@ -1,0 +1,24 @@
+---
+# yamllint disable rule:line-length rule:truthy
+
+name: CI/CD
+
+on: [push]
+
+jobs:
+  pre-commit:
+    name: pre-commit
+    runs-on: ubuntu-latest
+    container:
+      image: flaudisio/pre-commit:latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Prepare dependencies
+        run: |
+          wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          chmod +x /usr/local/bin/hadolint
+          hadolint --version
+          pre-commit --version
+      - name: Run pre-commit
+        run: |
+          pre-commit run --all-files --verbose --color always
