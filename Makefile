@@ -12,10 +12,10 @@ help:  ## Show available commands
 	@sed -n -E -e 's|^([a-z-]+):.+## (.+)|\1@\2|p' $(MAKEFILE_LIST) | column -s '@' -t
 
 base-images:  ## Build the base images
-	IMAGES_DIR=images/base-images $(BUILDER_CMD)
+	IMAGES_DIR=images/base $(BUILDER_CMD)
 
 child-images:  ## Build the child images
-	IMAGES_DIR=images/child-images $(BUILDER_CMD)
+	IMAGES_DIR=images/child $(BUILDER_CMD)
 
 all-images: base-images child-images  ## Build ALL the things!
 

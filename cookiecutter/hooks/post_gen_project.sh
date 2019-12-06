@@ -5,10 +5,10 @@ set -e
 ImageType="{{ cookiecutter.image_type }}"
 
 ImageSourceDir="{{ cookiecutter.image_slug }}"
-ImageDestDir="./images/base-images"
+ImageDestDir="./images/base"
 
 if echo "$ImageType" | grep -q 'Child Image' ; then
-    ImageDestDir="./images/child-images"
+    ImageDestDir="./images/child"
 fi
 
 cd ..

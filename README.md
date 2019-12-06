@@ -12,11 +12,11 @@ find images/ -name 'Dockerfile*' | sort
 
 This repository has the following image directories:
 
-- [`base-images/`](images/base-images/): images derived from external images.  
-  Example: `base-images/pre-commit` is built from `python:3-alpine`.
+- [`images/base/`](images/base/): images derived from external images.  
+  Example: `base/pre-commit` is built from `python:3-alpine`.
 
-- [`child-images/`](images/child-images/): images derived from other images in this repository.  
-  Example: `child-images/molecule` is built from `base-images/ansible`.
+- [`images/child/`](images/child/): images derived from other images in this repository.  
+  Example: `child/molecule` is built from `base/ansible`.
 
 ## Where are the images?
 
@@ -37,10 +37,10 @@ Run it:
 
 ```sh
 # Build all base images
-IMAGES_DIR=images/base-images ./builder/build.py
+IMAGES_DIR=images/base ./builder/build.py
 
 # Build only the Ansible base image
-IMAGES_DIR=images/base-images IMAGE=ansible ./builder/build.py
+IMAGES_DIR=images/base IMAGE=ansible ./builder/build.py
 ```
 
 See the [`build.py` source](builder/build.py) for more options.
@@ -65,7 +65,7 @@ Run `make help` for all available commands.
 Just run `docker build` in some image directory:
 
 ```console
-$ cd images/base-images/ansible
+$ cd images/base/ansible
 $ docker build -t my-ansible .
 $ docker build -t my-ansible:2.7 . --build-arg ansible_version=2.7
 ```
