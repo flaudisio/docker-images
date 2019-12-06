@@ -1,6 +1,8 @@
 {
-  "image_name": "Example",
-  "image_slug": "{{ cookiecutter.image_name | lower | replace(' ', '-') }}",
+  "image_pretty_name": "Example Tool",
+  "image_slug": "{{ cookiecutter.image_pretty_name | lower | replace(' ', '-') }}",
+  "image_description": "Example is a tool for doing example things.",
+  "image_docs_url": "https://docs.example.com",
   "image_tag": "latest",
   "base_image": [
     "alpine:3.10",
@@ -15,7 +17,7 @@
   "maintainer_name": "Flaudísio Tolentino",
   "maintainer_email": "code+docker-images@flaudisio.com",
   "image_type": [
-    "Base Image  - this image is derived FROM an external image (e.g. alpine, ubuntu)",
-    "Child Image - this image is derived FROM an image in THIS repository (e.g. ansible, awscli)"
+    "base-image  :: this image is built FROM an external image (e.g. alpine, python)",
+    "child-image :: this image is built FROM another image in THIS repository (e.g. awscli)"
   ]
 }
