@@ -18,6 +18,11 @@ repos:
         files: \.(yaml|yml)$
         types: [file, yaml]
         entry: yamllint --strict
+  - repo: git://github.com/flaudisio/pre-commit-hooks
+    rev: v0.6.0
+    hooks:
+      - id: hadolint
+        exclude: ^cookiecutter/
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.7.9
     hooks:
