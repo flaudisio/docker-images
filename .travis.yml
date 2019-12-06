@@ -34,8 +34,11 @@ jobs:
       name: pre-commit
       install:
         - pip install -U pre-commit
+        - sudo wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+        - sudo chmod -v 755 /usr/local/bin/hadolint
       before_script:
         - pre-commit --version
+        - hadolint --version
       script:
         - pre-commit run --all-files --verbose
     - <<: *_build_template
