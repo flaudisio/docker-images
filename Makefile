@@ -4,12 +4,15 @@ DOCKER_REPOSITORY ?= docker.io/flaudisio
 
 export DOCKER_REPOSITORY
 
-.PHONY: help base-images child-images all-images list-images new-image
+.PHONY: help test base-images child-images all-images list-images new-image
 
 help:  ## Show available commands
 	@echo "Available commands:"
 	@echo
 	@sed -n -E -e 's|^([a-z-]+):.+## (.+)|\1@\2|p' $(MAKEFILE_LIST) | column -s '@' -t
+
+test:  ## Run test commands
+	pre-commit run --all-files --verbose --color always
 
 base-images:  ## Build the base images
 	IMAGES_DIR=images/base $(BUILDER_CMD)
