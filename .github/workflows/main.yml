@@ -34,16 +34,16 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v1
-      - name: Login to Docker Hub and enable Docker push
-        if: github.ref == 'refs/heads/master'
+      - name: Build and push images (if enabled)
         env:
           PYTHONUNBUFFERED: "1"
           DOCKER_REPOSITORY: docker.io/flaudisio
           DOCKER_USERNAME: flaudisio
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "$DOCKER_USERNAME" --password-stdin
-          export ENABLE_PUSH=1
-      - name: Build and push (if enabled)
-        run: |
+          if [ "$GITHUB_REF" = "refs/heads/master" ] ; then
+              echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "$DOCKER_USERNAME" --password-stdin
+              export ENABLE_PUSH=1
+          fi
+
           make base-images
           make child-images
