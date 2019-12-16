@@ -36,6 +36,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: Login to Docker Hub and enable Docker push
         if: github.ref == 'refs/heads/master'
+        env:
+          DOCKER_REPOSITORY: docker.io/flaudisio
+          DOCKER_USERNAME: flaudisio
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "$DOCKER_USERNAME" --password-stdin
           export ENABLE_PUSH=1
