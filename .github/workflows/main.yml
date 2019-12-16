@@ -37,6 +37,7 @@ jobs:
       - name: Login to Docker Hub and enable Docker push
         if: github.ref == 'refs/heads/master'
         env:
+          PYTHONUNBUFFERED: "1"
           DOCKER_REPOSITORY: docker.io/flaudisio
           DOCKER_USERNAME: flaudisio
         run: |
