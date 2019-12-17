@@ -12,7 +12,8 @@ ENV AWSCLI_VERSION ${awscli_version}
 RUN set -eux ; \
     apk add --no-cache \
         bash \
-        jq ; \
+        jq \
+        make ; \
     pip install \
         "awscli==${AWSCLI_VERSION}" ; \
     \
