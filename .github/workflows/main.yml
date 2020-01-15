@@ -1,7 +1,7 @@
 ---
 # yamllint disable rule:line-length rule:truthy
 
-name: CI/CD
+name: Main
 
 on:
   push:
