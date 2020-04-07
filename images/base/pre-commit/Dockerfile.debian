@@ -30,6 +30,4 @@ RUN set -eux ; \
     rm -rf ~/.cache ; \
     rm -rf /var/lib/apt/lists/*
 
-COPY run-ci-tests.sh /usr/local/bin/run-ci-tests
-
 CMD ["pre-commit", "--version"]
