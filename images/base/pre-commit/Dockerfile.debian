@@ -8,7 +8,7 @@ LABEL \
 
 WORKDIR /project
 
-ARG pre_commit_version="1.*"
+ARG pre_commit_version="2.*"
 ENV PRE_COMMIT_VERSION ${pre_commit_version}
 
 RUN set -eux ; \
