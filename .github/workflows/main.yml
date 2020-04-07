@@ -32,11 +32,17 @@ jobs:
           make test
 
   build-images:
-    name: Build Images
+    name: Build images
     runs-on: ubuntu-latest
     needs: test
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install builder dependencies
+        run: |
+          pip install -r builder/requirements.txt
       - name: Build and push images (if enabled)
         env:
           DOCKER_REPOSITORY: docker.io/flaudisio
