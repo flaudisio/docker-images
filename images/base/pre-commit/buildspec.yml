@@ -2,8 +2,21 @@
 images:
   - name: pre-commit
     tags:
-      - name: alpine
+      - name: 2-alpine
         aliases:
+          - "2"
+          - alpine
           - latest
-      - name: debian
+      - name: 2-debian
         dockerfile: Dockerfile.debian
+        aliases:
+          - debian
+      - name: 1-alpine
+        build_args:
+          - pre_commit_version=1.*
+        aliases:
+          - "1"
+      - name: 1-debian
+        dockerfile: Dockerfile.debian
+        build_args:
+          - pre_commit_version=1.*
