@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+    rev: v3.1.0
     hooks:
       - id: check-added-large-files
       - id: check-byte-order-marker
@@ -12,7 +12,7 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
   - repo: git://github.com/adrienverge/yamllint
-    rev: v1.21.0
+    rev: v1.24.2
     hooks:
       - id: yamllint
         files: \.(yaml|yml)$
@@ -24,6 +24,6 @@ repos:
       - id: hadolint
         exclude: ^cookiecutter/
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.7.9
+    rev: 3.8.3
     hooks:
       - id: flake8
