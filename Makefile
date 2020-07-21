@@ -12,7 +12,7 @@ help:  ## Show available commands
 	@sed -n -E -e 's|^([a-z-]+):.+## (.+)|\1@\2|p' $(MAKEFILE_LIST) | column -s '@' -t
 
 test:  ## Run test commands
-	pre-commit run --all-files --verbose --color always
+	pre-commit run --all-files --verbose --show-diff-on-failure --color always
 
 base-images:  ## Build the base images
 	IMAGES_DIR=images/base $(BUILDER_CMD)
