@@ -1,8 +1,9 @@
 ---
-# yamllint disable rule:line-length rule:truthy
+# yamllint disable rule:line-length
 
 name: Main
 
+# yamllint disable-line rule:truthy
 on:
   push:
     branches:
