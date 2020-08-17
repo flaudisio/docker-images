@@ -12,6 +12,7 @@ ARG pre_commit_version="2.*"
 ENV PRE_COMMIT_VERSION ${pre_commit_version}
 
 RUN set -eux ; \
+    export PYTHONDONTWRITEBYTECODE=1 ; \
     apk add --no-cache \
         bash \
         git \

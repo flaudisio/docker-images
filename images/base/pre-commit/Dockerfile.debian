@@ -12,6 +12,7 @@ ARG pre_commit_version="2.*"
 ENV PRE_COMMIT_VERSION ${pre_commit_version}
 
 RUN set -eux ; \
+    export PYTHONDONTWRITEBYTECODE=1 ; \
     apt-get -q update ; \
     apt-get -q -y --no-install-recommends install \
         bash \
