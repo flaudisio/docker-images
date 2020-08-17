@@ -15,7 +15,8 @@ RUN set -eux ; \
     apk add --no-cache \
         bash \
         git \
-        make ; \
+        make \
+        perl ; \
     pip install \
         "pre-commit==${PRE_COMMIT_VERSION}" ; \
     \
