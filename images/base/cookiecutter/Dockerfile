@@ -10,7 +10,7 @@ LABEL \
 RUN set -eux ; \
     apk add --no-cache \
         tree ; \
-    pip install \
+    pip install --no-cache-dir \
         cookiecutter ; \
     \
     python --version ; \

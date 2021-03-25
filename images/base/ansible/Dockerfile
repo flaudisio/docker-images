@@ -18,7 +18,7 @@ RUN set -eux ; \
         make \
         musl-dev \
         openssl-dev ; \
-    pip install \
+    pip install --no-cache-dir \
         "ansible==${ANSIBLE_VERSION}.*" \
         "boto3==1.*" \
         "pywinrm==0.3.*" ; \
