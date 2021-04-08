@@ -18,7 +18,7 @@ RUN set -eux ; \
         git \
         make \
         perl ; \
-    pip install \
+    pip install --no-cache-dir \
         "pre-commit==${PRE_COMMIT_VERSION}" ; \
     \
     bash --version ; \

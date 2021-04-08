@@ -14,7 +14,7 @@ RUN set -eux ; \
         bash \
         jq \
         make ; \
-    pip install \
+    pip install --no-cache-dir \
         "awscli==${AWSCLI_VERSION}" ; \
     \
     bash --version ; \

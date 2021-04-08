@@ -12,7 +12,7 @@ ARG mkdocs_version=1.*
 ENV MKDOCS_VERSION ${mkdocs_version}
 
 RUN set -eux ; \
-    pip install \
+    pip install --no-cache-dir \
         "mkdocs==${MKDOCS_VERSION}" ; \
     python --version ; \
     pip --version ; \

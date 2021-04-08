@@ -24,7 +24,7 @@ RUN set -eux ; \
         make \
         musl-dev \
         openssl-dev ; \
-    pip install \
+    pip install --no-cache-dir \
         "molecule[${DKR_MOLECULE_EXTRAS}]==${DKR_MOLECULE_VERSION}.*" ; \
     apk del --no-cache --purge \
         .build-deps ; \
