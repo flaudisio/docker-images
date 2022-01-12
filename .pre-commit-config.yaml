@@ -1,18 +1,18 @@
 ---
 repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.1.0
     hooks:
       - id: check-added-large-files
-      - id: check-byte-order-marker
       - id: check-executables-have-shebangs
       - id: check-merge-conflict
       - id: end-of-file-fixer
+      - id: fix-byte-order-marker
       - id: mixed-line-ending
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
   - repo: git://github.com/adrienverge/yamllint
-    rev: v1.26.0
+    rev: v1.26.3
     hooks:
       - id: yamllint
         files: \.(yaml|yml)$
@@ -24,6 +24,6 @@ repos:
       - id: hadolint
         exclude: ^cookiecutter/
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.0
+    rev: 3.9.2
     hooks:
       - id: flake8
