@@ -1,35 +1,37 @@
-FROM python:3.8-slim-buster
+FROM flaudisio/asdf-vm:python-3.10-slim
 
 LABEL \
-    maintainer="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
-    com.flaudisio.image-type="base-image" \
-    com.flaudisio.name="pre-commit" \
-    com.flaudisio.vcs-ref="https://github.com/flaudisio/docker-images"
+    org.opencontainers.image.authors="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
+    org.opencontainers.image.title="pre-commit" \
+    org.opencontainers.image.source="https://github.com/flaudisio/docker-images"
 
 WORKDIR /project
 
-ARG pre_commit_version="2.*"
-ENV PRE_COMMIT_VERSION ${pre_commit_version}
+ARG pre_commit_version
 
-RUN set -eux ; \
-    export PYTHONDONTWRITEBYTECODE=1 ; \
-    apt-get -q update ; \
-    apt-get -q -y --no-install-recommends install \
+RUN set -ex \
+ && apt-get update -q \
+ && apt-get install -q -y --no-install-recommends \
         bash \
+        ca-certificates \
+        curl \
         git \
         make \
         perl \
-        procps ; \
-    pip install --no-cache-dir \
-        "pre-commit==${PRE_COMMIT_VERSION}" ; \
+        procps \
+        unzip \
+        xz-utils \
+ && pip install --no-cache-dir \
+        "pre-commit==${pre_commit_version}" \
     \
-    bash --version ; \
-    git --version ; \
-    python --version ; \
-    pip --version ; \
-    pre-commit --version ; \
+ && bash --version \
+ && git --version \
+ && python --version \
+ && pip --version \
+ && pre-commit --version \
     \
-    rm -rf ~/.cache ; \
-    rm -rf /var/lib/apt/lists/*
+ && find /usr/local -depth -type d -name '__pycache__' -exec rm -rf '{}' \; \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf ~/.cache
 
 CMD ["pre-commit", "--version"]
