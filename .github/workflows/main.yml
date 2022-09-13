@@ -29,6 +29,7 @@ jobs:
         run: |
           install-asdf-tools
           hadolint --version
+          shellcheck --version
           pre-commit --version
       - name: Run lint
         run: |
