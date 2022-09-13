@@ -24,8 +24,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Prepare dependencies
         run: |
-          wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
-          chmod 755 /usr/local/bin/hadolint
+          install-asdf-tools
           hadolint --version
           pre-commit --version
       - name: Run tests
@@ -40,7 +39,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.9
       - name: Install builder dependencies
         run: |
           pip install -r builder/requirements.txt
@@ -54,5 +53,5 @@ jobs:
               export ENABLE_PUSH=1
           fi
 
-          make base-images
-          make child-images
+          make image IMAGE_DIR=images/base
+          make image IMAGE_DIR=images/child
