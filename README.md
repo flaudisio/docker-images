@@ -50,12 +50,10 @@ See the [`build.py` source](builder/build.py) for more options.
 Try the `*-images` targets. Example:
 
 ```sh
-make base-images
-make base-images IMAGE=awscli
+make images/base
+make images/all
 
-make child-images
-
-make all-images
+make image IMAGE_DIR=images/base/awscli
 ```
 
 Run `make help` for all available commands.
