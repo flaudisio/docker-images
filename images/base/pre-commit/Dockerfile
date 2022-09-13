@@ -1,32 +1,35 @@
-FROM python:3.8-alpine
+FROM flaudisio/asdf-vm:python-3.10-alpine
 
 LABEL \
-    maintainer="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
-    com.flaudisio.image-type="base-image" \
-    com.flaudisio.name="pre-commit" \
-    com.flaudisio.vcs-ref="https://github.com/flaudisio/docker-images"
+    org.opencontainers.image.authors="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
+    org.opencontainers.image.title="pre-commit" \
+    org.opencontainers.image.source="https://github.com/flaudisio/docker-images"
 
 WORKDIR /project
 
-ARG pre_commit_version="2.*"
-ENV PRE_COMMIT_VERSION ${pre_commit_version}
+ARG pre_commit_version
 
-RUN set -eux ; \
-    export PYTHONDONTWRITEBYTECODE=1 ; \
-    apk add --no-cache \
+RUN set -ex \
+ && apk add --no-cache \
         bash \
+        ca-certificates \
+        curl \
+        gcc \
         git \
+        libc-dev \
         make \
-        perl ; \
-    pip install --no-cache-dir \
-        "pre-commit==${PRE_COMMIT_VERSION}" ; \
+        perl \
+        unzip \
+ && pip install --no-cache-dir \
+        "pre-commit==${pre_commit_version}" \
     \
-    bash --version ; \
-    git --version ; \
-    python --version ; \
-    pip --version ; \
-    pre-commit --version ; \
+ && bash --version \
+ && git --version \
+ && python --version \
+ && pip --version \
+ && pre-commit --version \
     \
-    rm -rf ~/.cache
+ && find /usr/local -depth -type d -name '__pycache__' -exec rm -rf '{}' \; \
+ && rm -rf ~/.cache
 
 CMD ["pre-commit", "--version"]

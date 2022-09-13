@@ -1,23 +1,21 @@
 FROM python:3.7-alpine
 
 LABEL \
-    maintainer="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
-    com.flaudisio.image-type="base-image" \
-    com.flaudisio.name="MkDocs" \
-    com.flaudisio.vcs-ref="https://github.com/flaudisio/docker-images"
+    org.opencontainers.image.authors="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
+    org.opencontainers.image.title="MkDocs" \
+    org.opencontainers.image.source="https://github.com/flaudisio/docker-images"
 
 WORKDIR /project
 
-ARG mkdocs_version=1.*
-ENV MKDOCS_VERSION ${mkdocs_version}
+ARG mkdocs_version
 
-RUN set -eux ; \
-    pip install --no-cache-dir \
-        "mkdocs==${MKDOCS_VERSION}" ; \
-    python --version ; \
-    pip --version ; \
-    mkdocs --version ; \
+RUN set -ex \
+ && pip install --no-cache-dir \
+        "mkdocs==${mkdocs_version}" \
+ && python --version \
+ && pip --version \
+ && mkdocs --version \
     \
-    rm -rf ~/.cache
+ && rm -rf ~/.cache
 
 CMD ["mkdocs", "--version"]
