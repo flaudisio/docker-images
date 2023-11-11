@@ -8,6 +8,7 @@ variable "registries" {
 group "default" {
   targets = [
     "asdf",
+    "certbot-oci",
     "excalidraw",
     "pre-commit",
     "semaphore-housekeeper",
@@ -57,6 +58,17 @@ target "asdf" {
     base_image_tag  = item.base_image_tag
   }
   tags = formatlist("%s/asdf-%s:%s", registries, item.base_image_repo, item.base_image_tag)
+}
+
+target "certbot-oci" {
+  inherits = ["_template"]
+  context  = "certbot-oci"
+  args = {
+    certbot_dns_cloudflare_version = "2.7.4"
+    go_crond_version               = "23.2.0"
+    oci_cli_version                = "3.36.1"
+  }
+  tags = formatlist("%s/certbot-oci:0.3.0", registries)
 }
 
 target "excalidraw" {
