@@ -8,6 +8,7 @@ variable "registries" {
 group "default" {
   targets = [
     "asdf",
+    "pre-commit",
   ]
 }
 
@@ -53,4 +54,22 @@ target "asdf" {
     base_image_tag  = item.base_image_tag
   }
   tags = formatlist("%s/asdf-%s:%s", registries, item.base_image_repo, item.base_image_tag)
+}
+
+target "pre-commit" {
+  inherits   = ["_template"]
+  name       = format("pre-commit-%s-%s", major_version, distro)
+  context    = "pre-commit"
+  dockerfile = format("%s.Dockerfile", distro)
+  matrix = {
+    distro        = ["alpine", "debian"]
+    major_version = ["2"]
+  }
+  args = {
+    pre_commit_version = format("%s.*", major_version)
+  }
+  tags = concat(
+    formatlist("%s/pre-commit:%s", registries, distro),
+    formatlist("%s/pre-commit:%s-%s", registries, major_version, distro),
+  )
 }
