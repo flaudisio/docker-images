@@ -1,14 +1,40 @@
 # ASDF-VM
 
-Image to install tools with ASDF-VM, heavily inspired by its [GitHub action](https://github.com/asdf-vm/actions).
-
-Documentation: <https://github.com/asdf-vm/asdf>
+Image to install tools using [ASDF-VM](https://asdf-vm.com/).
 
 ## Usage
 
-```sh
-install-asdf-tools [-f .tool-versions]
+This image comes with the `install-asdf-tools` script, which automatically install all tools described in the `.tool-versions`
+file present in the current directory.
+
+### GitLab CI
+
+Example job for [`.gitlab-ci.yml`](https://docs.gitlab.com/ee/ci/yaml/):
+
+```yaml
+Lint:
+  stage: test
+  image: flaudisio/asdf-alpine:3.18
+  before_script:
+    - install-asdf-tools
+    - terraform --version
+    - tflint --version
+  script:
+    - terraform fmt -recursive -check .
+    - tflint .
 ```
+
+## Flavors (drop-in replacements)
+
+There are several flavors built by this repository. To use them, just prefix your current image with `flaudisio/asdf-`.
+
+Examples:
+
+| Image | ASDF-VM replacement |
+|-------|---------------------|
+| `alpine:3.18` | `flaudisio/asdf-alpine:3.18` |
+| `python:3.10-alpine` | `flaudisio/asdf-python:3.10-alpine` |
+| `python:3.10-slim` | `flaudisio/asdf-python:3.10-slim` |
 
 ## Environment variables
 
