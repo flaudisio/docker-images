@@ -48,7 +48,7 @@ target "asdf" {
     ]
   }
   args = {
-    asdf_version    = "0.10.2"
+    asdf_version    = "0.13.1"
     base_image_repo = item.base_image_repo
     base_image_tag  = item.base_image_tag
   }
