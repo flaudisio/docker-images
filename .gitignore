@@ -1,3 +1,7 @@
+# ------------------------------------------------------------------------------
+# OPERATING SYSTEMS
+# ------------------------------------------------------------------------------
+
 ### macOS/Linux/Windows ###
 
 .DS_Store
@@ -10,6 +14,10 @@ Thumbs.db
 [Dd]esktop.ini
 *.lnk
 
+# ------------------------------------------------------------------------------
+# EDITORS
+# ------------------------------------------------------------------------------
+
 ### Vim ###
 
 # Swap
@@ -19,52 +27,61 @@ Thumbs.db
 [._]ss[a-gi-z]
 [._]sw[a-p]
 
-### Python ###
+### JetBrains (IntelliJ, PyCharm, etc) ###
 
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+.idea
+*.iml
+*.ipr
+*.iws
+/out
 
-# C extensions
-*.so
+### Sublime Text ###
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# pyenv
-.python-version
-
-# Rope project settings
-.ropeproject
-
-# Virtualenv
-.venv
+*.sublime-project
+*.sublime-workspace
 
 ### VSCode ###
 
 .vscode/**
-!.vscode/launch.json
+!.vscode/README.md
+!.vscode/extensions.json
+!.vscode/recommended-*.json
 !.vscode/settings.json
+
+# ------------------------------------------------------------------------------
+# PYTHON
+# ------------------------------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+### VirtualEnv ###
+
+.Python
+.venv
+pyvenv.cfg
+pip-selfcheck.json
+
+# ------------------------------------------------------------------------------
+# ANSIBLE
+# ------------------------------------------------------------------------------
+
+*.retry
+.vault_password
+
+collections/*
+!collections/README.md
+!collections/requirements.yml
+
+roles/public/*
+!roles/public/.gitkeep
+
+# ------------------------------------------------------------------------------
+# MISC
+# ------------------------------------------------------------------------------
+
+### Secrets ###
+
+*.key
+*.pem
