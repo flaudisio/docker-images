@@ -1,9 +1,0 @@
----
-images:
-  - name: mkdocs
-    tags:
-      - name: "1"
-        build_args:
-          - mkdocs_version=1.*
-        aliases:
-          - latest
