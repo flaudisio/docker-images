@@ -10,6 +10,7 @@ group "default" {
     "asdf",
     "excalidraw",
     "pre-commit",
+    "semaphore",
   ]
 }
 
@@ -82,4 +83,20 @@ target "pre-commit" {
     formatlist("%s/pre-commit:%s", registries, distro),
     formatlist("%s/pre-commit:%s-%s", registries, major_version, distro),
   )
+}
+
+target "semaphore" {
+  inherits   = ["_template"]
+  name       = format("semaphore-%s-%s", replace(semaphore, ".", "-"), distro)
+  context    = "semaphore"
+  dockerfile = format("%s.Dockerfile", distro)
+  matrix = {
+    distro    = ["alpine", "debian"]
+    semaphore = ["2.8.90", "2.9.37"]
+  }
+  args = {
+    ansible_version   = "2.15.*"
+    semaphore_version = semaphore
+  }
+  tags = formatlist("%s/semaphore:%s-%s", registries, semaphore, distro)
 }
