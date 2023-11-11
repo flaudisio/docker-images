@@ -7,7 +7,7 @@ Documentation: <https://github.com/asdf-vm/asdf>
 ## Usage
 
 ```sh
-install-tools [-f .tool-versions]
+install-asdf-tools [-f .tool-versions]
 ```
 
 ## Environment variables
