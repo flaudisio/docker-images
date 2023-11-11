@@ -8,6 +8,7 @@ variable "registries" {
 group "default" {
   targets = [
     "asdf",
+    "excalidraw",
     "pre-commit",
   ]
 }
@@ -54,6 +55,15 @@ target "asdf" {
     base_image_tag  = item.base_image_tag
   }
   tags = formatlist("%s/asdf-%s:%s", registries, item.base_image_repo, item.base_image_tag)
+}
+
+target "excalidraw" {
+  inherits = ["_template"]
+  context  = "excalidraw"
+  args = {
+    excalidraw_version = "0.16.1"
+  }
+  tags = formatlist("%s/excalidraw:0.16.1", registries)
 }
 
 target "pre-commit" {
