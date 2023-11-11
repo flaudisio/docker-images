@@ -10,7 +10,7 @@ images:
           - alpine
           - latest
       - name: 2-debian
-        dockerfile: Dockerfile.debian
+        dockerfile: debian.Dockerfile
         build_args:
           - pre_commit_version=2.*
         aliases:

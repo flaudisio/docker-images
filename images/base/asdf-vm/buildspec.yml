@@ -4,7 +4,7 @@ images:
     tags:
       # Alpine-based
       - name: alpine-3.16
-        dockerfile: Dockerfile.alpine-based
+        dockerfile: alpine-based.Dockerfile
         build_args:
           - base_image_repo=alpine
           - base_image_tag=3.16
@@ -12,13 +12,13 @@ images:
         aliases:
           - alpine
       - name: python-3.10-alpine
-        dockerfile: Dockerfile.alpine-based
+        dockerfile: alpine-based.Dockerfile
         build_args:
           - base_image_repo=python
           - base_image_tag=3.10-alpine
           - asdf_version=0.10.2
       - name: python-3.9-alpine
-        dockerfile: Dockerfile.alpine-based
+        dockerfile: alpine-based.Dockerfile
         build_args:
           - base_image_repo=python
           - base_image_tag=3.9-alpine
@@ -26,13 +26,13 @@ images:
 
       # Debian-based
       - name: python-3.10-slim
-        dockerfile: Dockerfile.debian-based
+        dockerfile: debian-based.Dockerfile
         build_args:
           - base_image_repo=python
           - base_image_tag=3.10-slim
           - asdf_version=0.10.2
       - name: python-3.9-slim
-        dockerfile: Dockerfile.debian-based
+        dockerfile: debian-based.Dockerfile
         build_args:
           - base_image_repo=python
           - base_image_tag=3.9-slim
