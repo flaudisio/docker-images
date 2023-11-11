@@ -7,3 +7,7 @@ help:  ## Show available commands
 .PHONY: pre-commit
 pre-commit:  ## Run pre-commit (optional: HOOK=example)
 	pre-commit run --all-files --verbose --show-diff-on-failure --color always $(HOOK)
+
+.PHONY: fmt
+fmt:  ## Format HCL files
+	terragrunt hclfmt
