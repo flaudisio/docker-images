@@ -38,6 +38,6 @@ RUN set -ex \
  && touch "${ASDF_DIR}/asdf_updates_disabled" \
  && asdf --version
 
-COPY scripts/install-asdf-tools.sh /usr/local/bin/install-asdf-tools
+COPY scripts/install-asdf-tools /usr/local/bin/install-asdf-tools
 
 CMD ["bash"]

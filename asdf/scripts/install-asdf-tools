@@ -20,12 +20,16 @@ install_tools()
     # Ignore commented or empty lines
     grep -E -v '^(#.*)*$' "$ToolsFile" \
         | \
-        while read -r tool version ; do
+        while read -r tool versions ; do
             [[ -z "$tool" ]] && continue
 
-            msg "Installing $tool $version"
+            for version in $versions ; do
+                [[ "$version" == "system" ]] && continue
 
-            asdf install "$tool" "$version"
+                msg "Installing $tool $version"
+
+                asdf install "$tool" "$version"
+            done
         done
 }
 
