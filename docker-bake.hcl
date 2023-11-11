@@ -63,7 +63,7 @@ target "pre-commit" {
   dockerfile = format("%s.Dockerfile", distro)
   matrix = {
     distro        = ["alpine", "debian"]
-    major_version = ["2"]
+    major_version = ["2", "3"]
   }
   args = {
     pre_commit_version = format("%s.*", major_version)
