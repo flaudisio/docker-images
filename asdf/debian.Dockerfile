@@ -3,17 +3,17 @@ ARG base_image_tag
 
 FROM ${base_image_repo}:${base_image_tag}
 
-LABEL \
-    org.opencontainers.image.authors="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
-    org.opencontainers.image.title="ASDF-VM" \
-    org.opencontainers.image.source="https://github.com/flaudisio/docker-images"
-
 RUN set -ex \
- && apk add --no-cache \
+ && apt-get update -q \
+ && apt-get install -q -y --no-install-recommends \
         bash \
         curl \
+        curl \
         git \
-        jq
+        jq \
+        unzip \
+        wget \
+ && rm -rf /var/lib/apt/lists/*
 
 # Use Bash as default shell so ASDF-VM can work
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -38,6 +38,6 @@ RUN set -ex \
  && touch "${ASDF_DIR}/asdf_updates_disabled" \
  && asdf --version
 
-COPY scripts/install-asdf-tools.sh /usr/local/bin/install-asdf-tools
+COPY scripts/install-asdf-tools /usr/local/bin/install-asdf-tools
 
 CMD ["bash"]

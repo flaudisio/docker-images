@@ -1,9 +1,4 @@
-FROM flaudisio/asdf-vm:python-3.10-alpine
-
-LABEL \
-    org.opencontainers.image.authors="Flaudísio Tolentino <code+docker-images@flaudisio.com>" \
-    org.opencontainers.image.title="pre-commit" \
-    org.opencontainers.image.source="https://github.com/flaudisio/docker-images"
+FROM flaudisio/asdf-python:3.10-alpine
 
 WORKDIR /project
 
