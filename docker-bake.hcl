@@ -13,6 +13,7 @@ group "default" {
     "pre-commit",
     "semaphore-housekeeper",
     "semaphore",
+    "transfer-sh",
   ]
 }
 
@@ -121,4 +122,13 @@ target "semaphore-housekeeper" {
     go_crond_version = "23.2.0"
   }
   tags = formatlist("%s/semaphore-housekeeper:0.1.0", registries)
+}
+
+target "transfer-sh" {
+  inherits = ["_template"]
+  context  = "transfer.sh"
+  args = {
+    transfer_version = "1.6.0"
+  }
+  tags = formatlist("%s/transfer.sh:1.6.0", registries)
 }
