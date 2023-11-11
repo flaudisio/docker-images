@@ -10,6 +10,7 @@ group "default" {
     "asdf",
     "excalidraw",
     "pre-commit",
+    "semaphore-housekeeper",
     "semaphore",
   ]
 }
@@ -99,4 +100,13 @@ target "semaphore" {
     semaphore_version = semaphore
   }
   tags = formatlist("%s/semaphore:%s-%s", registries, semaphore, distro)
+}
+
+target "semaphore-housekeeper" {
+  inherits = ["_template"]
+  context  = "semaphore-housekeeper"
+  args = {
+    go_crond_version = "23.2.0"
+  }
+  tags = formatlist("%s/semaphore-housekeeper:0.1.0", registries)
 }
