@@ -15,31 +15,36 @@ env:
   PYTHONUNBUFFERED: "1"
 
 jobs:
-  test:
-    name: Test
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     container:
       image: flaudisio/pre-commit:latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
       - name: Prepare dependencies
         run: |
           install-asdf-tools
           hadolint --version
+          shellcheck --version
           pre-commit --version
-      - name: Run tests
+      - name: Run lint
         run: |
-          make test
+          make lint
+
 
   build-images:
     name: Build images
     runs-on: ubuntu-latest
-    needs: test
+    needs: lint
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: "3.9"
       - name: Install builder dependencies
         run: |
           pip install -r builder/requirements.txt
@@ -53,5 +58,4 @@ jobs:
               export ENABLE_PUSH=1
           fi
 
-          make image IMAGE_DIR=images/base
-          make image IMAGE_DIR=images/child
+          make images/all

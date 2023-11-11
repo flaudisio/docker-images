@@ -25,3 +25,8 @@ repos:
     rev: 5.0.4
     hooks:
       - id: flake8
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.17
+    hooks:
+      - id: shellcheck
+        exclude: ^cookiecutter/

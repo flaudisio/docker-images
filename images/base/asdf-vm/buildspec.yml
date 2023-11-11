@@ -1,0 +1,43 @@
+---
+images:
+  - name: asdf-vm
+    tags:
+      # Alpine-based
+      - name: alpine-3.16
+        dockerfile: Dockerfile.alpine-based
+        build_args:
+          - base_image_repo=alpine
+          - base_image_tag=3.16
+          - asdf_version=0.10.2
+        aliases:
+          - alpine
+      - name: python-3.10-alpine
+        dockerfile: Dockerfile.alpine-based
+        build_args:
+          - base_image_repo=python
+          - base_image_tag=3.10-alpine
+          - asdf_version=0.10.2
+      - name: python-3.9-alpine
+        dockerfile: Dockerfile.alpine-based
+        build_args:
+          - base_image_repo=python
+          - base_image_tag=3.9-alpine
+          - asdf_version=0.10.2
+
+      # Debian-based
+      - name: python-3.10-slim
+        dockerfile: Dockerfile.debian-based
+        build_args:
+          - base_image_repo=python
+          - base_image_tag=3.10-slim
+          - asdf_version=0.10.2
+      - name: python-3.9-slim
+        dockerfile: Dockerfile.debian-based
+        build_args:
+          - base_image_repo=python
+          - base_image_tag=3.9-slim
+          - asdf_version=0.10.2
+
+tests:
+  # Use 'cat' to keep the container running
+  command: cat
