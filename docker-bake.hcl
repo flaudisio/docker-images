@@ -94,9 +94,10 @@ target "pre-commit" {
     pre_commit_version = format("%s.*", major_version)
   }
   tags = concat(
-    formatlist("%s/pre-commit:%s-%s", registries, major_version, distro),
-    major_version == "3" ? formatlist("%s/pre-commit:%s", registries, distro) : [],
-    major_version == "3" && distro == "alpine" ? formatlist("%s/pre-commit:latest", registries) : [],
+    formatlist("%s/pre-commit:%s-%s", registries, major_version, distro),                             # :2-alpine, :3-debian
+    distro == "alpine" ? formatlist("%s/pre-commit:%s", registries, major_version) : [],              # :2, :3
+    major_version == "3" ? formatlist("%s/pre-commit:%s", registries, distro) : [],                   # :alpine, :debian
+    major_version == "3" && distro == "alpine" ? formatlist("%s/pre-commit:latest", registries) : [], # :latest
   )
 }
 
