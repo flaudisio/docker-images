@@ -8,7 +8,6 @@ RUN set -ex \
  && apt-get install -q -y --no-install-recommends \
         bash \
         curl \
-        curl \
         git \
         jq \
         unzip \
