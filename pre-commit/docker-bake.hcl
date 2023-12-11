@@ -7,7 +7,7 @@ variable "pre_commit_major_versions" {
 target "default" {
   inherits   = ["_template"]
   name       = format("pre-commit-%s-%s", major_version, distro)
-  dockerfile = format("%s.Dockerfile", distro)
+  dockerfile = format("Dockerfile.%s", distro)
   matrix = {
     distro        = ["alpine", "debian"]
     major_version = pre_commit_major_versions

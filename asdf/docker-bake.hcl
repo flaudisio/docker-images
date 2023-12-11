@@ -7,7 +7,7 @@ variable "asdf_version" {
 target "default" {
   inherits   = ["_template"]
   name       = format("asdf-%s-%s", item.base_image_repo, replace(item.base_image_tag, ".", "-"))
-  dockerfile = format("%s.Dockerfile", item.distro)
+  dockerfile = format("Dockerfile.%s", item.distro)
   matrix = {
     item = [
       # Alpine-based

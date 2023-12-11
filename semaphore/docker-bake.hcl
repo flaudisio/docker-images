@@ -15,7 +15,7 @@ target "default" {
   inherits   = ["_template"]
   name       = format("semaphore-%s-%s", replace(semaphore_version, ".", "-"), distro)
   context    = "semaphore"
-  dockerfile = format("%s.Dockerfile", distro)
+  dockerfile = format("Dockerfile.%s", distro)
   matrix = {
     distro            = ["alpine", "debian"]
     semaphore_version = semaphore_versions
