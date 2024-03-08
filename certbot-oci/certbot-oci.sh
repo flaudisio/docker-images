@@ -95,13 +95,13 @@ log_debug()
 
 check_env()
 {
-    local -r commads=( jq certbot oci )
+    local -r commands=( jq certbot oci )
     local cmd
     local error=0
 
     log_debug "Checking required commands"
 
-    for cmd in "${commads[@]}" ; do
+    for cmd in "${commands[@]}" ; do
         if ! command -v "$cmd" > /dev/null ; then
             log_error "Command not found: $cmd"
             error=1
