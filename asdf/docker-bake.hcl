@@ -18,14 +18,39 @@ target "default" {
       },
       {
         distro          = "alpine"
+        base_image_repo = "alpine"
+        base_image_tag  = "3.19"
+      },
+      {
+        distro          = "alpine"
         base_image_repo = "python"
         base_image_tag  = "3.10-alpine"
+      },
+      {
+        distro          = "alpine"
+        base_image_repo = "python"
+        base_image_tag  = "3.11-alpine"
+      },
+      {
+        distro          = "alpine"
+        base_image_repo = "python"
+        base_image_tag  = "3.12-alpine"
       },
       # Debian-based
       {
         distro          = "debian"
         base_image_repo = "python"
         base_image_tag  = "3.10-slim"
+      },
+      {
+        distro          = "debian"
+        base_image_repo = "python"
+        base_image_tag  = "3.11-slim"
+      },
+      {
+        distro          = "debian"
+        base_image_repo = "python"
+        base_image_tag  = "3.12-slim"
       },
     ]
   }

@@ -14,7 +14,7 @@ Example job for [`.gitlab-ci.yml`](https://docs.gitlab.com/ee/ci/yaml/):
 ```yaml
 Lint:
   stage: test
-  image: flaudisio/asdf-alpine:3.18
+  image: flaudisio/asdf-alpine:3.19
   before_script:
     - install-asdf-tools
     - terraform --version
@@ -32,9 +32,11 @@ Examples:
 
 | Image | ASDF-VM replacement |
 |-------|---------------------|
-| `alpine:3.18` | `flaudisio/asdf-alpine:3.18` |
-| `python:3.10-alpine` | `flaudisio/asdf-python:3.10-alpine` |
-| `python:3.10-slim` | `flaudisio/asdf-python:3.10-slim` |
+| `alpine:3.19` | `flaudisio/asdf-alpine:3.19` |
+| `python:3.11-alpine` | `flaudisio/asdf-python:3.11-alpine` |
+| `python:3.11-slim` | `flaudisio/asdf-python:3.11-slim` |
+| `python:3.12-alpine` | `flaudisio/asdf-python:3.12-alpine` |
+| `python:3.12-slim` | `flaudisio/asdf-python:3.12-slim` |
 
 ## Environment variables
 
