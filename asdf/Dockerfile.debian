@@ -22,8 +22,7 @@ ARG asdf_version
 # Ref: http://asdf-vm.com/manage/configuration.html#environment-variables
 ENV ASDF_DIR="/opt/asdf-vm" \
     ASDF_DATA_DIR="/opt/asdf-vm" \
-    ASDF_REPOSITORY=https://github.com/asdf-vm/asdf \
-    ASDF_VERSION=${asdf_version}
+    ASDF_REPOSITORY=https://github.com/asdf-vm/asdf
 
 ENV PATH ${ASDF_DIR}/bin:${ASDF_DATA_DIR}/shims:$PATH
 
@@ -31,7 +30,7 @@ RUN set -ex \
  && git clone \
         -c advice.detachedHead=false \
         --depth 1 \
-        --branch "v$ASDF_VERSION" \
+        --branch "v$asdf_version" \
         "$ASDF_REPOSITORY" \
         "$ASDF_DIR" \
  && touch "${ASDF_DIR}/asdf_updates_disabled" \

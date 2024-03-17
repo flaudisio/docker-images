@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "asdf_version" {
-  default = "0.13.1"
+  default = "0.14.0"
 }
 
 target "default" {
