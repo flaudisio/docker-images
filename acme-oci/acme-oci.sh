@@ -165,10 +165,10 @@ function request_certificate()
     # Use 'sort' to normalize the list and '-x' to match the entire line
     if echo "$lego_names" | sort | grep -q -F -x "$primary_domain" ; then
         log_info "Renewing certificate for '$primary_domain'"
-        lego_opts+=( renew --renew-hook "$hook_cmd" )
+        lego_opts+=( renew --no-bundle --renew-hook "$hook_cmd" )
     else
         log_info "Domain '$primary_domain' not found, requesting new certificate"
-        lego_opts+=( run --run-hook "$hook_cmd" )
+        lego_opts+=( run --no-bundle --run-hook "$hook_cmd" )
     fi
 
     if ! _run lego --accept-tos --email "$CERT_EMAIL" --dns "cloudflare" "${lego_opts[@]}" ; then

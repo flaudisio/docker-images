@@ -177,7 +177,7 @@ function manage_oci_certificate()
     # LEGO_CERT_PEM_PATH='lego-data/certificates/_.example.com.pem'
     # LEGO_CERT_KEY_PATH='lego-data/certificates/_.example.com.key'
     cert_pem="$( cat "$LEGO_CERT_PATH" )"
-    chain_pem="$( cat "$LEGO_CERT_PATH" )"
+    chain_pem="$( cat "${LEGO_CERT_PATH/.crt/.issuer.crt}" )"
     privkey_pem="$( cat "$LEGO_CERT_KEY_PATH" )"
 
     if [[ -z "$cert_pem" || -z "$chain_pem" || -z "$privkey_pem" ]] ; then
@@ -223,7 +223,9 @@ function main()
         OCI_TAG_CREATED_BY \
         OCI_TAG_ENVIRONMENT \
         OCI_TAG_OWNER \
-        OCI_TAG_SERVICE_NAME
+        OCI_TAG_SERVICE_NAME \
+        LEGO_CERT_PATH \
+        LEGO_CERT_KEY_PATH
 
     create_oci_defined_tags_file
     manage_oci_certificate
