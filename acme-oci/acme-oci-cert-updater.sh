@@ -7,7 +7,7 @@ set -o pipefail
 # ------------------------------------------------------------------------------
 
 readonly ProgramName="acme-oci-cert-updater"
-readonly ProgramVersion="0.1.0"
+readonly ProgramVersion="0.2.0"
 
 readonly DefinedTagsFile="/tmp/defined-tags.json"
 
