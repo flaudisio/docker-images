@@ -8,7 +8,8 @@ RUN set -ex \
         bash \
         curl \
         git \
-        jq
+        jq \
+        openssh-client
 
 # Use Bash as default shell so ASDF-VM can work
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
