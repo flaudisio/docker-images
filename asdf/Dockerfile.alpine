@@ -14,7 +14,7 @@ RUN set -ex \
 # Use Bash as default shell so ASDF-VM can work
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG asdf_version=undefined
+ARG asdf_version
 
 # Ref: http://asdf-vm.com/manage/configuration.html#environment-variables
 ENV ASDF_DIR="/opt/asdf-vm" \
