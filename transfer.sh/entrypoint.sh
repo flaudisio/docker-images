@@ -5,31 +5,13 @@
 set -e
 set -o pipefail
 
-: "${SECRETS_DIR:="/secrets"}"
-
 
 msg()
 {
     echo "[entrypoint] $*" >&2
 }
 
-load_secrets()
-{
-    local file
-
-    for file in "${SECRETS_DIR}"/* ; do
-        if [ ! -f "$file" ] ; then
-            continue
-        fi
-
-        msg "[INFO] Loading secrets from file '$file'"
-
-        # shellcheck source=/dev/null
-        . "$file"
-    done
-}
-
-fix_directory_permissions()
+set_files_ownership()
 {
     local data_dir
 
@@ -54,16 +36,13 @@ fix_directory_permissions()
     done
 }
 
-
-case $1 in
+case "$1" in
     transfer)
-        load_secrets
-        fix_directory_permissions
+        set_files_ownership
 
         msg "[INFO] Running transfer.sh"
         exec gosu "$TRANSFER_USER" "$@"
     ;;
 esac
-
 
 exec "$@"
