@@ -1,4 +1,4 @@
-FROM flaudisio/asdf-python:3.10-alpine
+FROM flaudisio/asdf-python:3.12-alpine
 
 WORKDIR /project
 

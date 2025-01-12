@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -x
+
+git config --global --add \
+    "url.https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/.insteadOf" \
+    "git@${CI_SERVER_SHELL_SSH_HOST}:"
+
+git config --global --add \
+    "url.https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/.insteadOf" \
+    "ssh://git@${CI_SERVER_SHELL_SSH_HOST}/"
+
+cat ~/.gitconfig
+
+# shellcheck disable=SC2174
+mkdir -p -v -m 700 ~/.ssh
+
+ssh-keyscan -H "$CI_SERVER_SHELL_SSH_HOST" >> "${HOME}/.ssh/known_hosts"

@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "pre_commit_major_versions" {
-  default = ["2", "3"]
+  default = ["3", "4"]
 }
 
 target "default" {
@@ -16,9 +16,9 @@ target "default" {
     pre_commit_version = format("%s.*", major_version)
   }
   tags = concat(
-    formatlist("%s/pre-commit:%s-%s", registries, major_version, distro),                             # :2-alpine, :3-debian
-    distro == "alpine" ? formatlist("%s/pre-commit:%s", registries, major_version) : [],              # :2, :3
-    major_version == "3" ? formatlist("%s/pre-commit:%s", registries, distro) : [],                   # :alpine, :debian
-    major_version == "3" && distro == "alpine" ? formatlist("%s/pre-commit:latest", registries) : [], # :latest
+    formatlist("%s/pre-commit:%s-%s", registries, major_version, distro),                             # :3-alpine, :4-debian
+    distro == "alpine" ? formatlist("%s/pre-commit:%s", registries, major_version) : [],              # :3, :4
+    major_version == "4" ? formatlist("%s/pre-commit:%s", registries, distro) : [],                   # :alpine, :debian
+    major_version == "4" && distro == "alpine" ? formatlist("%s/pre-commit:latest", registries) : [], # :latest
   )
 }

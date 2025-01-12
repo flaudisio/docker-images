@@ -1,8 +1,8 @@
-FROM alpine:3.17
+FROM alpine:3.21
 
 # Base dependencies
 
-ARG gosu_version=1.16
+ARG gosu_version=1.17
 ARG tini_version=0.19.0
 
 RUN set -ex \
@@ -10,8 +10,8 @@ RUN set -ex \
         bash \
         ca-certificates \
         curl \
- && DL_ARCH=amd64 \
- && if [ "$( arch )" = "aarch64" ] ; then DL_ARCH=arm64 ; fi \
+ && DL_ARCH="amd64" \
+ && if [ "$( arch )" = "aarch64" ] ; then DL_ARCH="arm64" ; fi \
  && curl -fL -o /sbin/gosu "https://github.com/tianon/gosu/releases/download/${gosu_version}/gosu-${DL_ARCH}" \
  && curl -fL -o /sbin/tini "https://github.com/krallin/tini/releases/download/v${tini_version}/tini-static-${DL_ARCH}" \
  && chmod -v 755 /sbin/gosu /sbin/tini
@@ -29,8 +29,8 @@ RUN set -ex \
 ARG transfer_version
 
 RUN set -ex \
- && DL_ARCH=amd64 \
- && if [ "$( arch )" = "aarch64" ] ; then DL_ARCH=arm64-v8a ; fi \
+ && DL_ARCH="amd64" \
+ && if [ "$( arch )" = "aarch64" ] ; then DL_ARCH="arm64-v8a" ; fi \
  && curl -fL -o transfer \
         "https://github.com/dutchcoders/transfer.sh/releases/download/v${transfer_version}/transfersh-v${transfer_version}-linux-${DL_ARCH}" \
  && mv -v transfer /usr/local/bin/transfer \

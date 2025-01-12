@@ -1,21 +1,27 @@
 #!/usr/bin/env bash
+#
+# install-asdf-tools
+#
+# Helper script to install all ASDF tools defined in a '.tool-versions' file.
+#
+##
 
 readonly ToolsFile="${ASDF_DEFAULT_TOOL_VERSIONS_FILENAME:=".tool-versions"}"
 
 
-msg()
+function _msg()
 {
     echo -e "--> $*" >&2
 }
 
-add_plugins()
+function add_plugins()
 {
-    msg "Adding plugins"
+    _msg "Adding plugins"
 
     grep -v '^#' "$ToolsFile" | cut -d ' ' -f 1 | xargs -I '{}' asdf plugin-add '{}'
 }
 
-install_tools()
+function install_tools()
 {
     # Ignore commented or empty lines
     grep -E -v '^(#.*)*$' "$ToolsFile" \
@@ -26,17 +32,17 @@ install_tools()
             for version in $versions ; do
                 [[ "$version" == "system" ]] && continue
 
-                msg "Installing $tool $version"
+                _msg "Installing $tool $version"
 
                 asdf install "$tool" "$version"
             done
         done
 }
 
-main()
+function main()
 {
     if [[ ! -f "$ToolsFile" ]] ; then
-        msg "Tools file '$ToolsFile' not found; ignoring"
+        _msg "Tools file '$ToolsFile' not found; ignoring"
         exit 0
     fi
 

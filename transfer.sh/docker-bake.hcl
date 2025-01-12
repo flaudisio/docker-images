@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "transfer_version" {
-  default = "1.6.0"
+  default = "1.6.1"
 }
 
 target "default" {

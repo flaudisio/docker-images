@@ -1,5 +1,5 @@
-ARG base_image_repo
-ARG base_image_tag
+ARG base_image_repo=undefined
+ARG base_image_tag=undefined
 
 FROM ${base_image_repo}:${base_image_tag}
 
@@ -8,7 +8,8 @@ RUN set -ex \
         bash \
         curl \
         git \
-        jq
+        jq \
+        openssh-client
 
 # Use Bash as default shell so ASDF-VM can work
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -33,5 +34,6 @@ RUN set -ex \
  && asdf --version
 
 COPY scripts/install-asdf-tools /usr/local/bin/install-asdf-tools
+COPY scripts/setup-git-http-url-for-ci /usr/local/bin/setup-git-http-url-for-ci
 
 CMD ["bash"]
