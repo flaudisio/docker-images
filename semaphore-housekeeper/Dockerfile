@@ -1,7 +1,7 @@
 ARG go_crond_version
 FROM webdevops/go-crond:${go_crond_version}-alpine AS builder
 
-FROM alpine:3.18
+FROM alpine:3.19
 
 ENV SEMAPHORE_TMP_PATH=/semaphore/tmp \
     SCHEDULE="0 * * * *"
