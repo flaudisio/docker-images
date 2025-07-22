@@ -1,9 +1,6 @@
 ---
 extends: default
 
-ignore: |
-  .gitlab-ci.yml
-
 rules:
   braces:
     max-spaces-inside: 1
@@ -11,6 +8,7 @@ rules:
   brackets:
     max-spaces-inside: 1
     level: error
+  comments-indentation: disable
   empty-lines:
     max: 1
   indentation:
