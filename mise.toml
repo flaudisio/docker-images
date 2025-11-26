@@ -5,7 +5,7 @@ terragrunt = "0"
 
 [tasks.pre-commit]
 description = "Run pre-commit"
-run = "pre-commit run --all-files --verbose --show-diff-on-failure --color always"
+run = "pre-commit run --all-files --color always"
 
 [tasks.fmt]
 description = "Format HCL files"
