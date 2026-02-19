@@ -11,7 +11,7 @@ set -o pipefail
 : "${HB_CONFIG_FILE:="/etc/hashibackup.env"}"
 
 readonly SCRIPT_NAME="hashibackup"
-readonly SCRIPT_VERSION="0.2.0"
+readonly SCRIPT_VERSION="0.2.1"
 
 
 function _msg()
@@ -115,7 +115,7 @@ function create_consul_snapshot()
         return 0
     fi
 
-    local -r snapshot_file="${CONSUL_BACKUP_DIR}/$( date --utc +'%Y%m%d-%H%M%S' ).snap"
+    local -r snapshot_file="${CONSUL_BACKUP_DIR}/consul.$( date --utc +'%Y%m%d-%H%M%S' ).snap"
 
     log_info "Creating Consul snapshot"
 
@@ -134,7 +134,7 @@ function create_nomad_snapshot()
         return 0
     fi
 
-    local -r snapshot_file="${NOMAD_BACKUP_DIR}/$( date --utc +'%Y%m%d-%H%M%S' ).snap"
+    local -r snapshot_file="${NOMAD_BACKUP_DIR}/nomad.$( date --utc +'%Y%m%d-%H%M%S' ).snap"
 
     log_info "Creating Nomad snapshot"
 
