@@ -1,0 +1,13 @@
+# NOTE: copied from 'ansible-playbooks' repository
+
+# Base dependencies
+ansible-core==2.17.*
+
+# Required to fetch the Ansible Vault password from keyring
+keyring==25.*
+
+# Required by 'ansible.utils' collection (from 'grafana.grafana.alloy')
+netaddr>=1.3,<2
+
+# Required by 'ftlabs.infra' collection
+requests>=2.29,<3

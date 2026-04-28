@@ -2,23 +2,20 @@
 
 variable "semaphore_versions" {
   default = [
-    "2.11.2",
+    "2.17.38",
   ]
 }
 
 variable "ansible_versions" {
   default = [
-    "2.16",
     "2.17",
   ]
 }
 
 target "default" {
-  inherits   = ["_template"]
-  name       = format("semaphore-%s-ansible-%s-%s", replace(semaphore_version, ".", "-"), replace(ansible_version, ".", "-"), distro)
-  dockerfile = format("Dockerfile.%s", distro)
+  inherits = ["_template"]
+  name     = format("semaphore-runner-%s-ansible-%s", replace(semaphore_version, ".", "-"), replace(ansible_version, ".", "-"))
   matrix = {
-    distro            = ["alpine", "debian"]
     ansible_version   = ansible_versions
     semaphore_version = semaphore_versions
   }
@@ -26,5 +23,5 @@ target "default" {
     ansible_version   = ansible_version
     semaphore_version = semaphore_version
   }
-  tags = formatlist("%s/semaphore-runner:%s-ansible-%s-%s", registries, semaphore_version, ansible_version, distro)
+  tags = formatlist("%s/semaphore-runner:%s-ansible-%s", registries, semaphore_version, ansible_version)
 }
