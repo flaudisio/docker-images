@@ -7,12 +7,12 @@ set -o pipefail
 : "${SSH_LOG_LEVEL:="ERROR"}"
 
 : "${SEMAPHORE_TMP_PATH:="/tmp/semaphore"}"
+: "${SEMAPHORE_RUNNER_TOKEN_FILE:="${CONFIG_DIR}/runner.token"}"
 : "${SEMAPHORE_RUNNER_PRIVATE_KEY_FILE:="${CONFIG_DIR}/runner.key"}"
 
-readonly CONFIG_FILE_PATH="${CONFIG_DIR}/config.json"
-
-# Used by Semaphore
+# Required by Semaphore
 export SEMAPHORE_TMP_PATH
+export SEMAPHORE_RUNNER_TOKEN_FILE
 export SEMAPHORE_RUNNER_PRIVATE_KEY_FILE
 
 
@@ -38,7 +38,7 @@ function setup_semaphore_files()
         "$SEMAPHORE_TMP_PATH"
     )
     local -r required_files=(
-        "$CONFIG_FILE_PATH"
+        "$SEMAPHORE_RUNNER_TOKEN_FILE"
         "$SEMAPHORE_RUNNER_PRIVATE_KEY_FILE"
     )
     local path
@@ -64,23 +64,10 @@ function setup_semaphore_files()
     [[ $error -eq 0 ]] || exit 1
 }
 
-function initialize_runner_config()
-{
-    if [[ -s "$CONFIG_FILE_PATH" ]] ; then
-        _msg "Config file '$CONFIG_FILE_PATH' is not empty, skipping initialization"
-        return 0
-    fi
-
-    _msg "Initializing config file '$CONFIG_FILE_PATH'"
-
-    # Minimal configuration to avoid Semaphore panic when running 'runner register'
-    jq -n '{"runner": {"token": ""}}' > "$CONFIG_FILE_PATH"
-}
-
 function register_runner()
 {
-    if [[ "$( jq -r '.runner.token' "$CONFIG_FILE_PATH" )" != "" ]] ; then
-        _msg "Runner token is already configured in '$CONFIG_FILE_PATH', skipping runner registration"
+    if [[ -n "$SEMAPHORE_RUNNER_TOKEN" ]] ; then
+        _msg "Variable SEMAPHORE_RUNNER_TOKEN is defined, skipping runner registration"
         return 0
     fi
 
@@ -88,7 +75,7 @@ function register_runner()
         _msg "Registering Semaphore Runner"
 
         echo -n "$SEMAPHORE_RUNNER_REGISTRATION_TOKEN" \
-            | semaphore runner register --stdin-registration-token --config "$CONFIG_FILE_PATH"
+            | semaphore runner register --stdin-registration-token --no-config
     fi
 }
 
@@ -97,12 +84,11 @@ case "$1" in
         if [[ "$2" == "runner" && "$3" == "start" ]] ; then
             setup_ssh_client
             setup_semaphore_files
-            initialize_runner_config
             register_runner
         fi
 
         _msg "Running: $*"
-        exec gosu semaphore "$@" --config "$CONFIG_FILE_PATH"
+        exec gosu semaphore "$@"
     ;;
 esac
 

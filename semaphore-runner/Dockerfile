@@ -24,7 +24,6 @@ RUN set -ex \
         ca-certificates \
         curl \
         git \
-        jq \
         openssh-client \
         sshpass \
  && rm -rf /var/lib/apt/lists/*
@@ -48,4 +47,4 @@ COPY entrypoint.sh /sbin/entrypoint.sh
 
 ENTRYPOINT ["tini", "--", "/sbin/entrypoint.sh"]
 
-CMD ["semaphore", "runner", "start"]
+CMD ["semaphore", "runner", "start", "--no-config"]
