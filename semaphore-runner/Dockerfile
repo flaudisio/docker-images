@@ -25,7 +25,9 @@ RUN set -ex \
         curl \
         git \
         openssh-client \
+        procps \
         sshpass \
+        tzdata \
  && rm -rf /var/lib/apt/lists/*
 
 # Ansible & dependencies
