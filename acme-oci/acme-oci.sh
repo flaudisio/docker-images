@@ -22,6 +22,8 @@ readonly SCRIPT_VERSION="0.2.0"
 
 : "${DATA_DIR:="lego-data"}"
 
+: "${DISABLE_BACKUP_BUCKET:=""}"
+
 # ------------------------------------------------------------------------------
 # COMMON FUNCTIONS
 # ------------------------------------------------------------------------------
@@ -79,8 +81,13 @@ function _run()
 # SCRIPT FUNCTIONS
 # ------------------------------------------------------------------------------
 
-function prepare_data_dir()
+function cleanup_data_dir()
 {
+    if [[ -n "$DISABLE_BACKUP_BUCKET" ]] ; then
+        log_info "DISABLE_BACKUP_BUCKET is defined, skipping data directory cleanup"
+        return 0
+    fi
+
     log_info "Preparing data directory '$DATA_DIR'"
 
     _run rm -rf -- "$DATA_DIR"
@@ -93,6 +100,11 @@ function prepare_data_dir()
 
 function download_data_files_from_bucket()
 {
+    if [[ -n "$DISABLE_BACKUP_BUCKET" ]] ; then
+        log_info "DISABLE_BACKUP_BUCKET is defined, skipping backup bucket download"
+        return 0
+    fi
+
     local -r bucket_file="${OCI_CERT_NAME}.tar.gz"
     local -r temp_file="/tmp/acme-download-${OCI_CERT_NAME}.$( date +'%Y%m%d-%H%M%S' ).tar.gz"
 
@@ -116,6 +128,11 @@ function download_data_files_from_bucket()
 
 function upload_data_files_to_bucket()
 {
+    if [[ -n "$DISABLE_BACKUP_BUCKET" ]] ; then
+        log_info "DISABLE_BACKUP_BUCKET is defined, skipping backup bucket upload"
+        return 0
+    fi
+
     local -r bucket_file="${OCI_CERT_NAME}.tar.gz"
     local -r temp_file="/tmp/acme-upload-${OCI_CERT_NAME}.$( date +'%Y%m%d-%H%M%S' ).tar.gz"
 
@@ -214,7 +231,7 @@ function main()
     log_debug "LEGO_SERVER   = $LEGO_SERVER"
     log_debug "OCI_CERT_NAME = $OCI_CERT_NAME"
 
-    prepare_data_dir
+    cleanup_data_dir
     download_data_files_from_bucket
     request_certificate "$HOOK_CMD"
     upload_data_files_to_bucket
