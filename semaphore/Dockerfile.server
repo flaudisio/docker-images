@@ -1,0 +1,25 @@
+# hadolint ignore=DL3006
+FROM base-image AS base
+
+FROM alpine:3.23
+
+COPY --from=base --chown=root:root --chmod=0755 /gosu /usr/bin/gosu
+COPY --from=base --chown=root:root --chmod=0755 /tini /usr/bin/tini
+COPY --from=base --chown=root:root --chmod=0755 /semaphore /usr/bin/semaphore
+
+RUN set -ex \
+ && apk add --no-cache \
+        bash \
+        ca-certificates \
+        git \
+        tzdata
+
+RUN set -ex \
+ && addgroup -g 786 semaphore \
+ && adduser -D -u 786 -G semaphore semaphore
+
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+ENTRYPOINT ["tini", "--", "/usr/bin/entrypoint.sh"]
+
+CMD ["semaphore", "server", "--no-config"]

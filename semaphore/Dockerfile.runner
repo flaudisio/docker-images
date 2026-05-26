@@ -1,0 +1,40 @@
+# hadolint ignore=DL3006
+FROM base-image AS base
+
+FROM python:3.13-slim
+
+COPY --from=base --chown=root:root --chmod=0755 /gosu /usr/bin/gosu
+COPY --from=base --chown=root:root --chmod=0755 /tini /usr/bin/tini
+COPY --from=base --chown=root:root --chmod=0755 /semaphore /usr/bin/semaphore
+
+RUN set -ex \
+ && apt-get update -q \
+ && apt-get install -q -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        git \
+        openssh-client \
+        sshpass \
+        tzdata \
+ && rm -rf /var/lib/apt/lists/*
+
+ARG ansible_version
+
+COPY requirements.txt /tmp/requirements.txt
+
+RUN set -ex \
+ && sed -E -i "s/^(ansible-core *).*/\1==${ansible_version} # Patched by Dockerfile/" /tmp/requirements.txt \
+ && pip install --no-cache-dir \
+        -r /tmp/requirements.txt \
+ && find /usr/local -depth -type d -name '__pycache__' -exec rm -rf '{}' \; \
+ && rm -rf ~/.cache
+
+RUN set -ex \
+ && addgroup --gid 786 semaphore \
+ && adduser --disabled-password --gecos '' --uid 786 --ingroup semaphore semaphore
+
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+ENTRYPOINT ["tini", "--", "/usr/bin/entrypoint.sh"]
+
+CMD ["semaphore", "runner", "start", "--no-config"]

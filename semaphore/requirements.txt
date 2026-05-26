@@ -1,0 +1,17 @@
+# NOTE: copied from 'ansible-playbooks' repository
+
+# Base dependencies
+ansible-core==2.20.*
+
+# Required to fetch the Ansible Vault password from keyring
+keyring==25.*
+
+# Required by 'ansible.utils' collection (from 'grafana.grafana.alloy')
+netaddr>=1.3,<2
+
+# Required by 'caddy_config' variable (from 'inventories/homelab/host_vars/dell-01/main.yml')
+passlib>=1.7,<2
+bcrypt==4.0.1 # Can't be upgraded to v4.1+ to prevent incompatibility with passlib
+
+# Required by 'ftlabs.infra' collection
+requests>=2.29,<3
