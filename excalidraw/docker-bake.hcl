@@ -10,4 +10,8 @@ target "default" {
     excalidraw_version = excalidraw_version
   }
   tags = formatlist("%s/excalidraw:%s", registries, excalidraw_version)
+  platforms = [
+    "linux/amd64",
+    "linux/arm64",
+  ]
 }
