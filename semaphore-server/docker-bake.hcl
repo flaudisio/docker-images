@@ -9,7 +9,7 @@ variable "semaphore_versions" {
 
 target "default" {
   inherits = ["_template"]
-  name     = format("semaphore-%s", replace(semaphore_version, ".", "-"))
+  name     = format("semaphore-server-%s", replace(semaphore_version, ".", "-"))
   matrix = {
     semaphore_version = semaphore_versions
   }
