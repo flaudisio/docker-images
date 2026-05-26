@@ -1,4 +1,4 @@
-FROM alpine:3.19 AS builder
+FROM alpine:3.23 AS builder
 
 ARG go_crond_version
 ARG lego_version
@@ -16,7 +16,7 @@ RUN set -ex \
         | tar -xz -f - lego \
  && chmod -v 755 lego
 
-FROM python:3.11-alpine
+FROM python:3.13-alpine
 
 COPY --from=builder --chown=root:root /go-crond /usr/local/bin/go-crond
 COPY --from=builder --chown=root:root /lego /usr/local/bin/lego
