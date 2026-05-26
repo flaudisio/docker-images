@@ -7,7 +7,7 @@ set -o pipefail
 # ------------------------------------------------------------------------------
 
 readonly SCRIPT_NAME="acme-oci"
-readonly SCRIPT_VERSION="0.2.0"
+readonly SCRIPT_VERSION="0.3.0"
 
 : "${HOOK_CMD:="${PWD}/acme-oci-cert-updater.sh"}"
 

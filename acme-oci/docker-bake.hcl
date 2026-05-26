@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "acme_oci_version" {
-  default = "0.2.0"
+  default = "0.3.0"
 }
 
 target "default" {
