@@ -6,10 +6,10 @@ set -o pipefail
 # VARIABLES
 # ------------------------------------------------------------------------------
 
-readonly ProgramName="acme-oci-cert-updater"
-readonly ProgramVersion="0.2.0"
+readonly SCRIPT_NAME="acme-oci-cert-updater"
+readonly SCRIPT_VERSION="0.2.0"
 
-readonly DefinedTagsFile="/tmp/defined-tags.json"
+readonly DEFINED_TAGS_FILE="/tmp/defined-tags.json"
 
 : "${SKIP_OCI_CERT_CREATION:=""}"
 : "${SKIP_OCI_CERT_UPDATE:=""}"
@@ -19,10 +19,10 @@ readonly DefinedTagsFile="/tmp/defined-tags.json"
 
 : "${OCI_TAG_COMPONENT_REPO:="UNDEFINED"}"
 : "${OCI_TAG_COMPONENT_PATH:="UNDEFINED"}"
-: "${OCI_TAG_CREATED_BY:="$ProgramName"}"
+: "${OCI_TAG_CREATED_BY:="$SCRIPT_NAME"}"
 : "${OCI_TAG_ENVIRONMENT:="UNDEFINED"}"
 : "${OCI_TAG_OWNER:="UNDEFINED"}"
-: "${OCI_TAG_SERVICE_NAME:="$ProgramName"}"
+: "${OCI_TAG_SERVICE_NAME:="$SCRIPT_NAME"}"
 
 # ------------------------------------------------------------------------------
 # COMMON FUNCTIONS
@@ -101,7 +101,7 @@ function create_oci_defined_tags_file()
               "owner": $owner,
               "service-name": $service_name
           }
-        }' > "$DefinedTagsFile"
+        }' > "$DEFINED_TAGS_FILE"
     then
         log_error "Could not create defined tags file"
         exit 1
@@ -197,8 +197,8 @@ function manage_oci_certificate()
     fi
 
     oci_cli_args=(
-        --description "Managed by $ProgramName"
-        --defined-tags "file://${DefinedTagsFile}"
+        --description "Managed by $SCRIPT_NAME"
+        --defined-tags "file://${DEFINED_TAGS_FILE}"
         --certificate-pem "$cert_pem"
         --cert-chain-pem "$chain_pem"
         --private-key-pem "$privkey_pem"
@@ -213,7 +213,7 @@ function manage_oci_certificate()
 
 function main()
 {
-    log_info "Running $ProgramName v$ProgramVersion"
+    log_info "Running $SCRIPT_NAME v$SCRIPT_VERSION"
 
     check_required_vars \
         OCI_COMPARTMENT_ID \

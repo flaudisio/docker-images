@@ -6,8 +6,8 @@ set -o pipefail
 # VARIABLES
 # ------------------------------------------------------------------------------
 
-readonly ProgramName="acme-oci"
-readonly ProgramVersion="0.2.0"
+readonly SCRIPT_NAME="acme-oci"
+readonly SCRIPT_VERSION="0.2.0"
 
 : "${HOOK_CMD:="${PWD}/acme-oci-cert-updater.sh"}"
 
@@ -179,7 +179,7 @@ function request_certificate()
 
 function main()
 {
-    log_info "Running $ProgramName v$ProgramVersion"
+    log_info "Running $SCRIPT_NAME v$SCRIPT_VERSION"
 
     check_required_vars \
         HOOK_CMD \
