@@ -5,7 +5,7 @@
 set -e
 set -o pipefail
 
-CRON_USER="$( id -u -n )"
+CRON_USER="$( id -u )"
 CRON_FILE="/tmp/crontab"
 
 
@@ -32,7 +32,7 @@ case "$1" in
             generate_crontab
 
             msg "Running go-crond"
-            exec go-crond "${CRON_USER}:${CRON_FILE}"
+            exec go-crond --allow-unprivileged "${CRON_USER}:${CRON_FILE}"
         fi
     ;;
 esac
