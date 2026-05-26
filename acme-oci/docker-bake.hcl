@@ -7,9 +7,9 @@ variable "acme_oci_version" {
 target "default" {
   inherits = ["_template"]
   args = {
-    lego_version     = "4.16.1"
+    lego_version     = "4.35.2"
     go_crond_version = "23.12.0"
-    oci_cli_version  = "3.37.13"
+    oci_cli_version  = "3.82.0"
   }
   tags = formatlist("%s/acme-oci:%s", registries, acme_oci_version)
 }
