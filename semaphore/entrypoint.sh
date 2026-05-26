@@ -37,7 +37,7 @@ function setup_semaphore_files()
         "$CONFIG_DIR"
         "$SEMAPHORE_TMP_PATH"
     )
-    local -r required_files=( "$@" )
+    local -r extra_dirs=( "$@" )
     local path
 
     for path in "${common_dirs[@]}" ; do
@@ -47,7 +47,7 @@ function setup_semaphore_files()
         fi
     done
 
-    for path in "${common_dirs[@]}" "${required_files[@]}" ; do
+    for path in "${common_dirs[@]}" "${extra_dirs[@]}" ; do
         if ! gosu semaphore touch "$path" 2> /dev/null ; then
             _msg "Fixing $path permissions"
 
@@ -92,6 +92,11 @@ function register_runner()
         return 0
     fi
 
+    if [[ -s "$SEMAPHORE_RUNNER_TOKEN_FILE" && -s "$SEMAPHORE_RUNNER_PRIVATE_KEY_FILE" ]] ; then
+        _msg "Found runner token and private key files, skipping runner registration"
+        return 0
+    fi
+
     if [[ -n "$SEMAPHORE_RUNNER_REGISTRATION_TOKEN" ]] ; then
         _msg "Registering Semaphore Runner"
 
@@ -100,7 +105,10 @@ function register_runner()
 
         _msg "Runner successfully registered!"
         _msg "NOTE: to ENABLE the runner, go to ${SEMAPHORE_WEB_ROOT}/runners"
+        return 0
     fi
+
+    _msg "Warning: no token/registration configuration has been found!"
 }
 
 case "$1" in
