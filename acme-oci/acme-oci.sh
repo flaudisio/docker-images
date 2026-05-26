@@ -23,6 +23,7 @@ readonly SCRIPT_VERSION="0.2.0"
 : "${DATA_DIR:="lego-data"}"
 
 : "${DISABLE_BACKUP_BUCKET:=""}"
+: "${DISABLE_HOOK_CMD:=""}"
 
 # ------------------------------------------------------------------------------
 # COMMON FUNCTIONS
@@ -162,6 +163,7 @@ function request_certificate()
     local primary_domain
     local lego_names
     local lego_opts=()
+    local lego_hook_opts=()
 
     IFS=',' read -r -a domains <<< "$CERT_DOMAINS"
 
@@ -182,10 +184,18 @@ function request_certificate()
     # Use 'sort' to normalize the list and '-x' to match the entire line
     if echo "$lego_names" | sort | grep -q -F -x "$primary_domain" ; then
         log_info "Renewing certificate for '$primary_domain'"
-        lego_opts+=( renew --no-bundle --renew-hook "$hook_cmd" )
+        lego_opts+=( renew --no-bundle )
+        lego_hook_opts+=( --renew-hook "$hook_cmd" )
     else
         log_info "Domain '$primary_domain' not found, requesting new certificate"
-        lego_opts+=( run --no-bundle --run-hook "$hook_cmd" )
+        lego_opts+=( run --no-bundle )
+        lego_hook_opts+=( --run-hook "$hook_cmd" )
+    fi
+
+    if [[ -n "$DISABLE_HOOK_CMD" ]] ; then
+        log_info "DISABLE_HOOK_CMD is defined, skipping hook '$hook_cmd'"
+    else
+        lego_opts+=( "${lego_hook_opts[@]}" )
     fi
 
     if ! _run lego --accept-tos --email "$CERT_EMAIL" --dns "cloudflare" "${lego_opts[@]}" ; then
