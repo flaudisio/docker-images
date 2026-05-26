@@ -127,7 +127,6 @@ case "$1" in
             register_runner
         fi
 
-        _msg "Running in $2 mode"
         _msg "+ $*"
         exec gosu semaphore "$@"
     ;;

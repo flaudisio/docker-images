@@ -13,9 +13,24 @@ variable "ansible_versions" {
   ]
 }
 
+target "base" {
+  name       = format("base-%s", replace(semaphore_version, ".", "-"))
+  dockerfile = "Dockerfile.base"
+  matrix = {
+    semaphore_version = semaphore_versions
+  }
+  args = {
+    semaphore_version = semaphore_version
+  }
+  output = [{ type = "cacheonly" }]
+}
+
 target "server" {
-  inherits   = ["_template"]
-  name       = format("semaphore-server-%s", replace(semaphore_version, ".", "-"))
+  inherits = ["_template"]
+  name     = format("semaphore-server-%s", replace(semaphore_version, ".", "-"))
+  contexts = {
+    base-image = format("target:base-%s", replace(semaphore_version, ".", "-"))
+  }
   dockerfile = "Dockerfile.server"
   matrix = {
     semaphore_version = semaphore_versions
@@ -27,8 +42,11 @@ target "server" {
 }
 
 target "runner" {
-  inherits   = ["_template"]
-  name       = format("semaphore-runner-%s-ansible-%s", replace(semaphore_version, ".", "-"), replace(ansible_version, ".", "-"))
+  inherits = ["_template"]
+  name     = format("semaphore-runner-%s-ansible-%s", replace(semaphore_version, ".", "-"), replace(ansible_version, ".", "-"))
+  contexts = {
+    base-image = format("target:base-%s", replace(semaphore_version, ".", "-"))
+  }
   dockerfile = "Dockerfile.runner"
   matrix = {
     ansible_version   = ansible_versions
