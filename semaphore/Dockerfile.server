@@ -3,9 +3,9 @@ FROM base-image AS base
 
 FROM alpine:3.23
 
-COPY --from=base /usr/bin/gosu /usr/bin/gosu
-COPY --from=base /usr/bin/tini /usr/bin/tini
-COPY --from=base /usr/bin/semaphore /usr/bin/semaphore
+COPY --from=base --chown=root:root --chmod=0755 /gosu /usr/bin/gosu
+COPY --from=base --chown=root:root --chmod=0755 /tini /usr/bin/tini
+COPY --from=base --chown=root:root --chmod=0755 /semaphore /usr/bin/semaphore
 
 RUN set -ex \
  && apk add --no-cache \
