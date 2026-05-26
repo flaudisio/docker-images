@@ -1,7 +1,7 @@
 # NOTE: copied from 'ansible-playbooks' repository
 
 # Base dependencies
-ansible-core==2.17.*
+ansible-core==2.20.*
 
 # Required to fetch the Ansible Vault password from keyring
 keyring==25.*

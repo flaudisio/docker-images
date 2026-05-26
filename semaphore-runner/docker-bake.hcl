@@ -9,7 +9,7 @@ variable "semaphore_versions" {
 
 variable "ansible_versions" {
   default = [
-    "2.17",
+    "2.20",
   ]
 }
 
