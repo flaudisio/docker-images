@@ -3,12 +3,12 @@ FROM hashicorp/nomad:1.11 AS builder-nomad
 
 FROM ubuntu:24.04
 
-COPY --from=builder-consul /bin/consul /bin/consul
-COPY --from=builder-nomad /bin/nomad /bin/nomad
+COPY --from=builder-consul /bin/consul /usr/bin/consul
+COPY --from=builder-nomad /bin/nomad /usr/bin/nomad
 
-COPY hashibackup.sh /bin/hashibackup
-COPY entrypoint.sh /sbin/entrypoint.sh
+COPY hashibackup.sh /usr/bin/hashibackup
+COPY entrypoint.sh /usr/bin/entrypoint.sh
 
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 
 CMD ["hashibackup"]
