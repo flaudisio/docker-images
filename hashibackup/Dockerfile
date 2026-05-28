@@ -1,10 +1,13 @@
-FROM hashicorp/consul:1.22 AS builder-consul
-FROM hashicorp/nomad:1.11 AS builder-nomad
+ARG consul_version=latest
+ARG nomad_version=latest
+
+FROM hashicorp/consul:${consul_version} AS consul-base
+FROM hashicorp/nomad:${nomad_version} AS nomad-base
 
 FROM ubuntu:24.04
 
-COPY --from=builder-consul /bin/consul /usr/bin/consul
-COPY --from=builder-nomad /bin/nomad /usr/bin/nomad
+COPY --from=consul-base /bin/consul /usr/bin/consul
+COPY --from=nomad-base /bin/nomad /usr/bin/nomad
 
 COPY hashibackup.sh /usr/bin/hashibackup
 COPY entrypoint.sh /usr/bin/entrypoint.sh
