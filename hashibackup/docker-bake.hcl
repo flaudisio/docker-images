@@ -7,4 +7,8 @@ variable "hashibackup_version" {
 target "default" {
   inherits = ["_template"]
   tags     = formatlist("%s/hashibackup:%s", registries, hashibackup_version)
+  platforms = [
+    "linux/amd64",
+    "linux/arm64",
+  ]
 }
