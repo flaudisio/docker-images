@@ -7,13 +7,8 @@ set -o pipefail
 : "${SSH_LOG_LEVEL:="ERROR"}"
 
 : "${SEMAPHORE_TMP_PATH:="/tmp/semaphore"}"
-: "${SEMAPHORE_RUNNER_TOKEN_FILE:="${CONFIG_DIR}/runner.token"}"
-: "${SEMAPHORE_RUNNER_PRIVATE_KEY_FILE:="${CONFIG_DIR}/runner.key"}"
 
-# Required by Semaphore
 export SEMAPHORE_TMP_PATH
-export SEMAPHORE_RUNNER_TOKEN_FILE
-export SEMAPHORE_RUNNER_PRIVATE_KEY_FILE
 
 
 function _msg()
@@ -30,24 +25,23 @@ function setup_ssh_client()
     fi
 }
 
-function setup_semaphore_files()
+function setup_semaphore_dirs()
 {
-    local -r error=0
-    local -r common_dirs=(
+    local -r semaphore_dirs=(
         "$CONFIG_DIR"
         "$SEMAPHORE_TMP_PATH"
     )
-    local -r extra_dirs=( "$@" )
     local path
+    local error=0
 
-    for path in "${common_dirs[@]}" ; do
+    for path in "${semaphore_dirs[@]}" ; do
         if [[ ! -d "$path" ]] ; then
             _msg "Creating $path"
             mkdir -p "$path"
         fi
     done
 
-    for path in "${common_dirs[@]}" "${extra_dirs[@]}" ; do
+    for path in "${semaphore_dirs[@]}" ; do
         if ! gosu semaphore touch "$path" 2> /dev/null ; then
             _msg "Fixing $path permissions"
 
@@ -87,42 +81,40 @@ function setup_admin_user()
 
 function register_runner()
 {
-    if [[ -n "$SEMAPHORE_RUNNER_TOKEN" ]] ; then
-        _msg "Variable SEMAPHORE_RUNNER_TOKEN is defined, skipping runner registration"
+    if [[ -z "$SEMAPHORE_RUNNER_REGISTRATION_TOKEN" ]] ; then
+        _msg "Variable SEMAPHORE_RUNNER_REGISTRATION_TOKEN is not defined, skipping runner registration"
         return 0
     fi
+
+    : "${SEMAPHORE_RUNNER_TOKEN_FILE:="${CONFIG_DIR}/runner.token"}"
+    : "${SEMAPHORE_RUNNER_PRIVATE_KEY_FILE:="${CONFIG_DIR}/runner.key"}"
+
+    export SEMAPHORE_RUNNER_TOKEN_FILE
+    export SEMAPHORE_RUNNER_PRIVATE_KEY_FILE
 
     if [[ -s "$SEMAPHORE_RUNNER_TOKEN_FILE" && -s "$SEMAPHORE_RUNNER_PRIVATE_KEY_FILE" ]] ; then
         _msg "Found runner token and private key files, skipping runner registration"
         return 0
     fi
 
-    if [[ -n "$SEMAPHORE_RUNNER_REGISTRATION_TOKEN" ]] ; then
-        _msg "Registering Semaphore Runner"
+    _msg "Registering Semaphore Runner"
 
-        echo -n "$SEMAPHORE_RUNNER_REGISTRATION_TOKEN" \
-            | semaphore runner register --stdin-registration-token --no-config
+    echo -n "$SEMAPHORE_RUNNER_REGISTRATION_TOKEN" \
+        | semaphore runner register --stdin-registration-token --no-config
 
-        _msg "Runner successfully registered!"
-        _msg "NOTE: to ENABLE the runner, go to ${SEMAPHORE_WEB_ROOT}/runners"
-        return 0
-    fi
-
-    _msg "Warning: no token/registration configuration has been found!"
+    _msg "Runner successfully registered!"
+    _msg "NOTE: to ENABLE the runner, go to ${SEMAPHORE_WEB_ROOT}/runners"
 }
 
 case "$1" in
     semaphore)
-        if [[ "$2" = "server" ]] ; then
-            setup_semaphore_files
+        if [[ "$2" == "server" ]] ; then
+            setup_semaphore_dirs
             setup_admin_user
         fi
 
         if [[ "$2" == "runner" && "$3" == "start" ]] ; then
-            setup_semaphore_files \
-                "$SEMAPHORE_RUNNER_TOKEN_FILE" \
-                "$SEMAPHORE_RUNNER_PRIVATE_KEY_FILE"
-
+            setup_semaphore_dirs
             setup_ssh_client
             register_runner
         fi
