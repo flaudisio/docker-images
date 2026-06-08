@@ -6,6 +6,7 @@ set -o pipefail
 : "${CONFIG_DIR:="/etc/semaphore"}"
 : "${SSH_LOG_LEVEL:="ERROR"}"
 
+: "${SEMAPHORE_CLI_EXTRA_ARGS:=""}"
 : "${SEMAPHORE_TMP_PATH:="/tmp/semaphore"}"
 
 export SEMAPHORE_TMP_PATH
@@ -106,23 +107,35 @@ function register_runner()
     _msg "NOTE: to ENABLE the runner, go to ${SEMAPHORE_WEB_ROOT}/runners"
 }
 
-case "$1" in
-    semaphore)
-        if [[ "$2" == "server" ]] ; then
-            setup_semaphore_dirs
-            setup_admin_user
-        fi
+function main()
+{
+    local cmd=( "$@" )
+    local sanitized_cli_args=()
 
-        if [[ "$2" == "runner" && "$3" == "start" ]] ; then
-            setup_semaphore_dirs
-            setup_ssh_client
-            register_runner
-        fi
+    case "$1" in
+        semaphore)
+            if [[ "$2" == "server" ]] ; then
+                setup_semaphore_dirs
+                setup_admin_user
+            fi
 
-        _msg "+ $*"
-        exec gosu semaphore "$@"
-    ;;
-esac
+            if [[ "$2" == "runner" && "$3" == "start" ]] ; then
+                setup_semaphore_dirs
+                setup_ssh_client
+                register_runner
+            fi
+
+            read -r -a sanitized_cli_args <<< "$SEMAPHORE_CLI_EXTRA_ARGS"
+
+            cmd+=( "${sanitized_cli_args[@]}" )
+
+            _msg "+ ${cmd[*]}"
+            exec gosu semaphore "${cmd[@]}"
+        ;;
+    esac
+
+    exec "${cmd[@]}"
+}
 
 
-exec "$@"
+main "$@"
