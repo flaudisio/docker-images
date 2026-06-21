@@ -10,4 +10,8 @@ target "default" {
     transfer_version = transfer_version
   }
   tags = formatlist("%s/transfer.sh:%s", registries, transfer_version)
+  platforms = [
+    "linux/amd64",
+    "linux/arm64",
+  ]
 }
