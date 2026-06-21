@@ -21,8 +21,14 @@ ARG NODE_ENV=production
 RUN npm_config_target_arch=${TARGETARCH} yarn build:app:docker
 
 
-FROM nginx:stable-alpine
+FROM caddy:2-alpine
 
-COPY --from=build /opt/node_app/excalidraw-app/build /usr/share/nginx/html
+COPY --from=build /opt/node_app/excalidraw-app/build /var/www
 
-HEALTHCHECK CMD wget -q -O /dev/null http://localhost || exit 1
+ENV CADDY_PORT="80" \
+    CADDY_LOG_LEVEL="info" \
+    CADDY_LOG_FORMAT="json"
+
+COPY Caddyfile /etc/caddy/Caddyfile
+
+HEALTHCHECK CMD wget -q -O /dev/null http://localhost/-/health || exit 1
