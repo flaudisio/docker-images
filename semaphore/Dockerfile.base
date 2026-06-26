@@ -12,6 +12,6 @@ RUN set -ex \
  && wget -q -O /gosu "https://github.com/tianon/gosu/releases/download/${gosu_version}/gosu-${DL_ARCH}" \
  && wget -q -O /tini "https://github.com/krallin/tini/releases/download/v${tini_version}/tini-static-${DL_ARCH}" \
  && wget -q -O semaphore.tar.gz \
-        "https://github.com/ansible-semaphore/semaphore/releases/download/v${semaphore_version}/semaphore_${semaphore_version}_linux_${DL_ARCH}.tar.gz" \
+        "https://github.com/semaphoreui/semaphore/releases/download/v${semaphore_version}/semaphore_community_${semaphore_version}_linux_${DL_ARCH}.tar.gz" \
  && tar -xz -f semaphore.tar.gz semaphore \
  && mv semaphore /semaphore
