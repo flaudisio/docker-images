@@ -13,6 +13,7 @@ RUN set -ex \
         ca-certificates \
         curl \
         git \
+        net-tools \
         openssh-client \
         sshpass \
         tzdata \
