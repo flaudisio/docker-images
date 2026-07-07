@@ -1,7 +1,7 @@
 # hadolint ignore=DL3006
 FROM base-image AS base
 
-FROM alpine:3.23
+FROM alpine:3.24
 
 COPY --from=base --chown=root:root --chmod=0755 /gosu /usr/bin/gosu
 COPY --from=base --chown=root:root --chmod=0755 /tini /usr/bin/tini
