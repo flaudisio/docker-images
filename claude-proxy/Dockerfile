@@ -29,19 +29,19 @@ RUN set -ex \
 
 COPY --from=caddy-base --chown=root:root --chmod=0755 /usr/bin/caddy /bin/caddy
 COPY --from=rtproxy-base --chown=root:root --chmod=0755 /usr/local/bin/routatic-proxy /bin/routatic-proxy
-COPY --from=rtproxy-base --chown=rtproxy:rtproxy --chmod=u=rwX,go= /etc/routatic-proxy/config.json /etc/routatic-proxy/config.json
 
 COPY s6-overlay/ /etc/s6-overlay/
 
+COPY --from=rtproxy-base --chown=rtproxy:rtproxy --chmod=u=rwX,go= /etc/routatic-proxy/config.json /etc/routatic-proxy/config.json
 COPY --chown=root:caddy --chmod=u=rwX,g=rX,o= Caddyfile /etc/caddy/Caddyfile
+
+ENV ROUTATIC_PROXY_CONFIG="/etc/routatic-proxy/config.json" \
+    ROUTATIC_PROXY_HOST="127.0.0.1" \
+    ROUTATIC_PROXY_PORT="3456"
 
 ENV CADDY_PORT="8000" \
     CADDY_LOG_LEVEL="info" \
     CADDY_LOG_FORMAT="json" \
     CADDY_PROXY_HEADER="X-ClaudeProxy-Token"
-
-ENV ROUTATIC_PROXY_CONFIG=/etc/routatic-proxy/config.json \
-    ROUTATIC_PROXY_HOST=127.0.0.1 \
-    ROUTATIC_PROXY_PORT=3456
 
 ENTRYPOINT ["/init"]
