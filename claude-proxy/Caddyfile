@@ -1,0 +1,25 @@
+{
+  log {
+    output stderr
+    level  {$CADDY_LOG_LEVEL}
+    format {$CADDY_LOG_FORMAT} {
+      level_format {$CADDY_LOG_FORMAT_LEVEL_FORMAT:upper}
+    }
+  }
+}
+
+:{$CADDY_PORT} {
+  @validate_header {
+    header {$CADDY_PROXY_HEADER} "{$CADDY_PROXY_TOKEN}"
+  }
+
+  handle /health {
+    reverse_proxy localhost:{$ROUTATIC_PROXY_PORT}
+  }
+
+  route {
+    reverse_proxy @validate_header localhost:{$ROUTATIC_PROXY_PORT}
+
+    respond "Unauthorized" 401
+  }
+}
