@@ -6,14 +6,14 @@ FROM ghcr.io/routatic/proxy:${routatic_proxy_tag} AS rtproxy-base
 
 FROM alpine:3.23
 
-ARG S6_OVERLAY_VERSION=3.2.3.2
+ARG s6_overlay_version=3.2.3.2
 
 # hadolint ignore=DL4006
 RUN set -ex \
  && DL_ARCH="$( arch )" \
- && wget -q -O - "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" \
+ && wget -q -O - "https://github.com/just-containers/s6-overlay/releases/download/v${s6_overlay_version}/s6-overlay-noarch.tar.xz" \
         | tar -C / -Jxp -f - \
- && wget -q -O - "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${DL_ARCH}.tar.xz" \
+ && wget -q -O - "https://github.com/just-containers/s6-overlay/releases/download/v${s6_overlay_version}/s6-overlay-${DL_ARCH}.tar.xz" \
         | tar -C / -Jxp -f -
 
 RUN set -ex \
