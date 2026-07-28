@@ -7,8 +7,7 @@ variable "autobrr_tag" {
 target "default" {
   inherits = ["_template"]
   args = {
-    autobrr_tag         = autobrr_tag
-    sizechecker_version = "1.4.0"
+    autobrr_tag = autobrr_tag
   }
   tags = formatlist("%s/autobrr:%s", registries, autobrr_tag)
 }
