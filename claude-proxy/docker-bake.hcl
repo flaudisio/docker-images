@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "claudeproxy_tag" {
-  default = "0.1.0"
+  default = "0.1.1"
 }
 
 target "default" {
