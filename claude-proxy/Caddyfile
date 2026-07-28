@@ -9,7 +9,7 @@
 }
 
 :{$CADDY_PORT} {
-  @validate_header {
+  @require_token {
     header {$CADDY_PROXY_HEADER} "{$CADDY_PROXY_TOKEN}"
   }
 
@@ -17,9 +17,11 @@
     reverse_proxy localhost:{$ROUTATIC_PROXY_PORT}
   }
 
-  route {
-    reverse_proxy @validate_header localhost:{$ROUTATIC_PROXY_PORT}
+  handle @require_token {
+    reverse_proxy localhost:{$ROUTATIC_PROXY_PORT}
+  }
 
+  handle {
     respond "Unauthorized" 401
   }
 }
