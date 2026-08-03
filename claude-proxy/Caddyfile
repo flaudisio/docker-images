@@ -13,17 +13,8 @@
     header {$CADDY_PROXY_HEADER} "{$CADDY_PROXY_TOKEN}"
   }
 
-  @health_from_proxy {
-    path /health
-    header X-Forwarded-For *
-  }
-
-  handle @health_from_proxy {
-    respond "Forbidden" 403
-  }
-
   handle /health {
-    reverse_proxy localhost:{$ROUTATIC_PROXY_PORT}
+    respond "OK"
   }
 
   handle @has_proxy_token {
