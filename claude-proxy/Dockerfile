@@ -41,7 +41,9 @@ ENV ROUTATIC_PROXY_CONFIG="/etc/routatic-proxy/config.json" \
 
 ENV CADDY_PORT="8000" \
     CADDY_LOG_LEVEL="info" \
-    CADDY_LOG_FORMAT="json" \
-    CADDY_PROXY_HEADER="X-ClaudeProxy-Token"
+    CADDY_LOG_FORMAT="json"
+
+# Ref: https://code.claude.com/docs/en/authentication#authentication-precedence
+ENV CADDY_PROXY_HEADER="X-Api-Key"
 
 ENTRYPOINT ["/init"]

@@ -4,5 +4,6 @@
 set -x
 
 export HOME="/home/caddy"
+export CADDY_PROXY_TOKEN="${CADDY_PROXY_TOKEN:-"$ROUTATIC_PROXY_API_KEY"}"
 
 exec s6-setuidgid caddy caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
