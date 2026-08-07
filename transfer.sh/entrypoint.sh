@@ -8,7 +8,7 @@ set -o pipefail
 
 msg()
 {
-    echo "[entrypoint] $*" >&2
+    echo "$( date -Iseconds ) [entrypoint] $*" >&2
 }
 
 set_files_ownership()

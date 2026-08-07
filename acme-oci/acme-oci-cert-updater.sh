@@ -30,7 +30,7 @@ readonly DEFINED_TAGS_FILE="/tmp/defined-tags.json"
 
 function _msg()
 {
-    echo -e "[$( date --utc -Iseconds )] $*" >&2
+    echo -e "[$( date -Iseconds )] $*" >&2
 }
 
 function log_info()

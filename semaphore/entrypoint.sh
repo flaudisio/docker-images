@@ -14,7 +14,7 @@ export SEMAPHORE_TMP_PATH
 
 function _msg()
 {
-    echo "$( date +'%Y-%m-%d %T %Z' ) [entrypoint] $*" >&2
+    echo "$( date -Iseconds ) [entrypoint] $*" >&2
 }
 
 function setup_ssh_client()

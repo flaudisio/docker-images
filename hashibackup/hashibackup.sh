@@ -16,7 +16,7 @@ readonly SCRIPT_VERSION="0.2.1"
 
 function _msg()
 {
-    echo "[$( date --utc -Iseconds )] $*" >&2
+    echo "[$( date -Iseconds )] $*" >&2
 }
 
 function _run()

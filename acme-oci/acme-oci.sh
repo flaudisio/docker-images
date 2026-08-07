@@ -31,7 +31,7 @@ readonly SCRIPT_VERSION="0.3.0"
 
 function _msg()
 {
-    echo -e "[$( date --utc -Iseconds )] $*" >&2
+    echo -e "[$( date -Iseconds )] $*" >&2
 }
 
 function log_info()

@@ -11,7 +11,7 @@ CRON_FILE="/tmp/crontab"
 
 msg()
 {
-    echo "$( date +'%Y-%m-%d %T %Z' ) [entrypoint] $*" >&2
+    echo "$( date -Iseconds ) [entrypoint] $*" >&2
 }
 
 generate_crontab()
