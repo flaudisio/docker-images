@@ -35,6 +35,7 @@ jobs:
 
   build:
     needs: detect-changes
+    if: needs.detect-changes.outputs.images != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
