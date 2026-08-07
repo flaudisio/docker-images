@@ -29,7 +29,8 @@ jobs:
         id: images
         run: |
           images=$(echo '${{ steps.changed.outputs.all_changed_files }}' \
-            | tr ' ' '\n' | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+            | tr ' ' '\n' | cut -d/ -f2 | sort -u \
+            | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "images=${images}" >> "$GITHUB_OUTPUT"
 
   build:
