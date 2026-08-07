@@ -1,8 +1,6 @@
 #!/command/with-contenv sh
 # shellcheck shell=sh
 
-set -x
-
 export HOME="/home/caddy"
 export CADDY_PROXY_TOKEN="${CADDY_PROXY_TOKEN:-"$ROUTATIC_PROXY_API_KEY"}"
 
