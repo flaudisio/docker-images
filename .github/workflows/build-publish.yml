@@ -28,8 +28,8 @@ jobs:
       - name: Compute changed image directories
         id: images
         run: |
-          images=$(jq -r '.[]' <<< '${{ steps.changed.outputs.all_changed_files }}' \
-            | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          images=$(echo '${{ steps.changed.outputs.all_changed_files }}' \
+            | tr ' ' '\n' | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
           echo "images=${images}" >> "$GITHUB_OUTPUT"
 
   build:
