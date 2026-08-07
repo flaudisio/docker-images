@@ -24,18 +24,12 @@ jobs:
         uses: tj-actions/changed-files@v46
         with:
           files: |
-            acme-oci/**
-            autobrr/**
-            claude-proxy/**
-            excalidraw/**
-            hashibackup/**
-            semaphore/**
-            transfer.sh/**
+            images/**
       - name: Compute changed image directories
         id: images
         run: |
           images=$(jq -r '.[]' <<< '${{ steps.changed.outputs.all_changed_files }}' \
-            | cut -d/ -f1 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+            | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
           echo "images=${images}" >> "$GITHUB_OUTPUT"
 
   build:
@@ -57,21 +51,21 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build
         run: |
-          cd "${{ matrix.image }}"
+          cd "images/${{ matrix.image }}"
           docker buildx bake
       - name: Push
         if: github.ref == 'refs/heads/main'
         run: |
-          cd "${{ matrix.image }}"
+          cd "images/${{ matrix.image }}"
           docker buildx bake --push
       - name: Sync README to Docker Hub
         if: >-
           github.ref == 'refs/heads/main'
           && matrix.image != 'semaphore'
-          && hashFiles(format('{0}/README.md', matrix.image)) != ''
+          && hashFiles(format('images/{0}/README.md', matrix.image)) != ''
         uses: peter-evans/dockerhub-description@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: flaudisio/${{ matrix.image }}
-          readme-filepath: ${{ matrix.image }}/README.md
+          readme-filepath: images/${{ matrix.image }}/README.md
