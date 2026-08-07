@@ -1,0 +1,77 @@
+---
+name: Build & Publish
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      images: ${{ steps.images.outputs.images }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Detect changed image files
+        id: changed
+        uses: tj-actions/changed-files@v46
+        with:
+          files: |
+            acme-oci/**
+            autobrr/**
+            claude-proxy/**
+            excalidraw/**
+            hashibackup/**
+            semaphore/**
+            transfer.sh/**
+      - name: Compute changed image directories
+        id: images
+        run: |
+          images=$(jq -r '.[]' <<< '${{ steps.changed.outputs.all_changed_files }}' \
+            | cut -d/ -f1 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "images=${images}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJSON(needs.detect-changes.outputs.images) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - name: Log in to Docker Hub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build
+        run: |
+          cd "${{ matrix.image }}"
+          docker buildx bake
+      - name: Push
+        if: github.ref == 'refs/heads/main'
+        run: |
+          cd "${{ matrix.image }}"
+          docker buildx bake --push
+      - name: Sync README to Docker Hub
+        if: >-
+          github.ref == 'refs/heads/main'
+          && matrix.image != 'semaphore'
+          && hashFiles(format('{0}/README.md', matrix.image)) != ''
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: flaudisio/${{ matrix.image }}
+          readme-filepath: ${{ matrix.image }}/README.md
