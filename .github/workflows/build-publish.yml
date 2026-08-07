@@ -58,14 +58,3 @@ jobs:
         run: |
           cd "images/${{ matrix.image }}"
           docker buildx bake --push
-      - name: Sync README to Docker Hub
-        if: >-
-          github.ref == 'refs/heads/main'
-          && matrix.image != 'semaphore'
-          && hashFiles(format('images/{0}/README.md', matrix.image)) != ''
-        uses: peter-evans/dockerhub-description@v4
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: flaudisio/${{ matrix.image }}
-          readme-filepath: images/${{ matrix.image }}/README.md
