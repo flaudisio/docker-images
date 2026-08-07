@@ -4,7 +4,7 @@ ARG routatic_proxy_tag=undefined
 FROM caddy:${caddy_tag} AS caddy-base
 FROM ghcr.io/routatic/proxy:${routatic_proxy_tag} AS rtproxy-base
 
-FROM alpine:3.23
+FROM alpine:3.24
 
 ARG s6_overlay_version=3.2.3.2
 
