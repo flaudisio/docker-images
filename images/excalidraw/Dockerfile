@@ -1,4 +1,4 @@
-# Based on https://github.com/excalidraw/excalidraw/blob/c08be696/Dockerfile
+# Based on https://github.com/excalidraw/excalidraw/blob/4872083/Dockerfile
 
 FROM --platform=${BUILDPLATFORM} node:24 AS build
 
