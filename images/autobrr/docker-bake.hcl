@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "autobrr_tag" {
-  default = "v1.83.0"
+  default = "v1.84.0"
 }
 
 target "default" {
