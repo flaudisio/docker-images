@@ -8,7 +8,7 @@ target "default" {
   inherits = ["_template"]
   args = {
     caddy_tag          = "2-alpine"
-    routatic_proxy_tag = "0.6.2"
+    routatic_proxy_tag = "0.6.3"
   }
   tags = formatlist("%s/claudeproxy:%s", registries, claudeproxy_tag)
   platforms = [
