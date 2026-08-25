@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "hashibackup_version" {
-  default = "0.3.0"
+  default = "0.3.1"
 }
 
 target "default" {
