@@ -1,8 +1,18 @@
 ARG caddy_tag=undefined
-ARG routatic_proxy_tag=undefined
 
 FROM caddy:${caddy_tag} AS caddy-base
-FROM ghcr.io/routatic/proxy:${routatic_proxy_tag} AS rtproxy-base
+
+FROM alpine:3.24 AS rtproxy-base
+
+ARG routatic_proxy_version=undefined
+
+RUN set -ex \
+ && DL_ARCH="amd64" \
+ && if [ "$( arch )" = "aarch64" ] ; then DL_ARCH="arm64" ; fi \
+ && wget -q -O /routatic-proxy \
+        "https://github.com/routatic/proxy/releases/download/v${routatic_proxy_version}/routatic-proxy_linux-${DL_ARCH}" \
+ && wget -q -O /config.example.json \
+        "https://raw.githubusercontent.com/routatic/proxy/refs/tags/v${routatic_proxy_version}/configs/config.example.json"
 
 FROM alpine:3.24
 
@@ -28,11 +38,11 @@ RUN set -ex \
  && adduser -D -u 800 -G caddy caddy
 
 COPY --from=caddy-base --chown=root:root --chmod=0755 /usr/bin/caddy /bin/caddy
-COPY --from=rtproxy-base --chown=root:root --chmod=0755 /usr/local/bin/routatic-proxy /bin/routatic-proxy
+COPY --from=rtproxy-base --chown=root:root --chmod=0755 /routatic-proxy /bin/routatic-proxy
 
 COPY s6-overlay/ /etc/s6-overlay/
 
-COPY --from=rtproxy-base --chown=rtproxy:rtproxy --chmod=u=rwX,go= /etc/routatic-proxy/config.json /etc/routatic-proxy/config.json
+COPY --from=rtproxy-base --chown=rtproxy:rtproxy --chmod=u=rwX,go= /config.example.json /etc/routatic-proxy/config.json
 COPY --chown=root:caddy --chmod=u=rwX,g=rX,o= Caddyfile /etc/caddy/Caddyfile
 
 ENV ROUTATIC_PROXY_CONFIG="/etc/routatic-proxy/config.json" \
