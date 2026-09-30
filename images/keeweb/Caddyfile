@@ -1,0 +1,20 @@
+{
+  log {
+    output stderr
+    level  {$CADDY_LOG_LEVEL}
+    format {$CADDY_LOG_FORMAT} {
+      level_format {$CADDY_LOG_FORMAT_LEVEL_FORMAT:upper}
+    }
+  }
+}
+
+:{$CADDY_PORT} {
+  handle /-/health {
+    respond "OK"
+  }
+
+  handle {
+    root * /var/www
+    file_server
+  }
+}
