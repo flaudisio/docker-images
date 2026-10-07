@@ -24,6 +24,10 @@ to Docker Hub (`docker.io/flaudisio`).
   `tags = formatlist("%s/<name>:%s", registries, ...)`.
 - Shared config (registries, `_template` labels, base platforms) lives only in the root
   override. Most images re-declare `platforms` to add `linux/arm64`.
+- Each image needs a `README.md` (not enforced by CI) with these sections in order: title,
+  short description, `## Usage`, `## Environment variables`, `## Upstream images`. Copy an
+  existing README as the template; list only upstream images whose content ships (name any
+  build-stage-only image in prose).
 - Directory name and Docker Hub repo can differ: `claude-proxy` publishes to
   `flaudisio/claudeproxy`.
 - `semaphore` is special: `Dockerfile.base` is a `cacheonly` target reused via `contexts`,
