@@ -21,7 +21,7 @@ Typically run from a scheduler. Arguments after `hashibackup` are forwarded to t
 | Variable | Default | Description |
 | --- | --- | --- |
 | `HB_PRODUCTS` | _(empty)_ | Space-separated products to back up (`consul`, `nomad`). |
-| `HB_CONFIG_FILE` | `/etc/hashibackup.env` | Sourced config file; the environment overrides it. |
+| `HB_CONFIG_FILE` | `/etc/hashibackup.env` | Sourced before defaults; overrides env vars. |
 | `HB_DATA_DIR` | `/var/hashibackup` | Backup output directory. |
 | `HB_ENABLE_RETENTION_POLICY` | `false` | Enable pruning of old backups (`true`/`yes`/`1`). |
 | `HB_KEEP_LAST` | `60` | Number of newest backups to keep. |
