@@ -1,0 +1,59 @@
+--- a/open_terminal/main.py
++++ b/open_terminal/main.py
+@@ -611,17 +611,11 @@
+     return skills
+
+
+-@app.get(
+-    "/skills/read",
+-    response_model=SkillReadResponse,
+-    include_in_schema=False,
+-    dependencies=[Depends(verify_api_key)],
+-)
+-async def read_skill(
++async def _read_skill_payload(
+     http_request: Request,
+-    name: str = Query(..., description="Skill name from /skills."),
+-    fs: UserFS = Depends(get_filesystem),
+-):
++    name: str,
++    fs: UserFS,
++) -> SkillReadResponse:
+     for skill in await list_skills(http_request, fs):
+         if skill.name != name:
+             continue
+@@ -639,6 +633,34 @@
+
+
+ @app.get(
++    "/skills/read",
++    response_model=SkillReadResponse,
++    include_in_schema=False,
++    dependencies=[Depends(verify_api_key)],
++)
++async def read_skill(
++    http_request: Request,
++    name: str = Query(..., description="Skill name from /skills."),
++    fs: UserFS = Depends(get_filesystem),
++):
++    return await _read_skill_payload(http_request, name, fs)
++
++
++@app.get(
++    "/skills/{name}",
++    response_model=SkillReadResponse,
++    include_in_schema=False,
++    dependencies=[Depends(verify_api_key)],
++)
++async def read_skill_by_path(
++    http_request: Request,
++    name: str,
++    fs: UserFS = Depends(get_filesystem),
++):
++    return await _read_skill_payload(http_request, name, fs)
++
++
++@app.get(
+     "/files/list",
+     operation_id="list_files",
+     summary="List directory contents",
