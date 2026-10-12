@@ -1,11 +1,12 @@
 [tools]
 hadolint = "2.14"
+prek = "latest"
 shellcheck = "0.11"
 terragrunt = "1"
 
-[tasks.pre-commit]
-description = "Run pre-commit"
-run = "pre-commit run --all-files --color always"
+[tasks.lint]
+description = "Run lint"
+run = "prek run --all-files --color always"
 
 [tasks.fmt]
 description = "Format HCL files"

@@ -40,8 +40,8 @@ to Docker Hub (`docker.io/flaudisio`).
 
 ## Lint / verify
 
-- `mise run pre-commit` (= `pre-commit run --all-files`), or scope with
-  `pre-commit run --files <paths>`.
+- `mise run lint` (= `prek run --all-files`), or scope with
+  `prek run --files <paths>`.
 - Hooks: yamllint `--strict` (line length 140), hadolint (`.hadolint.yaml`), shellcheck,
   terragrunt HCL fmt. Tools are provisioned by mise (`mise install`).
 - `mise run fmt` formats HCL.
