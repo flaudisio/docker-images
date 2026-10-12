@@ -20,9 +20,11 @@ RUN set -ex \
         whois \
  && rm -rf /var/lib/apt/lists/*
 
+ARG mise_version=""
+
 # hadolint ignore=DL4006
 RUN set -ex \
- && curl -fsSL https://mise.run | MISE_INSTALL_PATH="/usr/bin/mise" sh
+ && curl -fsSL https://mise.run | MISE_VERSION="$mise_version" MISE_INSTALL_PATH="/usr/bin/mise" sh
 
 # Ref: https://mise.jdx.dev/dev-tools/shims.html#path-activation
 ENV PATH="/home/user/.local/share/mise/shims:${PATH}"
