@@ -26,8 +26,17 @@ ARG mise_version=""
 RUN set -ex \
  && curl -fsSL https://mise.run | MISE_VERSION="$mise_version" MISE_INSTALL_PATH="/usr/bin/mise" sh
 
-# Ref: https://mise.jdx.dev/dev-tools/shims.html#path-activation
-ENV PATH="/home/user/.local/share/mise/shims:${PATH}"
+# https://mise.jdx.dev/directories.html#directories
+ENV MISE_CACHE_DIR="/mise/cache" \
+    MISE_DATA_DIR="/mise/data" \
+    MISE_STATE_DIR="/mise/state"
+
+RUN set -ex \
+ && mkdir -p "$MISE_CACHE_DIR" "$MISE_DATA_DIR" "$MISE_STATE_DIR" \
+ && chown -R user:user "$MISE_CACHE_DIR" "$MISE_DATA_DIR" "$MISE_STATE_DIR"
+
+# https://mise.jdx.dev/dev-tools/shims.html#path-activation
+ENV PATH="${MISE_DATA_DIR}/shims:${PATH}"
 
 # ---------------------------------------------------------------------------
 # Expose GET /skills/{name} alongside the upstream GET /skills/read?name=...
