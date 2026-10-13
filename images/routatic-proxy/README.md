@@ -1,12 +1,13 @@
-# claude-proxy
+# routatic-proxy
 
-Caddy reverse proxy guarded by an API-key header, running alongside `routatic-proxy` under
-s6-overlay. Requests presenting the expected header are proxied; everything else gets a 401.
+Additional authorization layer in front of [routatic-proxy](https://github.com/routatic/proxy):
+a Caddy reverse proxy guarded by an API-key header, running alongside it under s6-overlay.
+Requests presenting the expected header are proxied; everything else gets a 401.
 
 ## Usage
 
 ```sh
-docker run --rm -p 8000:8000 -e CADDY_PROXY_TOKEN=secret flaudisio/claude-proxy:0.3.1
+docker run --rm -p 8000:8000 -e CADDY_PROXY_TOKEN=secret flaudisio/routatic-proxy:0.6.5
 ```
 
 Health endpoint at `GET /health`. Configure `routatic-proxy` through its config file or
