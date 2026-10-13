@@ -9,7 +9,6 @@ RUN set -ex \
         dnsutils \
         dos2unix \
         file \
-        htop \
         iproute2 \
         iputils-ping \
         lsof \
