@@ -6,7 +6,7 @@ s6-overlay. Requests presenting the expected header are proxied; everything else
 ## Usage
 
 ```sh
-docker run --rm -p 8000:8000 -e CADDY_PROXY_TOKEN=secret flaudisio/claudeproxy:0.3.1
+docker run --rm -p 8000:8000 -e CADDY_PROXY_TOKEN=secret flaudisio/claude-proxy:0.3.1
 ```
 
 Health endpoint at `GET /health`. Configure `routatic-proxy` through its config file or

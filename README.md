@@ -19,8 +19,7 @@ published — never `latest`.
 | [semaphore](images/semaphore) | Semaphore UI control plane plus Ansible task runner |
 | [transfer.sh](images/transfer.sh) | transfer.sh file-sharing service |
 
-The Docker Hub repo name usually matches the directory. Exceptions:
-`claude-proxy` publishes as `flaudisio/claudeproxy`, and `semaphore` publishes
+The Docker Hub repo name matches the directory, except `semaphore`, which publishes
 `flaudisio/semaphore-server` and `flaudisio/semaphore-runner`.
 
 ## Usage

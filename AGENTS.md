@@ -28,8 +28,6 @@ to Docker Hub (`docker.io/flaudisio`).
   short description, `## Usage`, `## Environment variables`, `## Upstream images`. Copy an
   existing README as the template; list only upstream images whose content ships (name any
   build-stage-only image in prose).
-- Directory name and Docker Hub repo can differ: `claude-proxy` publishes to
-  `flaudisio/claudeproxy`.
 - `semaphore` is special: `Dockerfile.base` is a `cacheonly` target reused via `contexts`,
   and it publishes two repos (`semaphore-server`, `semaphore-runner`).
 
