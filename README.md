@@ -11,7 +11,7 @@ published — never `latest`.
 | --- | --- |
 | [acme-oci](images/acme-oci) | Let's Encrypt certs via lego, imported into OCI Certificates |
 | [autobrr](images/autobrr) | autobrr with a qBittorrent free-disk-space checker |
-| [claude-proxy](images/claude-proxy) | API-key-guarded Caddy reverse proxy |
+| [routatic-proxy](images/routatic-proxy) | Extra authorization layer in front of routatic-proxy |
 | [excalidraw](images/excalidraw) | Excalidraw web app served as static files via Caddy |
 | [hashibackup](images/hashibackup) | Scheduled Consul and Nomad state snapshots |
 | [keeweb](images/keeweb) | KeeWeb web app served as static files via Caddy |

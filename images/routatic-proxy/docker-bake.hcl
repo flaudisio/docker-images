@@ -1,16 +1,16 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
-variable "claude_proxy_tag" {
-  default = "0.3.1"
+variable "routatic_proxy_version" {
+  default = "0.6.5"
 }
 
 target "default" {
   inherits = ["_template"]
   args = {
     caddy_tag              = "2-alpine"
-    routatic_proxy_version = "0.6.5"
+    routatic_proxy_version = routatic_proxy_version
   }
-  tags = formatlist("%s/claude-proxy:%s", registries, claude_proxy_tag)
+  tags = formatlist("%s/routatic-proxy:%s", registries, routatic_proxy_version)
   platforms = [
     "linux/amd64",
     "linux/arm64",
