@@ -5,19 +5,31 @@ FROM ghcr.io/open-webui/open-terminal:${open_terminal_tag}
 RUN set -ex \
  && apt-get update \
  && apt-get install -q -y --no-install-recommends \
+        bzip2 \
+        dnsutils \
         dos2unix \
+        file \
+        htop \
+        iproute2 \
+        iputils-ping \
+        lsof \
         moreutils \
         mtr-tiny \
-        net-tools \
+        netcat-openbsd \
         openssh-client \
         patch \
         ripgrep \
+        rsync \
         sqlite3 \
         sshpass \
+        strace \
         tree \
         tzdata \
         unzip \
         whois \
+        xz-utils \
+        zip \
+        zstd \
  && rm -rf /var/lib/apt/lists/*
 
 ARG mise_version=""
