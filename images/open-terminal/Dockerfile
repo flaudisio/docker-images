@@ -9,7 +9,12 @@ RUN set -ex \
         dnsutils \
         dos2unix \
         file \
+        fontconfig \
+        fonts-crosextra-caladea \
+        fonts-crosextra-carlito \
+        fonts-dejavu-core \
         fonts-liberation \
+        fonts-noto-color-emoji \
         iproute2 \
         iputils-ping \
         lsof \
