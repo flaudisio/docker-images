@@ -17,7 +17,7 @@ environment.
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `CADDY_PROXY_TOKEN` | `ROUTATIC_PROXY_API_KEY` | Value the guard header must match. |
+| `CADDY_PROXY_TOKEN` | `ROUTATIC_PROXY_API_KEY` | Optional client key; masks the routatic key. |
 | `CADDY_PROXY_HEADER` | `X-Api-Key` | Header name the client must send. |
 | `CADDY_PORT` | `8000` | Port Caddy listens on. |
 | `CADDY_LOG_LEVEL` | `info` | Caddy log level. |
@@ -26,7 +26,13 @@ environment.
 | `ROUTATIC_PROXY_CONFIG` | `/etc/routatic-proxy/config.json` | routatic-proxy config path. |
 | `ROUTATIC_PROXY_HOST` | `127.0.0.1` | routatic-proxy bind host. |
 | `ROUTATIC_PROXY_PORT` | `3456` | routatic-proxy bind port. |
-| `ROUTATIC_PROXY_API_KEY` | _(empty)_ | Fallback value for `CADDY_PROXY_TOKEN`. |
+| `ROUTATIC_PROXY_API_KEY` | _required_ | OpenCode Go API key. |
+
+`ROUTATIC_PROXY_API_KEY` is the OpenCode Go API key and is required. `CADDY_PROXY_TOKEN` is an
+optional client key that defaults to it: set it to mask the routatic key, or to keep that key
+unchanged when the client key must change. Other upstream routatic-proxy environment variables can
+also be set; see the upstream
+[env vars](https://github.com/routatic/proxy/blob/main/CONFIGURATION.md#environment-variables).
 
 ## Upstream images
 
