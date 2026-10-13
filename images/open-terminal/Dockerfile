@@ -9,6 +9,7 @@ RUN set -ex \
         dnsutils \
         dos2unix \
         file \
+        fonts-liberation \
         iproute2 \
         iputils-ping \
         lsof \
@@ -22,6 +23,9 @@ RUN set -ex \
         sqlite3 \
         sshpass \
         strace \
+        tesseract-ocr \
+        tesseract-ocr-eng \
+        tesseract-ocr-por \
         tree \
         tzdata \
         unzip \

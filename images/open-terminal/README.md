@@ -2,7 +2,7 @@
 
 [Open Terminal](https://github.com/open-webui/open-terminal) slim image extended with extra CLI
 tools for coding and sysadmin work (e.g. `ripgrep`, `sqlite3`, `dig`, `ip`/`ss`, `lsof`, `strace`,
-`tree`) and [mise](https://mise.jdx.dev).
+`tesseract`, `tree`) and [mise](https://mise.jdx.dev).
 
 ## Usage
 
