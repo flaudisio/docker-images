@@ -18,6 +18,7 @@ RUN set -ex \
         netcat-openbsd \
         openssh-client \
         patch \
+        qpdf \
         ripgrep \
         rsync \
         sqlite3 \
