@@ -13,6 +13,8 @@ RUN set -ex \
         fonts-crosextra-caladea \
         fonts-crosextra-carlito \
         fonts-dejavu-core \
+        fonts-dejavu-extra \
+        fonts-dejavu-mono \
         fonts-liberation \
         fonts-noto-color-emoji \
         iproute2 \
