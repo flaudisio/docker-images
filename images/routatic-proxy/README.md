@@ -7,10 +7,14 @@ Requests presenting the expected header are proxied; everything else gets a 401.
 ## Usage
 
 ```sh
-docker run --rm -p 8000:8000 -e CADDY_PROXY_TOKEN=secret flaudisio/routatic-proxy:0.6.5
+docker run --rm -p 8000:8000 \
+  -e ROUTATIC_PROXY_API_KEY=secret \
+  -e CADDY_PROXY_TOKEN=secret \
+  flaudisio/routatic-proxy:0.6.5
 ```
 
-Health endpoint at `GET /health`. Configure `routatic-proxy` through its config file or
+Health endpoint at `GET /health`. `ROUTATIC_PROXY_API_KEY` is required; `CADDY_PROXY_TOKEN` is the
+optional client key clients must present. Configure `routatic-proxy` through its config file or
 environment.
 
 ## Environment variables

@@ -7,10 +7,15 @@ qBittorrent instance has enough free disk space before a download starts.
 
 Runs autobrr's entrypoint unchanged; configure it with its own environment variables and config
 file (see the [autobrr docs](https://autobrr.com)). Run `qbt-sizechecker` from an autobrr
-exec/filter when you need the check:
+exec/filter when you need the check, or directly with `--entrypoint` (the image entrypoint is the
+autobrr daemon):
 
 ```sh
-docker run --rm flaudisio/autobrr:v1.87.0 qbt-sizechecker
+docker run --rm \
+  -e SC_QBITTORRENT_BASE_URL=http://qbt:8080 \
+  -e SC_QBITTORRENT_API_KEY=secret \
+  --entrypoint /usr/local/bin/qbt-sizechecker \
+  flaudisio/autobrr:v1.88.0
 ```
 
 Exit code `0` means enough space; `1` means not enough, or the server was unreachable.

@@ -12,7 +12,7 @@ Run once, or with `--cron` to schedule via go-crond:
 docker run --rm \
   -e CERT_DOMAINS=example.com,www.example.com \
   -e CERT_EMAIL=admin@example.com \
-  -e CLOUDFLARE_DNS_API_TOKEN=... \
+  -e CLOUDFLARE_DNS_API_TOKEN=secret \
   -e OCI_CERT_BASENAME=example \
   -e OCI_BACKUP_BUCKET_NAME=my-bucket \
   -e OCI_COMPARTMENT_ID=ocid1.compartment.oc1..xxx \

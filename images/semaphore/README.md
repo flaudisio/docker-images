@@ -13,14 +13,14 @@ docker run -d -p 3000:3000 \
   -e SEMAPHORE_ADMIN_EMAIL=admin@example.com \
   -e SEMAPHORE_ADMIN_PASSWORD=secret \
   -v semaphore:/etc/semaphore \
-  flaudisio/semaphore-server:2.19.12
+  flaudisio/semaphore-server:2.19.16
 ```
 
 ```sh
 docker run -d \
-  -e SEMAPHORE_RUNNER_REGISTRATION_TOKEN=... \
+  -e SEMAPHORE_RUNNER_REGISTRATION_TOKEN=secret \
   -v semaphore:/etc/semaphore \
-  flaudisio/semaphore-runner:2.19.12-ansible-2.20
+  flaudisio/semaphore-runner:2.19.16-ansible-2.20
 ```
 
 The runner registers itself when `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` is set, then must still be
