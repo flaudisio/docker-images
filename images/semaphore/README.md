@@ -24,7 +24,8 @@ docker run -d \
 ```
 
 The runner registers itself when `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` is set, then must still be
-enabled in the Semaphore UI.
+enabled in the Semaphore UI. It is published per Ansible minor version (`-ansible-2.20`,
+`-ansible-2.21`).
 
 ## Environment variables
 
