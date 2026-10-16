@@ -17,6 +17,7 @@ RUN set -ex \
         fonts-dejavu-mono \
         fonts-liberation \
         fonts-noto-color-emoji \
+        imagemagick \
         iproute2 \
         iputils-ping \
         lsof \
