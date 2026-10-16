@@ -25,7 +25,7 @@ COPY requirements.txt /tmp/requirements.txt
 
 RUN set -ex \
  && pip install --no-cache-dir \
-        ansible-core=="${ansible_version}" \
+        ansible-core=="${ansible_version}.*" \
         -r /tmp/requirements.txt \
  && find /usr/local -depth -type d -name '__pycache__' -exec rm -rf '{}' \; \
  && rm -rf ~/.cache
