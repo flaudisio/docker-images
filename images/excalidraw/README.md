@@ -6,7 +6,7 @@ Caddy.
 ## Usage
 
 ```sh
-docker run --rm -p 8080:80 flaudisio/excalidraw:4872083
+docker run --rm -p 8080:80 flaudisio/excalidraw:latest
 ```
 
 Open <http://localhost:8080>. Health endpoint at `GET /-/health`.

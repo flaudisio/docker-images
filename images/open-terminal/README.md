@@ -7,7 +7,7 @@ tools for coding and sysadmin work (e.g. `ripgrep`, `sqlite3`, `dig`, `ip`/`ss`,
 ## Usage
 
 ```sh
-docker run --rm -p 8000:8000 -e OPEN_TERMINAL_API_KEY=secret flaudisio/open-terminal:0.14.1-slim
+docker run --rm -p 8000:8000 -e OPEN_TERMINAL_API_KEY=secret flaudisio/open-terminal:latest
 ```
 
 Open <http://localhost:8000>. See the upstream README for the full API.

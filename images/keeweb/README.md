@@ -5,7 +5,7 @@ Serves the [KeeWeb](https://keeweb.info) web app as static files via Caddy.
 ## Usage
 
 ```sh
-docker run --rm -p 8080:80 flaudisio/keeweb:1.18.9
+docker run --rm -p 8080:80 flaudisio/keeweb:latest
 ```
 
 Open <http://localhost:8080>. Health endpoint at `GET /-/health`.

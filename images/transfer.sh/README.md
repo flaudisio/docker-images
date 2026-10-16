@@ -9,13 +9,13 @@ that fixes volume permissions and drops to a non-root user.
 docker run --rm -p 8080:8080 \
   -v transfer-data:/data \
   -v transfer-temp:/temp \
-  flaudisio/transfer.sh:1.6.1-2
+  flaudisio/transfer.sh:latest
 ```
 
 transfer.sh's own flags can be appended after `transfer`:
 
 ```sh
-docker run --rm -p 8080:8080 ... flaudisio/transfer.sh:1.6.1-2 transfer --provider local
+docker run --rm -p 8080:8080 ... flaudisio/transfer.sh:latest transfer --provider local
 ```
 
 ## Environment variables

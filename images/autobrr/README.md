@@ -15,7 +15,7 @@ docker run --rm \
   -e SC_QBITTORRENT_BASE_URL=http://qbt:8080 \
   -e SC_QBITTORRENT_API_KEY=secret \
   --entrypoint /usr/local/bin/qbt-sizechecker \
-  flaudisio/autobrr:v1.88.0
+  flaudisio/autobrr:latest
 ```
 
 Exit code `0` means enough space; `1` means not enough, or the server was unreachable.

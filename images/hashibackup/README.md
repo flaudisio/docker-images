@@ -11,7 +11,7 @@ docker run --rm \
   -e CONSUL_HTTP_ADDR=http://consul:8500 \
   -e NOMAD_ADDR=http://nomad:4646 \
   -v /backups:/var/hashibackup \
-  flaudisio/hashibackup:0.3.1
+  flaudisio/hashibackup:latest
 ```
 
 Typically run from a scheduler. Arguments after `hashibackup` are forwarded to the script.
