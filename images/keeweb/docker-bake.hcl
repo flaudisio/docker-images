@@ -9,7 +9,10 @@ target "default" {
   args = {
     keeweb_version = keeweb_version
   }
-  tags = formatlist("%s/keeweb:%s", registries, keeweb_version)
+  tags = concat(
+    formatlist("%s/keeweb:%s", registries, keeweb_version),
+    formatlist("%s/keeweb:latest", registries),
+  )
   platforms = [
     "linux/amd64",
     "linux/arm64",

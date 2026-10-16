@@ -10,7 +10,10 @@ target "default" {
     caddy_tag              = "2-alpine"
     routatic_proxy_version = routatic_proxy_version
   }
-  tags = formatlist("%s/routatic-proxy:%s", registries, routatic_proxy_version)
+  tags = concat(
+    formatlist("%s/routatic-proxy:%s", registries, routatic_proxy_version),
+    formatlist("%s/routatic-proxy:latest", registries),
+  )
   platforms = [
     "linux/amd64",
     "linux/arm64",

@@ -9,5 +9,8 @@ target "default" {
   args = {
     autobrr_tag = autobrr_tag
   }
-  tags = formatlist("%s/autobrr:%s", registries, autobrr_tag)
+  tags = concat(
+    formatlist("%s/autobrr:%s", registries, autobrr_tag),
+    formatlist("%s/autobrr:latest", registries),
+  )
 }

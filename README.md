@@ -2,8 +2,8 @@
 
 Collection of Docker images published to [Docker Hub](https://hub.docker.com/u/flaudisio)
 as `flaudisio/<name>`. Each image lives in its own directory under `images/`, with a
-dedicated README covering configuration and environment variables. Only versioned tags are
-published — never `latest`.
+dedicated README covering configuration and environment variables. Published tags are the
+image version plus `latest`; the Semaphore images are versioned only.
 
 ## Images
 

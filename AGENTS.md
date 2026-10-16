@@ -12,7 +12,8 @@ to Docker Hub (`docker.io/flaudisio`).
   are auto-detected; no workflow edit needed.
 - Editing the root `docker-bake.override.hcl` alone triggers no rebuild (change detection is
   scoped to `images/**`).
-- Only versioned tags are published (from each `docker-bake.hcl`); never `latest`.
+- Tags are defined in each `docker-bake.hcl`: the image version plus `latest`, except the
+  Semaphore images, which are versioned only.
 
 ## Adding or editing an image
 
