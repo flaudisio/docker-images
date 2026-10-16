@@ -13,7 +13,10 @@ target "default" {
   args = {
     transfer_version = transfer_version
   }
-  tags = formatlist("%s/transfer.sh:%s-%s", registries, transfer_version, image_release)
+  tags = concat(
+    formatlist("%s/transfer.sh:%s-%s", registries, transfer_version, image_release),
+    formatlist("%s/transfer.sh:latest", registries),
+  )
   platforms = [
     "linux/amd64",
     "linux/arm64",

@@ -9,5 +9,8 @@ target "default" {
   args = {
     open_terminal_tag = open_terminal_tag
   }
-  tags = formatlist("%s/open-terminal:%s", registries, open_terminal_tag)
+  tags = concat(
+    formatlist("%s/open-terminal:%s", registries, open_terminal_tag),
+    formatlist("%s/open-terminal:latest", registries),
+  )
 }

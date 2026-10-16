@@ -11,5 +11,8 @@ target "default" {
     go_crond_version = "23.12.0"
     oci_cli_version  = "3.89.3"
   }
-  tags = formatlist("%s/acme-oci:%s", registries, acme_oci_version)
+  tags = concat(
+    formatlist("%s/acme-oci:%s", registries, acme_oci_version),
+    formatlist("%s/acme-oci:latest", registries),
+  )
 }

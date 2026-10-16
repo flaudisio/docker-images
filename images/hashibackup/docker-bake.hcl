@@ -10,7 +10,10 @@ target "default" {
     consul_version = "2.0.0"
     nomad_version  = "2.0.2"
   }
-  tags = formatlist("%s/hashibackup:%s", registries, hashibackup_version)
+  tags = concat(
+    formatlist("%s/hashibackup:%s", registries, hashibackup_version),
+    formatlist("%s/hashibackup:latest", registries),
+  )
   platforms = [
     "linux/amd64",
     "linux/arm64",

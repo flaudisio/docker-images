@@ -16,7 +16,7 @@ docker run --rm \
   -e OCI_CERT_BASENAME=example \
   -e OCI_BACKUP_BUCKET_NAME=my-bucket \
   -e OCI_COMPARTMENT_ID=ocid1.compartment.oc1..xxx \
-  flaudisio/acme-oci:0.3.1 --cron
+  flaudisio/acme-oci:latest --cron
 ```
 
 OCI CLI credentials must be available (a config file mounted at `~/.oci/config`, or `OCI_CLI_*`
