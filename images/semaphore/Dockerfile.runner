@@ -19,6 +19,16 @@ RUN set -ex \
         tzdata \
  && rm -rf /var/lib/apt/lists/*
 
+ARG sops_version=3.13.3
+
+RUN set -ex \
+ && DL_ARCH="amd64" \
+ && if [ "$( arch )" = "aarch64" ] ; then DL_ARCH="arm64" ; fi \
+ && URL="https://github.com/getsops/sops/releases/download/v${sops_version}" \
+ && curl -fsSLo /usr/bin/sops "${URL}/sops-v${sops_version}.linux.${DL_ARCH}" \
+ && chmod +x /usr/bin/sops \
+ && sops --version
+
 ARG ansible_version
 
 COPY requirements.txt /tmp/requirements.txt
