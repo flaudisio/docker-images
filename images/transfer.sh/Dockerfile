@@ -2,7 +2,7 @@ FROM alpine:3.24
 
 # Base dependencies
 
-ARG gosu_version=1.19
+ARG gosu_version=1.20
 ARG tini_version=0.19.0
 
 RUN set -ex \
