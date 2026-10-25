@@ -24,6 +24,6 @@ upstream. See the upstream README.
 
 ## Upstream images
 
-- `ghcr.io/open-webui/open-terminal:0.14.4-slim` — the Open Terminal application.
+- `ghcr.io/open-webui/open-terminal:0.14.5-slim` — the Open Terminal application.
 
 The added packages and `mise` come from apt and the `mise.run` script, not an image.
