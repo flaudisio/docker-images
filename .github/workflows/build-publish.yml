@@ -5,6 +5,7 @@ name: Build & Publish
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -20,6 +21,7 @@ jobs:
           fetch-depth: 0
       - name: Detect changed image files
         id: changed
+        if: github.event_name != 'workflow_dispatch'
         uses: tj-actions/changed-files@v47
         with:
           files: |
@@ -27,8 +29,12 @@ jobs:
       - name: Compute changed image directories
         id: images
         run: |
-          images=$(echo '${{ steps.changed.outputs.all_changed_files }}' \
-            | tr ' ' '\n' | cut -d/ -f2 | sort -u \
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            dirs=$(ls -d images/*/ | cut -d/ -f2)
+          else
+            dirs=$(echo '${{ steps.changed.outputs.all_changed_files }}' | tr ' ' '\n' | cut -d/ -f2)
+          fi
+          images=$(echo "$dirs" | sort -u \
             | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "images=${images}" >> "$GITHUB_OUTPUT"
 
