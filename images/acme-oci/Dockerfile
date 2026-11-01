@@ -11,7 +11,7 @@ RUN set -ex \
  && wget -q -O - "https://github.com/go-acme/lego/releases/download/v${lego_version}/lego_v${lego_version}_linux_${DL_ARCH}.tar.gz" \
         | tar -xz -f - lego
 
-FROM python:3.13-alpine
+FROM python:3.14-alpine
 
 COPY --from=builder --chown=root:root --chmod=0755 /go-crond /usr/bin/go-crond
 COPY --from=builder --chown=root:root --chmod=0755 /lego /usr/bin/lego

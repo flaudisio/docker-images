@@ -58,6 +58,6 @@ OCI certificate import (used by the hook):
 
 ## Upstream images
 
-- `python:3.13-alpine` — runtime base.
+- `python:3.14-alpine` — runtime base.
 
 `lego` and `go-crond` are downloaded from GitHub releases, not images.

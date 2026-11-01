@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
-variable "acme_oci_version" {
-  default = "0.3.1"
+variable "image_tag" {
+  default = "0.4.0"
 }
 
 target "default" {
@@ -12,7 +12,7 @@ target "default" {
     oci_cli_version  = "3.89.3"
   }
   tags = concat(
-    formatlist("%s/acme-oci:%s", registries, acme_oci_version),
+    formatlist("%s/acme-oci:%s", registries, image_tag),
     formatlist("%s/acme-oci:latest", registries),
   )
 }
