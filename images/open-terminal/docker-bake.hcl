@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "open_terminal_tag" {
-  default = "0.14.6-slim"
+  default = "0.14.7-slim"
 }
 
 target "default" {
