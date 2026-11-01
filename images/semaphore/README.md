@@ -49,7 +49,7 @@ Semaphore's own configuration variables and config file also apply; see the Sema
 ## Upstream images
 
 - `alpine:3.24` — runtime base for `semaphore-server`.
-- `python:3.13-slim` — runtime base for `semaphore-runner`.
+- `python:3.14-slim` — runtime base for `semaphore-runner`.
 
 The `semaphore` binary, `gosu`, `tini`, and `sops` are downloaded from GitHub releases, not
 images. `sops` comes from the getsops/sops releases at `v${sops_version}`.
