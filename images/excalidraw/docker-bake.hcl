@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "excalidraw_version" {
-  default = "4872083"
+  default = "701b901"
 }
 
 target "default" {
