@@ -6,6 +6,8 @@ privilege dropping.
 
 ## Usage
 
+Server:
+
 ```sh
 docker run -d -p 3000:3000 \
   -e SEMAPHORE_ADMIN=admin \
@@ -17,20 +19,22 @@ docker run -d -p 3000:3000 \
   flaudisio/semaphore-server:2.20.23
 ```
 
+Runner:
+
 ```sh
 docker run -d \
   -e SEMAPHORE_RUNNER_REGISTRATION_TOKEN=secret \
-  -e SEMAPHORE_RUNNER_TOKEN_FILE=/etc/semaphore/runner.token \
   -v semaphore:/etc/semaphore \
   flaudisio/semaphore-runner:2.20.23-ansible-2.20
 ```
 
-The variable works on both sides. The server passes `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` straight
-to Semaphore, which uses it as the token it accepts from new runners. On the runner, the entrypoint
-uses the same variable to register automatically, then the runner must still be enabled in the
-Semaphore UI. The image does not set a token path: registration stores the issued token in
-`SEMAPHORE_RUNNER_TOKEN_FILE`, so point it at a writable file (as in the example) or registration
-fails. The runner is published per Ansible minor version (`-ansible-2.20`, `-ansible-2.21`).
+The `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` variable works on both sides. The server passes it
+straight to Semaphore, which uses it as the token it accepts from new runners. On the runner, the
+entrypoint uses the same variable to register automatically, then stores the issued token in
+`SEMAPHORE_RUNNER_TOKEN_FILE` (default `$CONFIG_DIR/runner.token`); registration is skipped when
+`SEMAPHORE_RUNNER_TOKEN` is set or that file already holds a token. Semaphore rejects both token
+variables at once. The runner must still be enabled in the Semaphore UI. It is published per Ansible
+minor version (`-ansible-2.20`, `-ansible-2.21`).
 
 ## Environment variables
 
