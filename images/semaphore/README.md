@@ -12,6 +12,7 @@ docker run -d -p 3000:3000 \
   -e SEMAPHORE_ADMIN_NAME=Admin \
   -e SEMAPHORE_ADMIN_EMAIL=admin@example.com \
   -e SEMAPHORE_ADMIN_PASSWORD=secret \
+  -e SEMAPHORE_RUNNER_REGISTRATION_TOKEN=secret \
   -v semaphore:/etc/semaphore \
   flaudisio/semaphore-server:2.20.23
 ```
@@ -24,10 +25,12 @@ docker run -d \
   flaudisio/semaphore-runner:2.20.23-ansible-2.20
 ```
 
-The runner registers itself when `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` is set, then must still be
-enabled in the Semaphore UI. The image does not set a token path: registration stores the issued
-token in `SEMAPHORE_RUNNER_TOKEN_FILE`, so point it at a writable file (as in the example) or
-registration fails. It is published per Ansible minor version (`-ansible-2.20`, `-ansible-2.21`).
+The variable works on both sides. The server passes `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` straight
+to Semaphore, which uses it as the token it accepts from new runners. On the runner, the entrypoint
+uses the same variable to register automatically, then the runner must still be enabled in the
+Semaphore UI. The image does not set a token path: registration stores the issued token in
+`SEMAPHORE_RUNNER_TOKEN_FILE`, so point it at a writable file (as in the example) or registration
+fails. The runner is published per Ansible minor version (`-ansible-2.20`, `-ansible-2.21`).
 
 ## Environment variables
 
@@ -40,7 +43,7 @@ registration fails. It is published per Ansible minor version (`-ansible-2.20`, 
 | `SEMAPHORE_ADMIN_NAME` | _(empty)_ | Admin display name. |
 | `SEMAPHORE_ADMIN_EMAIL` | _(empty)_ | Admin email. |
 | `SEMAPHORE_ADMIN_PASSWORD` | _(empty)_ | Admin password. |
-| `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` | _(empty)_ | Token used to register the runner. |
+| `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` | _(empty)_ | Server setting; runner: auto-registration. |
 | `SEMAPHORE_WEB_ROOT` | _(empty)_ | Web root used in the post-registration hint. |
 | `SSH_LOG_LEVEL` | `ERROR` | SSH client log level (runner only). |
 
