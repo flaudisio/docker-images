@@ -40,7 +40,6 @@ enabled in the Semaphore UI. It is published per Ansible minor version (`-ansibl
 | `SEMAPHORE_ADMIN_PASSWORD` | _(empty)_ | Admin password. |
 | `SEMAPHORE_RUNNER_REGISTRATION_TOKEN` | _(empty)_ | Token used to register the runner. |
 | `SEMAPHORE_RUNNER_TOKEN_FILE` | `$CONFIG_DIR/runner.token` | Registered runner token file. |
-| `SEMAPHORE_RUNNER_PRIVATE_KEY_FILE` | `$CONFIG_DIR/runner.key` | Registered runner key file. |
 | `SEMAPHORE_WEB_ROOT` | _(empty)_ | Web root used in the post-registration hint. |
 | `SSH_LOG_LEVEL` | `ERROR` | SSH client log level (runner only). |
 

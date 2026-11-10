@@ -82,19 +82,17 @@ function setup_admin_user()
 
 function register_runner()
 {
+    : "${SEMAPHORE_RUNNER_TOKEN_FILE:="${CONFIG_DIR}/runner.token"}"
+
+    export SEMAPHORE_RUNNER_TOKEN_FILE
+
     if [[ -z "$SEMAPHORE_RUNNER_REGISTRATION_TOKEN" ]] ; then
         _msg "Variable SEMAPHORE_RUNNER_REGISTRATION_TOKEN is not defined, skipping runner registration"
         return 0
     fi
 
-    : "${SEMAPHORE_RUNNER_TOKEN_FILE:="${CONFIG_DIR}/runner.token"}"
-    : "${SEMAPHORE_RUNNER_PRIVATE_KEY_FILE:="${CONFIG_DIR}/runner.key"}"
-
-    export SEMAPHORE_RUNNER_TOKEN_FILE
-    export SEMAPHORE_RUNNER_PRIVATE_KEY_FILE
-
-    if [[ -s "$SEMAPHORE_RUNNER_TOKEN_FILE" && -s "$SEMAPHORE_RUNNER_PRIVATE_KEY_FILE" ]] ; then
-        _msg "Found runner token and private key files, skipping runner registration"
+    if [[ -s "$SEMAPHORE_RUNNER_TOKEN_FILE" ]] ; then
+        _msg "Found runner token file, skipping runner registration"
         return 0
     fi
 

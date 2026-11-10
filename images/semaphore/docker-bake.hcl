@@ -2,7 +2,6 @@
 
 variable "semaphore_versions" {
   default = [
-    "2.19.21",
     "2.20.23",
   ]
 }
