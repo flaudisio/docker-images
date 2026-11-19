@@ -38,6 +38,7 @@ RUN set -ex \
         tree \
         tzdata \
         unzip \
+        vim \
         whois \
         xz-utils \
         zip \
