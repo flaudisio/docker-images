@@ -173,12 +173,12 @@ function manage_oci_certificate()
         return 0
     fi
 
-    # LEGO_CERT_PATH='lego-data/certificates/_.example.com.crt'
-    # LEGO_CERT_PEM_PATH='lego-data/certificates/_.example.com.pem'
-    # LEGO_CERT_KEY_PATH='lego-data/certificates/_.example.com.key'
-    cert_pem="$( cat "$LEGO_CERT_PATH" )"
-    chain_pem="$( cat "${LEGO_CERT_PATH/.crt/.issuer.crt}" )"
-    privkey_pem="$( cat "$LEGO_CERT_KEY_PATH" )"
+    # LEGO_HOOK_CERT_PATH='lego-data/production/certificates/_.example.com.crt'
+    # LEGO_HOOK_ISSUER_CERT_PATH='lego-data/production/certificates/_.example.com.issuer.crt'
+    # LEGO_HOOK_CERT_KEY_PATH='lego-data/production/certificates/_.example.com.key'
+    cert_pem="$( cat "$LEGO_HOOK_CERT_PATH" )"
+    chain_pem="$( cat "$LEGO_HOOK_ISSUER_CERT_PATH" )"
+    privkey_pem="$( cat "$LEGO_HOOK_CERT_KEY_PATH" )"
 
     if [[ -z "$cert_pem" || -z "$chain_pem" || -z "$privkey_pem" ]] ; then
         log_error "One or more required PEM files are empty or were not found; aborting OCI certificate management"
@@ -224,8 +224,9 @@ function main()
         OCI_TAG_ENVIRONMENT \
         OCI_TAG_OWNER \
         OCI_TAG_SERVICE_NAME \
-        LEGO_CERT_PATH \
-        LEGO_CERT_KEY_PATH
+        LEGO_HOOK_CERT_PATH \
+        LEGO_HOOK_ISSUER_CERT_PATH \
+        LEGO_HOOK_CERT_KEY_PATH
 
     create_oci_defined_tags_file
     manage_oci_certificate

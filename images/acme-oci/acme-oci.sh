@@ -155,15 +155,23 @@ function upload_data_files_to_bucket()
     fi
 }
 
+function migrate_data_dir()
+{
+    log_info "Migrating data directory to the lego v5 layout"
+
+    # 'lego migrate' requires an interactive confirmation
+    if ! echo "y" | lego migrate ; then
+        log_error "Error migrating data directory; aborting"
+        exit 1
+    fi
+}
+
 function request_certificate()
 {
     local -r hook_cmd="$1"
     local domains
     local domain
-    local primary_domain
-    local lego_names
     local lego_opts=()
-    local lego_hook_opts=()
 
     IFS=',' read -r -a domains <<< "$CERT_DOMAINS"
 
@@ -171,34 +179,14 @@ function request_certificate()
         lego_opts+=( --domains "$domain" )
     done
 
-    # The first domain is used by Lego as the certificate identifier
-    primary_domain="${domains[0]}"
-
-    log_info "Listing existing certificate common names"
-
-    if ! lego_names="$( _run lego list --names )" ; then
-        log_error "Error running Lego CLI; aborting"
-        exit 1
-    fi
-
-    # Use 'sort' to normalize the list and '-x' to match the entire line
-    if echo "$lego_names" | sort | grep -q -F -x "$primary_domain" ; then
-        log_info "Renewing certificate for '$primary_domain'"
-        lego_opts+=( renew --no-bundle )
-        lego_hook_opts+=( --renew-hook "$hook_cmd" )
-    else
-        log_info "Domain '$primary_domain' not found, requesting new certificate"
-        lego_opts+=( run --no-bundle )
-        lego_hook_opts+=( --run-hook "$hook_cmd" )
-    fi
-
     if [[ -n "$DISABLE_HOOK_CMD" ]] ; then
         log_info "DISABLE_HOOK_CMD is defined, skipping hook '$hook_cmd'"
     else
-        lego_opts+=( "${lego_hook_opts[@]}" )
+        lego_opts+=( --deploy-hook "$hook_cmd" )
     fi
 
-    if ! _run lego --accept-tos --email "$CERT_EMAIL" --dns "cloudflare" "${lego_opts[@]}" ; then
+    # 'lego run' obtains a new certificate or renews the existing one
+    if ! _run lego run --accept-tos --email "$CERT_EMAIL" --dns "cloudflare" --no-bundle "${lego_opts[@]}" ; then
         log_error "Error running Lego CLI; aborting"
         exit 1
     fi
@@ -243,6 +231,7 @@ function main()
 
     cleanup_data_dir
     download_data_files_from_bucket
+    migrate_data_dir
     request_certificate "$HOOK_CMD"
     upload_data_files_to_bucket
 

@@ -7,7 +7,7 @@ variable "image_tag" {
 target "default" {
   inherits = ["_template"]
   args = {
-    lego_version     = "4.35.2"
+    lego_version     = "5.7.0"
     go_crond_version = "23.12.0"
     oci_cli_version  = "3.89.3"
   }
