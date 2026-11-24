@@ -1,15 +1,15 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "image_tag" {
-  default = "0.4.0"
+  default = "0.5.0"
 }
 
 target "default" {
   inherits = ["_template"]
   args = {
-    lego_version     = "4.35.2"
-    go_crond_version = "23.12.0"
-    oci_cli_version  = "3.89.3"
+    lego_version     = "5.7.0"
+    go_crond_version = "26.10.0"
+    oci_cli_version  = "3.96.0"
   }
   tags = concat(
     formatlist("%s/acme-oci:%s", registries, image_tag),
