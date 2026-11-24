@@ -1,7 +1,7 @@
 # NOTE: see 'docker-bake.override.hcl' for common configuration
 
 variable "image_tag" {
-  default = "0.4.0"
+  default = "0.5.0"
 }
 
 target "default" {
