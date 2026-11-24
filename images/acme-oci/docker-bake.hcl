@@ -8,8 +8,8 @@ target "default" {
   inherits = ["_template"]
   args = {
     lego_version     = "5.7.0"
-    go_crond_version = "23.12.0"
-    oci_cli_version  = "3.89.3"
+    go_crond_version = "26.10.0"
+    oci_cli_version  = "3.96.0"
   }
   tags = concat(
     formatlist("%s/acme-oci:%s", registries, image_tag),
